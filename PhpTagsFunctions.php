@@ -15,7 +15,18 @@ if ( !defined('MEDIAWIKI') ) {
 	die( 'This file is an extension to MediaWiki and thus not a valid entry point.' );
 }
 
-define( 'PHPTAGS_FUNCTIONS_VERSION' , '1.0.0' );
+if ( !defined( 'PHPTAGS_VERSION' ) ) {
+	die( 'ERROR: The <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">extension PhpTags</a> must be installed for the extension PhpTags Functions to run!' );
+}
+
+if ( version_compare( PHPTAGS_VERSION, '1.0.2', '<' ) ) {
+	die(
+		'<b>Error:</b> This version of extension PhpTags Functions needs <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">PhpTags</a> 1.0.2 or later.
+		You are currently using version ' . PHPTAGS_VERSION . '.<br />'
+	);
+}
+
+define( 'PHPTAGS_FUNCTIONS_VERSION' , '1.0.1' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -49,3 +60,6 @@ $wgHooks['UnitTestsList'][] = function ( &$files ) {
 	$files = array_merge( $files, glob( "$testDir/*Test.php" ) );
 	return true;
 };
+
+define( 'PHPTAGS_GROUP_ARRAY', 100 );
+define( 'PHPTAGS_GROUP_VARIABLE', 101 );

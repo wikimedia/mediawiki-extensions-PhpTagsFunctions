@@ -172,6 +172,24 @@ class PhpTagsFunctionsInit {
 	private static function getFunctionsName() {
 		return array(
 			'array_change_key_case',
+			'array_chunk',
+			// 'array_column', @todo (PHP 5 >= 5.5.0)
+			'array_combine',
+			'array_count_values',
+			'array_diff_assoc',
+			'array_diff_key',
+			// 'array_diff_uassoc', @todo callback
+			// 'array_diff_ukey', @todo callback
+			'array_diff',
+			'array_fill_keys',
+			'array_fill',
+
+			'count',
+			'current',
+			'next',
+
+			'print_r',
+			'var_export',
 		);
 	}
 
