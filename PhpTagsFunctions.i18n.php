@@ -18,7 +18,7 @@ $messages['en'] = array(
 	'phptagsfunctions-preg-unknown-modifier' => 'Unknown modifier "$1"',
 );
 
-/** Message documentation
+/** Message documentation (Message documentation)
  * @author pastakhov
  */
 $messages['qqq'] = array(
@@ -28,4 +28,14 @@ $messages['qqq'] = array(
 * $1 - expected delimiter character',
 	'phptagsfunctions-preg-unknown-modifier' => 'The error message, Parameters:
 * $1 - modifier',
+);
+
+/** German (Deutsch)
+ * @author Metalhead64
+ */
+$messages['de'] = array(
+	'phptagsfunctions-desc' => 'Implementiert die internen Funktionen von nativem PHP für die Erweiterung PhpTags',
+	'phptagsfunctions-preg-bad-delimiter' => 'Das Trennzeichen darf nicht alphanumerisch oder kein Backslash sein.',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'Kein Schlusstrennzeichen „$1“ gefunden',
+	'phptagsfunctions-preg-unknown-modifier' => 'Unbekannter Modifikator „$1“',
 );
