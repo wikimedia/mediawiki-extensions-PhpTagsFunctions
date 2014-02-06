@@ -13,6 +13,9 @@ $messages = array();
  */
 $messages['en'] = array(
 	'phptagsfunctions-desc' => 'Implements the internal functions of native PHP for the extension PhpTags',
+	'phptagsfunctions-preg-bad-delimiter' => 'Delimiter must not be alphanumeric or backslash',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'No ending delimiter "$1" found',
+	'phptagsfunctions-preg-unknown-modifier' => 'Unknown modifier "$1"',
 );
 
 /** Message documentation
@@ -20,4 +23,9 @@ $messages['en'] = array(
  */
 $messages['qqq'] = array(
 	'phptagsfunctions-desc' => '{{desc|name=PhpTagsFunctions|url=http://www.mediawiki.org/wiki/Extension:PhpTags_Functions}}',
+	'phptagsfunctions-preg-bad-delimiter' => 'The error message',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'The error message, Parameters:
+* $1 - expected delimiter character',
+	'phptagsfunctions-preg-unknown-modifier' => 'The error message, Parameters:
+* $1 - modifier',
 );

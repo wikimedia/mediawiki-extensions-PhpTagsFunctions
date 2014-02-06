@@ -112,20 +112,20 @@ class PhpTagsFunctionsInit {
 			'T_FMT' => T_FMT,
 			'T_FMT_AMPM' => T_FMT_AMPM,
 			'ERA' => ERA,
-			'ERA_YEAR' => ERA_YEAR,
+			//'ERA_YEAR' => ERA_YEAR, @todo it is not defined in PHP
 			'ERA_D_T_FMT' => ERA_D_T_FMT,
 			'ERA_D_FMT' => ERA_D_FMT,
 			'ERA_T_FMT' => ERA_T_FMT,
-			'INT_CURR_SYMBOL' => INT_CURR_SYMBOL,
-			'CURRENCY_SYMBOL' => CURRENCY_SYMBOL,
+			/*//'INT_CURR_SYMBOL' => INT_CURR_SYMBOL, @todo it is not defined in PHP
+			//'CURRENCY_SYMBOL' => CURRENCY_SYMBOL, @todo it is not defined in PHP
 			'CRNCYSTR' => CRNCYSTR,
-			'MON_DECIMAL_POINT' => MON_DECIMAL_POINT,
-			'MON_THOUSANDS_SEP' => MON_THOUSANDS_SEP,
-			'MON_GROUPING' => MON_GROUPING,
-			'POSITIVE_SIGN' => POSITIVE_SIGN,
-			'NEGATIVE_SIGN' => NEGATIVE_SIGN,
-			'INT_FRAC_DIGITS' => INT_FRAC_DIGITS,
-			'FRAC_DIGITS' => FRAC_DIGITS,
+			//'MON_DECIMAL_POINT' => MON_DECIMAL_POINT, @todo it is not defined in PHP
+			//'MON_THOUSANDS_SEP' => MON_THOUSANDS_SEP, @todo it is not defined in PHP
+			//'MON_GROUPING' => MON_GROUPING, @todo it is not defined in PHP
+			//'POSITIVE_SIGN' => POSITIVE_SIGN, @todo it is not defined in PHP
+			//'NEGATIVE_SIGN' => NEGATIVE_SIGN, @todo it is not defined in PHP
+			//'INT_FRAC_DIGITS' => INT_FRAC_DIGITS, @todo it is not defined in PHP
+			//'FRAC_DIGITS' => FRAC_DIGITS, @todo it is not defined in PHP
 			'P_CS_PRECEDES' => P_CS_PRECEDES,
 			'P_SEP_BY_SPACE' => P_SEP_BY_SPACE,
 			'N_CS_PRECEDES' => N_CS_PRECEDES,
@@ -140,7 +140,7 @@ class PhpTagsFunctionsInit {
 			'YESEXPR' => YESEXPR,
 			'NOEXPR' => NOEXPR,
 			'YESSTR' => YESSTR,
-			'NOSTR' => NOSTR,
+			'NOSTR' => NOSTR,*/
 			'CODESET' => CODESET,
 			// @see http://www.php.net/manual/en/math.constants.php
 			'M_PI' => M_PI,
@@ -166,11 +166,28 @@ class PhpTagsFunctionsInit {
 			'PHP_ROUND_HALF_ODD' => PHP_ROUND_HALF_ODD,
 			'NAN' => NAN,
 			'INF' => INF,
+			// @see http://www.php.net/manual/en/pcre.constants.php
+			'PREG_PATTERN_ORDER' => PREG_PATTERN_ORDER,
+			'PREG_SET_ORDER' => PREG_SET_ORDER,
+			'PREG_OFFSET_CAPTURE' => PREG_OFFSET_CAPTURE,
+			'PREG_SPLIT_NO_EMPTY' => PREG_SPLIT_NO_EMPTY,
+			'PREG_SPLIT_DELIM_CAPTURE' => PREG_SPLIT_DELIM_CAPTURE,
+			'PREG_SPLIT_OFFSET_CAPTURE' => PREG_SPLIT_OFFSET_CAPTURE,
+			'PREG_NO_ERROR' => PREG_NO_ERROR,
+			'PREG_INTERNAL_ERROR' => PREG_INTERNAL_ERROR,
+			'PREG_BACKTRACK_LIMIT_ERROR' => PREG_BACKTRACK_LIMIT_ERROR,
+			'PREG_RECURSION_LIMIT_ERROR' => PREG_RECURSION_LIMIT_ERROR,
+			'PREG_BAD_UTF8_ERROR' => PREG_BAD_UTF8_ERROR,
+			'PREG_BAD_UTF8_OFFSET_ERROR' => PREG_BAD_UTF8_OFFSET_ERROR,
+			'PCRE_VERSION' => PCRE_VERSION,
+			'PREG_GREP_INVERT' => PREG_GREP_INVERT,
 		);
 	}
 
 	private static function getFunctionsName() {
 		return array(
+			// Array Functions
+			// @see http://www.php.net/manual/en/ref.array.php
 			'array_change_key_case',
 			'array_chunk',
 			// 'array_column', @todo (PHP 5 >= 5.5.0)
@@ -183,12 +200,87 @@ class PhpTagsFunctionsInit {
 			'array_diff',
 			'array_fill_keys',
 			'array_fill',
-
+			// 'array_filter', @todo callback
+			'array_flip',
+			'array_intersect_assoc',
+			'array_intersect_key',
+			// 'array_intersect_uassoc', @todo callback
+			// 'array_intersect_ukey', @todo callback
+			'array_intersect',
+			'array_key_exists',
+			'array_keys',
+			// 'array_map', @todo callback
+			'array_merge_recursive',
+			'array_merge',
+			'array_multisort',
+			'array_pad',
+			'array_pop',
+			'array_product',
+			'array_push',
+			'array_rand',
+			// 'array_reduce', @todo callback
+			'array_replace_recursive',
+			'array_replace',
+			'array_reverse',
+			'array_search',
+			'array_shift',
+			'array_slice',
+			'array_splice',
+			'array_sum',
+			// 'array_udiff_assoc', @todo callback
+			// 'array_udiff_uassoc', @todo callback
+			// 'array_udiff', @todo callback
+			// 'array_uintersect_assoc', @todo callback
+			// 'array_uintersect_uassoc', @todo callback
+			// 'array_uintersect', @todo callback
+			'array_unique',
+			'array_unshift',
+			'array_values',
+			// 'array_walk_recursive', @todo callback
+			// 'array_walk', @todo callback
+			'arsort',
+			'asort',
+			// 'compact', @todo variables
 			'count',
 			'current',
+			'each',
+			'end',
+			// 'extract', @todo does it need really for someone?
+			'in_array',
+			'key_exists',
+			'key',
+			'krsort',
+			'ksort',
+			// 'list', implemented in the runtime
+			'natcasesort',
+			'natsort',
 			'next',
+			'pos',
+			'prev',
+			'range',
+			'reset',
+			'rsort',
+			'shuffle',
+			// 'sizeof',
+			'sort',
+			// 'uasort', @todo callback
+			// 'uksort', @todo callback
+			// 'usort', @todo callback
+
+			// PCRE Functions
+			// @see http://www.php.net/manual/en/ref.pcre.php
+			'preg_filter',
+			'preg_grep',
+			'preg_last_error',
+			'preg_match_all',
+			'preg_match',
+			'preg_quote',
+			// 'preg_replace_callback', @todo callback
+			'preg_replace',
+			'preg_split',
 
 			'print_r',
+			'var_dump',
 			'var_export',
 		);
 	}
