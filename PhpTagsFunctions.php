@@ -19,9 +19,9 @@ if ( !defined( 'PHPTAGS_VERSION' ) ) {
 	die( 'ERROR: The <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">extension PhpTags</a> must be installed for the extension PhpTags Functions to run!' );
 }
 
-if ( version_compare( PHPTAGS_VERSION, '1.0.6', '<' ) ) {
+if ( version_compare( PHPTAGS_VERSION, '1.0.7', '<' ) ) {
 	die(
-		'<b>Error:</b> This version of extension PhpTags Functions needs <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">PhpTags</a> 1.0.6 or later.
+		'<b>Error:</b> This version of extension PhpTags Functions needs <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">PhpTags</a> 1.0.7 or later.
 		You are currently using version ' . PHPTAGS_VERSION . '.<br />'
 	);
 }
@@ -65,3 +65,4 @@ define( 'PHPTAGSFUNCTIONS_NAME', '&' );
 define( 'PHPTAGS_GROUP_ARRAY', 100 );
 define( 'PHPTAGS_GROUP_PCRE', 101 );
 define( 'PHPTAGS_GROUP_VARIABLE', 102 );
+define( 'PHPTAGS_GROUP_MATH', 103 );
