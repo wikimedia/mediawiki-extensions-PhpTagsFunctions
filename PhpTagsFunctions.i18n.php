@@ -19,15 +19,18 @@ $messages['en'] = array(
 );
 
 /** Message documentation (Message documentation)
+ * @author Shirayuki
  * @author pastakhov
  */
 $messages['qqq'] = array(
 	'phptagsfunctions-desc' => '{{desc|name=PhpTagsFunctions|url=http://www.mediawiki.org/wiki/Extension:PhpTags_Functions}}',
-	'phptagsfunctions-preg-bad-delimiter' => 'The error message',
+	'phptagsfunctions-preg-bad-delimiter' => 'The error message.
+
+Valid delimiters are <code><nowiki>`~!@#$%^&*-_+=.,?"\':;|/<([{</nowiki></code>',
 	'phptagsfunctions-preg-no-ending-delimiter' => 'The error message, Parameters:
-* $1 - expected delimiter character',
+* $1 - expected delimiter character. any one of the following characters: <code><nowiki>`~!@#$%^&*-_+=.,?"\':;|/>)]}</nowiki></code>',
 	'phptagsfunctions-preg-unknown-modifier' => 'The error message, Parameters:
-* $1 - modifier',
+* $1 - modifier. Valid modifiers are: i, m, s, x, A, D, U',
 );
 
 /** German (Deutsch)
@@ -61,6 +64,16 @@ $messages['gl'] = array(
 	'phptagsfunctions-preg-unknown-modifier' => 'Descoñécese o modificador "$1"',
 );
 
+/** Japanese (日本語)
+ * @author Shirayuki
+ */
+$messages['ja'] = array(
+	'phptagsfunctions-desc' => 'PhpTags 拡張機能用のネイティブ PHP の内部関数を実装する',
+	'phptagsfunctions-preg-bad-delimiter' => '区切り文字には英数字やバックスラッシュは使用できません',
+	'phptagsfunctions-preg-no-ending-delimiter' => '終了の区切り文字「$1」が見つかりません',
+	'phptagsfunctions-preg-unknown-modifier' => '不明な修飾子「$1」',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
@@ -89,4 +102,14 @@ $messages['ru'] = array(
 	'phptagsfunctions-preg-bad-delimiter' => 'Разделитель не должен быть буквенно-цифровым символом или обратной косой чертой',
 	'phptagsfunctions-preg-no-ending-delimiter' => 'Не найден символ конца строки «$1»',
 	'phptagsfunctions-preg-unknown-modifier' => 'Неизвестный модификатор «$1»',
+);
+
+/** Ukrainian (українська)
+ * @author Ата
+ */
+$messages['uk'] = array(
+	'phptagsfunctions-desc' => 'Реалізує внутрішні функції рідного PHP для розширення PhpTags',
+	'phptagsfunctions-preg-bad-delimiter' => 'Роздільник не повинен бути буквенно-цифровим символом чи оберненою косою рискою',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'Не знайдено символа кінця рядка «$1»',
+	'phptagsfunctions-preg-unknown-modifier' => 'Невідомий модифікатор «$1»',
 );
