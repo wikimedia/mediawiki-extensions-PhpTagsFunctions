@@ -43,6 +43,16 @@ $messages['de'] = array(
 	'phptagsfunctions-preg-unknown-modifier' => 'Unbekannter Modifikator „$1“',
 );
 
+/** Spanish (español)
+ * @author Fitoschido
+ */
+$messages['es'] = array(
+	'phptagsfunctions-desc' => 'Implementa las funciones internas del PHP nativo para la extensión PhpTags',
+	'phptagsfunctions-preg-bad-delimiter' => 'El delimitador no debe ser un carácter alfanumérico o una barra inversa',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'No se encontró el delimitador final «$1»',
+	'phptagsfunctions-preg-unknown-modifier' => 'El modificador «$1» es desconocido',
+);
+
 /** French (français)
  * @author Dr Brains
  * @author Gomoko
@@ -72,6 +82,14 @@ $messages['ja'] = array(
 	'phptagsfunctions-preg-bad-delimiter' => '区切り文字には英数字やバックスラッシュは使用できません',
 	'phptagsfunctions-preg-no-ending-delimiter' => '終了の区切り文字「$1」が見つかりません',
 	'phptagsfunctions-preg-unknown-modifier' => '不明な修飾子「$1」',
+);
+
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'phptagsfunctions-preg-bad-delimiter' => "Trennzeechen däerf net alphanumeeresch oder e 'Backslash' sinn",
+	'phptagsfunctions-preg-no-ending-delimiter' => 'Kee Schlusstrennzeechen "$1" fonnt',
 );
 
 /** Macedonian (македонски)
@@ -112,4 +130,24 @@ $messages['uk'] = array(
 	'phptagsfunctions-preg-bad-delimiter' => 'Роздільник не повинен бути буквенно-цифровим символом чи оберненою косою рискою',
 	'phptagsfunctions-preg-no-ending-delimiter' => 'Не знайдено символа кінця рядка «$1»',
 	'phptagsfunctions-preg-unknown-modifier' => 'Невідомий модифікатор «$1»',
+);
+
+/** Simplified Chinese (中文（简体）‎)
+ * @author Liuxinyu970226
+ */
+$messages['zh-hans'] = array(
+	'phptagsfunctions-desc' => '实现用于PhpTags的本地PHP内部功能',
+	'phptagsfunctions-preg-bad-delimiter' => '分隔符不得为字母、数字或反斜杠',
+	'phptagsfunctions-preg-no-ending-delimiter' => '未找到结束分隔符“$1”',
+	'phptagsfunctions-preg-unknown-modifier' => '未知修饰符“$1”',
+);
+
+/** Traditional Chinese (中文（繁體）‎)
+ * @author Liuxinyu970226
+ */
+$messages['zh-hant'] = array(
+	'phptagsfunctions-desc' => '實現用於PhpTags的本地PHP功能',
+	'phptagsfunctions-preg-bad-delimiter' => '分割位元不可為字母、數位或反斜線',
+	'phptagsfunctions-preg-no-ending-delimiter' => '並無找到分割位元“$1”',
+	'phptagsfunctions-preg-unknown-modifier' => '未知修飾符“$1”',
 );
