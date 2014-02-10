@@ -782,15 +782,135 @@ class PhpTagsFunctions extends PhpTags\BaseHooks {
 		),
 
 
-
-
-
+// Variable handling Functions
+// @see http://www.php.net/manual/en/ref.var.php
+		'boolval' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'phptags_boolval_1' ), // @todo PHP 5 >= 5.5.0
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'doubleval' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'floatval' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'get_defined_vars' => array(
+			0 => array( PHPTAGS_TYPE_ARRAY, false, null ),
+			PHPTAGS_HOOK_INVOKE => array( 0 => 'phptags_get_defined_vars_0' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'gettype' => array(
+			0 => array( PHPTAGS_TYPE_STRING, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'intval' => array(
+			0 => array( PHPTAGS_TYPE_INT, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			2 => array( PHPTAGS_TYPE_INT, false, 10 ),
+			PHPTAGS_HOOK_INVOKE => array( 2 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_array' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_bool' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_double' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_float' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_int' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_integer' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_long' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_null' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_numeric' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_real' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_scalar' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'is_string' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
 		'print_r' => array(
 			0 => array( PHPTAGS_TYPE_MIXED, false, true ),
 			1 => array( PHPTAGS_TYPE_MIXED, false ),
 			2 => array( PHPTAGS_TYPE_BOOL, false, false ),
 			PHPTAGS_HOOK_INVOKE => array( 2 => 'phptags_print_r_2' ),
 			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VARIABLE ),
+		),
+		'settype' => array(
+			0 => array( PHPTAGS_TYPE_BOOL, false, false ),
+			1 => array( PHPTAGS_TYPE_MIXED, true ),
+			2 => array( PHPTAGS_TYPE_STRING, false ),
+			PHPTAGS_HOOK_INVOKE => array( 2 => 'phptags_settype_2' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
+		),
+		'strval' => array(
+			0 => array( PHPTAGS_TYPE_STRING, false, null ),
+			1 => array( PHPTAGS_TYPE_MIXED, false ),
+			PHPTAGS_HOOK_INVOKE => array( 1 => 'call_php_native_function' ),
+			PHPTAGS_HOOK_GROUP => array( PHPTAGS_GROUP_VAR ),
 		),
 		'var_dump' => array(
 			0 => array( PHPTAGS_TYPE_VOID, false, null ),
@@ -897,20 +1017,41 @@ class PhpTagsFunctions extends PhpTags\BaseHooks {
 		return $startRegex . $endRegex;
 	}
 
-	static function phptags_print_r_2( $args ) {
+	/**
+	 * @todo remove it for PHP 5 >= 5.5.0
+	 */
+	protected static function phptags_boolval_1( $args ) {
+		return (bool)$args[0];
+	}
+
+	protected static function phptags_get_defined_vars_0 ( $args, $transit ) {
+		return array_combine(
+               array_keys( $transit[PHPTAGS_TRANSIT_VARIABLES] ),
+               array_map( "reset", array_chunk($transit[PHPTAGS_TRANSIT_VARIABLES], 1) )
+        );
+	}
+
+	protected static function phptags_print_r_2( $args ) {
 		$ret = print_r( $args[0], true );
 		return $args[1] ? $ret : new PhpTags\outPrint( true, $ret );
 	}
 
-	static function phptags_var_dump_n( $args ) {
+	protected static function phptags_var_dump_n( $args ) {
 		ob_start();
 		call_user_func_array('var_dump', $args);
 		return new PhpTags\outPrint( null, ob_get_clean() );
 	}
 
-	static function phptags_var_export_2( $args ) {
+	protected static function phptags_var_export_2( $args ) {
 		$ret = var_export($args[0], true);
 		return $args[1] ? $ret : new PhpTags\outPrint( null, $ret );
+	}
+
+	protected static function phptags_settype_2( $args ) {
+		if ( $args[1] == 'object' ) {
+			return false; // @todo
+		}
+		return settype( $args[0], $args[1] );
 	}
 
 }

@@ -26,7 +26,7 @@ if ( version_compare( PHPTAGS_VERSION, '1.0.7', '<' ) ) {
 	);
 }
 
-define( 'PHPTAGS_FUNCTIONS_VERSION' , '1.0.2' );
+define( 'PHPTAGS_FUNCTIONS_VERSION' , '1.0.3' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -66,3 +66,4 @@ define( 'PHPTAGS_GROUP_ARRAY', 100 );
 define( 'PHPTAGS_GROUP_PCRE', 101 );
 define( 'PHPTAGS_GROUP_VARIABLE', 102 );
 define( 'PHPTAGS_GROUP_MATH', 103 );
+define( 'PHPTAGS_GROUP_VAR', 104 );
