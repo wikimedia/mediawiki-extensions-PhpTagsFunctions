@@ -186,8 +186,8 @@ class PhpTagsFunctionsInit {
 
 	private static function getFunctionsName() {
 		return array(
-			// Array Functions
-			// @see http://www.php.net/manual/en/ref.array.php
+// Array Functions
+// @see http://www.php.net/manual/en/ref.array.php
 			'array_change_key_case',
 			'array_chunk',
 			// 'array_column', @todo (PHP 5 >= 5.5.0)
@@ -267,8 +267,8 @@ class PhpTagsFunctionsInit {
 			// 'uksort', @todo callback
 			// 'usort', @todo callback
 
-			// PCRE Functions
-			// @see http://www.php.net/manual/en/ref.pcre.php
+// PCRE Functions
+// @see http://www.php.net/manual/en/ref.pcre.php
 			'preg_filter',
 			'preg_grep',
 			'preg_last_error',
@@ -279,8 +279,8 @@ class PhpTagsFunctionsInit {
 			'preg_replace',
 			'preg_split',
 
-			// Math Functions
-			// @see http://www.php.net/manual/en/ref.math.php
+// Math Functions
+// @see http://www.php.net/manual/en/ref.math.php
 			'abs',
 			'acos',
 			'acosh',
@@ -330,9 +330,40 @@ class PhpTagsFunctionsInit {
 			'tan',
 			'tanh',
 
-
-
+// Variable handling Functions
+// @see http://www.php.net/manual/en/ref.var.php
+			'boolval',
+			// 'debug_zval_dump', does someone needs it?
+			'doubleval',
+			// 'empty', relised in runtime
+			'floatval',
+			'get_defined_vars',
+			// 'get_resource_type', There is no resource
+			'gettype',
+			// 'import_request_variables', this is not necessary
+			'intval',
+			'is_array',
+			'is_bool',
+			// 'is_callable', @todo ???
+			'is_double',
+			'is_float',
+			'is_int',
+			'is_integer',
+			'is_long',
+			'is_null',
+			'is_numeric',
+			// 'is_object', @todo
+			'is_real',
+			// 'is_resource', There is no resource
+			'is_scalar',
+			'is_string',
+			// 'isset', relised in runtime
 			'print_r',
+			// 'serialize', @todo
+			'settype',
+			'strval',
+			// 'unserialize', @todo
+			// 'unset', relised in runtime
 			'var_dump',
 			'var_export',
 		);
