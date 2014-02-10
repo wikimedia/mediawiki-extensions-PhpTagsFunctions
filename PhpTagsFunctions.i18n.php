@@ -102,6 +102,14 @@ $messages['mk'] = array(
 	'phptagsfunctions-preg-unknown-modifier' => 'Непознат изменител „$1“',
 );
 
+/** Polish (polski)
+ * @author Chrumps
+ */
+$messages['pl'] = array(
+	'phptagsfunctions-desc' => 'Realizuje funkcje wewnętrzne PHP dla rozszerzenia PhpTags',
+	'phptagsfunctions-preg-unknown-modifier' => 'Nieznany modyfikator "$1"',
+);
+
 /** Portuguese (português)
  * @author Imperadeiro98
  */
