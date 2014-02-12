@@ -33,6 +33,16 @@ Valid delimiters are <code><nowiki>`~!@#$%^&*-_+=.,?"\':;|/<([{</nowiki></code>'
 * $1 - modifier. Valid modifiers are: i, m, s, x, A, D, U',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'phptagsfunctions-desc' => 'Encadarma les funciones internes del PHP nativu pa la estensión PhpTags',
+	'phptagsfunctions-preg-bad-delimiter' => 'El delimitador nun pue ser un caráuter alfanumbéricu nin una barra invertida',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'Nun s\'alcontró nengún delimitador final "$1"',
+	'phptagsfunctions-preg-unknown-modifier' => 'Modificador desconocíu "$1"',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */
