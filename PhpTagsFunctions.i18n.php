@@ -94,6 +94,16 @@ $messages['ja'] = array(
 	'phptagsfunctions-preg-unknown-modifier' => '不明な修飾子「$1」',
 );
 
+/** Korean (한국어)
+ * @author Priviet
+ */
+$messages['ko'] = array(
+	'phptagsfunctions-desc' => '확장 PhpTags를 위한 native PHP 내부 함수를 구현',
+	'phptagsfunctions-preg-bad-delimiter' => '구분 기호는 알파벳, 숫자, 백슬래시가 아니여야 합니다',
+	'phptagsfunctions-preg-no-ending-delimiter' => '"$1" 끝 구분 기호를 찾을 수 없습니다',
+	'phptagsfunctions-preg-unknown-modifier' => '알 수 없는 수식어 "$1"',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
@@ -138,6 +148,14 @@ $messages['ru'] = array(
 	'phptagsfunctions-preg-bad-delimiter' => 'Разделитель не должен быть буквенно-цифровым символом или обратной косой чертой',
 	'phptagsfunctions-preg-no-ending-delimiter' => 'Не найден символ конца строки «$1»',
 	'phptagsfunctions-preg-unknown-modifier' => 'Неизвестный модификатор «$1»',
+);
+
+/** Swedish (svenska)
+ * @author WikiPhoenix
+ */
+$messages['sv'] = array(
+	'phptagsfunctions-preg-bad-delimiter' => 'Avgränsningstecknet måste inte vara alfanumeriskt eller ett omvänt snedstreck',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'Inget avslutande avgränsningstecken "$1" hittades',
 );
 
 /** Ukrainian (українська)
