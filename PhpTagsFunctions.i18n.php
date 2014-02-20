@@ -150,6 +150,16 @@ $messages['ru'] = array(
 	'phptagsfunctions-preg-unknown-modifier' => 'Неизвестный модификатор «$1»',
 );
 
+/** Scots (Scots)
+ * @author John Reid
+ */
+$messages['sco'] = array(
+	'phptagsfunctions-desc' => 'Implements the internal functions o native PHP fer the extension PhpTags',
+	'phptagsfunctions-preg-bad-delimiter' => 'Delimiter maunna be alphanumeric or backslash',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'No ending delimiter "$1" foond',
+	'phptagsfunctions-preg-unknown-modifier' => 'Onken\'t modifier "$1"',
+);
+
 /** Swedish (svenska)
  * @author WikiPhoenix
  */
