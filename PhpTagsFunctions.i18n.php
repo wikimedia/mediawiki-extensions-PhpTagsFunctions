@@ -43,6 +43,14 @@ $messages['ast'] = array(
 	'phptagsfunctions-preg-unknown-modifier' => 'Modificador desconocíu "$1"',
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'phptagsfunctions-preg-no-ending-delimiter' => 'МогӀан «$1» юьхьигера символ цакарий',
+	'phptagsfunctions-preg-unknown-modifier' => 'Йоьвзуш йоцу модификатор «$1»',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */
