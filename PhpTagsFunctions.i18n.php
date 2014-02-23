@@ -71,6 +71,16 @@ $messages['es'] = array(
 	'phptagsfunctions-preg-unknown-modifier' => 'El modificador «$1» es desconocido',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'phptagsfunctions-desc' => 'انجام عملیات داخلی پی‌اچ‌پی بومی برای توسعهٔ تگ‌های‌پی‌اچ‌پی',
+	'phptagsfunctions-preg-bad-delimiter' => 'محدودکننده نباید الفبایی یا ممیزی باشد',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'هیچ پایان حائل " $1 " پیدا نشد',
+	'phptagsfunctions-preg-unknown-modifier' => 'تعدیل‌کنندهٔ ناشناختهٔ "$1"',
+);
+
 /** French (français)
  * @author Dr Brains
  * @author Gomoko
