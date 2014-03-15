@@ -140,6 +140,16 @@ $messages['mk'] = array(
 	'phptagsfunctions-preg-unknown-modifier' => 'Непознат изменител „$1“',
 );
 
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'phptagsfunctions-desc' => 'Implementa las foncions PHP intèrnas nativas per l’extension PhpTags',
+	'phptagsfunctions-preg-bad-delimiter' => 'Lo delimitador deu pas èsser alfanumeric o una barra oblica inversada',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'Cap de delimitador de fin « $1 » pas trobat',
+	'phptagsfunctions-preg-unknown-modifier' => 'Modificador « $1 » desconegut',
+);
+
 /** Polish (polski)
  * @author Chrumps
  */
