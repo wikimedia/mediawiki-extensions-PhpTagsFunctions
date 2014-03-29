@@ -73,12 +73,13 @@ $messages['es'] = array(
 
 /** Persian (فارسی)
  * @author Armin1392
+ * @author Ebraminio
  */
 $messages['fa'] = array(
-	'phptagsfunctions-desc' => 'انجام عملیات داخلی پی‌اچ‌پی بومی برای توسعهٔ تگ‌های‌پی‌اچ‌پی',
+	'phptagsfunctions-desc' => 'انجام عملیات داخلی پی‌اچ‌پی بومی برای توسعهٔ تگ‌های پی‌اچ‌پی',
 	'phptagsfunctions-preg-bad-delimiter' => 'محدودکننده نباید الفبایی یا ممیزی باشد',
-	'phptagsfunctions-preg-no-ending-delimiter' => 'هیچ پایان حائل " $1 " پیدا نشد',
-	'phptagsfunctions-preg-unknown-modifier' => 'تعدیل‌کنندهٔ ناشناختهٔ "$1"',
+	'phptagsfunctions-preg-no-ending-delimiter' => 'هیچ پایان حائل «$1» یافت نشد',
+	'phptagsfunctions-preg-unknown-modifier' => 'تعدیل‌کنندهٔ ناشناختهٔ «$1»',
 );
 
 /** French (français)
