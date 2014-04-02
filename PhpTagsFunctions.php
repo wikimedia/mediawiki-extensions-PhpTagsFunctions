@@ -26,7 +26,7 @@ if ( version_compare( PHPTAGS_VERSION, '1.0.7', '<' ) ) {
 	);
 }
 
-define( 'PHPTAGS_FUNCTIONS_VERSION' , '1.0.3' );
+define( 'PHPTAGS_FUNCTIONS_VERSION' , '1.1.0' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -39,6 +39,7 @@ $wgExtensionCredits['phptags'][] = array(
 );
 
 // Allow translations for this extension
+$wgMessagesDirs['PhpTagsFunctions'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['PhpTagsFunctions'] =	__DIR__ . '/PhpTagsFunctions.i18n.php';
 
 // Specify the function that will initialize the parser function.

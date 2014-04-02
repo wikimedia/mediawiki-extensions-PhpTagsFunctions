@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "WikiPhoenix"
+        ]
+    },
+    "phptagsfunctions-preg-bad-delimiter": "Avgränsningstecknet måste inte vara alfanumeriskt eller ett omvänt snedstreck",
+    "phptagsfunctions-preg-no-ending-delimiter": "Inget avslutande avgränsningstecken \"$1\" hittades"
+}
