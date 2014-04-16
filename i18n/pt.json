@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "Imperadeiro98"
-        ]
-    },
-    "phptagsfunctions-desc": "Implementa as funções internas do PHP nativo na extensão PhpTags",
-    "phptagsfunctions-preg-bad-delimiter": "O delimitador não deve ser alfanumérico nem a barra invertida",
-    "phptagsfunctions-preg-no-ending-delimiter": "Nenhum delimitador final \"$1\" encontrado",
-    "phptagsfunctions-preg-unknown-modifier": "Modificador desconhecido \"$1\""
+	"@metadata": {
+		"authors": [
+			"Imperadeiro98"
+		]
+	},
+	"phptagsfunctions-desc": "Implementa as funções internas do PHP nativo na extensão PhpTags",
+	"phptagsfunctions-preg-bad-delimiter": "O delimitador não deve ser alfanumérico nem a barra invertida",
+	"phptagsfunctions-preg-no-ending-delimiter": "Nenhum delimitador final \"$1\" encontrado",
+	"phptagsfunctions-preg-unknown-modifier": "Modificador desconhecido \"$1\""
 }
