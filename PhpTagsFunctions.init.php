@@ -181,6 +181,13 @@ class PhpTagsFunctionsInit {
 			'PREG_BAD_UTF8_OFFSET_ERROR' => PREG_BAD_UTF8_OFFSET_ERROR,
 			'PCRE_VERSION' => PCRE_VERSION,
 			'PREG_GREP_INVERT' => PREG_GREP_INVERT,
+			// @see http://www.php.net/manual/en/mbstring.constants.php
+			'MB_OVERLOAD_MAIL' => MB_OVERLOAD_MAIL,
+			'MB_OVERLOAD_STRING' => MB_OVERLOAD_STRING,
+			'MB_OVERLOAD_REGEX' => MB_OVERLOAD_REGEX,
+			'MB_CASE_UPPER' => MB_CASE_UPPER,
+			'MB_CASE_LOWER' => MB_CASE_LOWER,
+			'MB_CASE_TITLE' => MB_CASE_TITLE,
 		);
 	}
 
@@ -366,6 +373,13 @@ class PhpTagsFunctionsInit {
 			// 'unset', relised in runtime
 			'var_dump',
 			'var_export',
+
+// Multibyte String
+// @see http://www.php.net/manual/en/book.mbstring.php
+			'mb_convert_case',
+			'mb_stripos',
+			'mb_strlen',
+			'mb_strpos',
 		);
 	}
 

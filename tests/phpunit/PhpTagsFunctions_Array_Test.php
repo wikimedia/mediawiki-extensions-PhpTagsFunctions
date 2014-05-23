@@ -676,6 +676,48 @@ print_r( $fruits );');
 				);
 	}
 
+	public function testRun_each_2() {
+		$this->assertEquals(
+				Runtime::runSource('
+$fruit = array("a" => "apple", "b" => "banana", "c" => "cranberry");
+reset($fruit);
+list($key, $val) = each($fruit);
+echo "$key => $val";'),
+				array('a => apple')
+				);
+	}
+	public function testRun_echo_list_while_1() {
+		$this->assertEquals(
+				Runtime::runSource('
+$fruit = array("a" => "apple", "b" => "banana", "c" => "cranberry");
+reset($fruit);
+while ( list($key, $val) = each($fruit) ) {
+    echo "$key => $val";
+}'),
+				array('a => apple', 'b => banana', 'c => cranberry')
+				);
+	}
+	public function testRun_echo_next_while_1() {
+		$this->assertEquals(
+				Runtime::runSource('
+	$array = array(
+    "fruit1" => "apple",
+    "fruit2" => "orange",
+    "fruit3" => "grape",
+    "fruit4" => "apple",
+    "fruit5" => "apple");
+// this cycle echoes all associative array
+// key where value equals "apple"
+while ($fruit_name = current($array)) {
+    if ($fruit_name == "apple") {
+        echo key($array)."<br />";
+    }
+    next($array);
+}'),
+				array('fruit1<br />', 'fruit4<br />', 'fruit5<br />')
+			);
+	}
+
 	public function testRun_in_array_1() {
 		$this->assertEquals(
 				Runtime::runSource('

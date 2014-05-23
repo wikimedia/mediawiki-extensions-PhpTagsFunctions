@@ -19,14 +19,21 @@ if ( !defined( 'PHPTAGS_VERSION' ) ) {
 	die( 'ERROR: The <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">extension PhpTags</a> must be installed for the extension PhpTags Functions to run!' );
 }
 
-if ( version_compare( PHPTAGS_VERSION, '1.0.7', '<' ) ) {
+$needVersion = '1.2.0';
+if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
 	die(
-		'<b>Error:</b> This version of extension PhpTags Functions needs <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">PhpTags</a> 1.0.7 or later.
+		'<b>Error:</b> This version of extension PhpTags Functions needs <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">PhpTags</a> ' . $needVersion . ' or later.
 		You are currently using version ' . PHPTAGS_VERSION . '.<br />'
 	);
 }
 
-define( 'PHPTAGS_FUNCTIONS_VERSION' , '1.1.0' );
+if ( PHPTAGS_HOOK_RELEASE != 2 ) {
+	die (
+			'<b>Error:</b> This version of extension PhpTags Functions is not compatible to current version of extension PhpTags.'
+	);
+}
+
+define( 'PHPTAGS_FUNCTIONS_VERSION' , '2.0.0' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -39,7 +46,7 @@ $wgExtensionCredits['phptags'][] = array(
 );
 
 // Allow translations for this extension
-$wgMessagesDirs['PhpTagsFunctions'] = __DIR__ . '/i18n';
+$wgMessagesDirs['PhpTagsFunctions'] =			__DIR__ . '/i18n';
 $wgExtensionMessagesFiles['PhpTagsFunctions'] =	__DIR__ . '/PhpTagsFunctions.i18n.php';
 
 // Specify the function that will initialize the parser function.
@@ -68,3 +75,4 @@ define( 'PHPTAGS_GROUP_PCRE', 101 );
 define( 'PHPTAGS_GROUP_VARIABLE', 102 );
 define( 'PHPTAGS_GROUP_MATH', 103 );
 define( 'PHPTAGS_GROUP_VAR', 104 );
+define( 'PHPTAGS_GROUP_MBSTRING', 105 );
