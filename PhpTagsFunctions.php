@@ -19,7 +19,7 @@ if ( !defined( 'PHPTAGS_VERSION' ) ) {
 	die( 'ERROR: The <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">extension PhpTags</a> must be installed for the extension PhpTags Functions to run!' );
 }
 
-$needVersion = '1.2.0';
+$needVersion = '2.0.0';
 if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
 	die(
 		'<b>Error:</b> This version of extension PhpTags Functions needs <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">PhpTags</a> ' . $needVersion . ' or later.
@@ -27,13 +27,13 @@ if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
 	);
 }
 
-if ( PHPTAGS_HOOK_RELEASE != 2 ) {
+if ( PHPTAGS_HOOK_RELEASE != 3 ) {
 	die (
 			'<b>Error:</b> This version of extension PhpTags Functions is not compatible to current version of extension PhpTags.'
 	);
 }
 
-define( 'PHPTAGS_FUNCTIONS_VERSION' , '2.0.0' );
+define( 'PHPTAGS_FUNCTIONS_VERSION' , '3.0.0' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -56,8 +56,10 @@ $wgExtensionMessagesFiles['PhpTagsFunctions'] =	__DIR__ . '/PhpTagsFunctions.i18
 $wgHooks['PhpTagsRuntimeFirstInit'][] = 'PhpTagsFunctionsInit::initializeRuntime';
 
 // Preparing classes for autoloading
-$wgAutoloadClasses['PhpTagsFunctions']		= __DIR__ . '/PhpTagsFunctions.class.php';
 $wgAutoloadClasses['PhpTagsFunctionsInit']	= __DIR__ . '/PhpTagsFunctions.init.php';
+$wgAutoloadClasses['PhpTagsFunc']			= __DIR__ . '/includes/PhpTagsFunc.php';
+$wgAutoloadClasses['PhpTagsFuncRef']		= __DIR__ . '/includes/PhpTagsFuncRef.php';
+$wgAutoloadClasses['PhpTagsObjects\\PhpTagsFuncNativeObject']	= __DIR__ . '/includes/PhpTagsFuncNativeObject.php';
 
 /**
  * Add files to phpunit test
@@ -68,11 +70,3 @@ $wgHooks['UnitTestsList'][] = function ( &$files ) {
 	$files = array_merge( $files, glob( "$testDir/*Test.php" ) );
 	return true;
 };
-
-define( 'PHPTAGSFUNCTIONS_NAME', '&' );
-define( 'PHPTAGS_GROUP_ARRAY', 100 );
-define( 'PHPTAGS_GROUP_PCRE', 101 );
-define( 'PHPTAGS_GROUP_VARIABLE', 102 );
-define( 'PHPTAGS_GROUP_MATH', 103 );
-define( 'PHPTAGS_GROUP_VAR', 104 );
-define( 'PHPTAGS_GROUP_MBSTRING', 105 );

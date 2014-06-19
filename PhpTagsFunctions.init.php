@@ -11,12 +11,14 @@
 class PhpTagsFunctionsInit {
 
 	public static function initializeRuntime() {
-		\PhpTags\Runtime::setConstantsValue( self::getConstantsValue() );
-		\PhpTags\Runtime::setFunctionsHook( 'PhpTagsFunctions', self::getFunctionsName() );
+		\PhpTags\Hooks::setConstantValues( self::GetConstantValues() );
+		\PhpTags\Hooks::setFunctions( 'PhpTagsFunc', self::getFunctionNames() );
+		\PhpTags\Hooks::setFunctions( 'PhpTagsFuncRef', self::getFuncRefNames() );
+		\PhpTags\Hooks::setObjects( self::getObjectNames() );
 		return true;
 	}
 
-	private static function getConstantsValue() {
+	private static function GetConstantValues() {
 		return array(
 			'PHPTAGS_FUNCTIONS_VERSION' => PHPTAGS_FUNCTIONS_VERSION,
 			'PHP_VERSION' => PHP_VERSION,
@@ -188,10 +190,14 @@ class PhpTagsFunctionsInit {
 			'MB_CASE_UPPER' => MB_CASE_UPPER,
 			'MB_CASE_LOWER' => MB_CASE_LOWER,
 			'MB_CASE_TITLE' => MB_CASE_TITLE,
+			// @see http://www.php.net/manual/en/datetime.constants.php
+			'SUNFUNCS_RET_TIMESTAMP' => SUNFUNCS_RET_TIMESTAMP,
+			'SUNFUNCS_RET_STRING' => SUNFUNCS_RET_STRING,
+			'SUNFUNCS_RET_DOUBLE' => SUNFUNCS_RET_DOUBLE,
 		);
 	}
 
-	private static function getFunctionsName() {
+	private static function getFunctionNames() {
 		return array(
 // Array Functions
 // @see http://www.php.net/manual/en/ref.array.php
@@ -219,20 +225,15 @@ class PhpTagsFunctionsInit {
 			// 'array_map', @todo callback
 			'array_merge_recursive',
 			'array_merge',
-			'array_multisort',
 			'array_pad',
-			'array_pop',
 			'array_product',
-			'array_push',
 			'array_rand',
 			// 'array_reduce', @todo callback
 			'array_replace_recursive',
 			'array_replace',
 			'array_reverse',
 			'array_search',
-			'array_shift',
 			'array_slice',
-			'array_splice',
 			'array_sum',
 			// 'array_udiff_assoc', @todo callback
 			// 'array_udiff_uassoc', @todo callback
@@ -241,49 +242,26 @@ class PhpTagsFunctionsInit {
 			// 'array_uintersect_uassoc', @todo callback
 			// 'array_uintersect', @todo callback
 			'array_unique',
-			'array_unshift',
 			'array_values',
 			// 'array_walk_recursive', @todo callback
 			// 'array_walk', @todo callback
-			'arsort',
-			'asort',
 			// 'compact', @todo variables
 			'count',
-			'current',
-			'each',
-			'end',
 			// 'extract', @todo does it need really for someone?
 			'in_array',
 			'key_exists',
-			'key',
-			'krsort',
-			'ksort',
-			// 'list', implemented in the runtime
-			'natcasesort',
-			'natsort',
-			'next',
-			'pos',
-			'prev',
 			'range',
-			'reset',
-			'rsort',
-			'shuffle',
 			// 'sizeof',
-			'sort',
 			// 'uasort', @todo callback
 			// 'uksort', @todo callback
 			// 'usort', @todo callback
 
 // PCRE Functions
 // @see http://www.php.net/manual/en/ref.pcre.php
-			'preg_filter',
 			'preg_grep',
 			'preg_last_error',
-			'preg_match_all',
-			'preg_match',
 			'preg_quote',
 			// 'preg_replace_callback', @todo callback
-			'preg_replace',
 			'preg_split',
 
 // Math Functions
@@ -367,19 +345,144 @@ class PhpTagsFunctionsInit {
 			// 'isset', relised in runtime
 			'print_r',
 			// 'serialize', @todo
-			'settype',
 			'strval',
 			// 'unserialize', @todo
 			// 'unset', relised in runtime
 			'var_dump',
 			'var_export',
+// Function handling Functions
+// @see http://www.php.net/manual/en/ref.funchand.php
+			// @todo
+			'get_defined_functions',
+			'function_exists',
 
 // Multibyte String
 // @see http://www.php.net/manual/en/book.mbstring.php
 			'mb_convert_case',
+			'mb_detect_encoding',
+			'mb_split',
+			'mb_strcut',
+			'mb_strimwidth',
 			'mb_stripos',
+			'mb_stristr',
 			'mb_strlen',
 			'mb_strpos',
+			'mb_strrchr',
+			'mb_strrichr',
+			'mb_strripos',
+			'mb_strrpos',
+			'mb_strstr',
+			'mb_strtolower',
+			'mb_strtoupper',
+			'mb_strwidth',
+			'mb_substr_count',
+			'mb_substr',
+
+// Date/Time Functions
+// @see http://www.php.net/manual/en/ref.datetime.php
+			'checkdate',
+			'date_add',
+			'date_create_from_format',
+			// PHP 5 >= 5.5.0 'date_create_immutable_from_format',
+			// PHP 5 >= 5.5.0 'date_create_immutable',
+			'date_create',
+			'date_date_set',
+			'date_default_timezone_get',
+			// unsafe set timizone 'date_default_timezone_set',
+			'date_diff',
+			'date_format',
+			'date_get_last_errors',
+			'date_interval_create_from_date_string',
+			'date_interval_format',
+			'date_isodate_set',
+			'date_modify',
+			'date_offset_get',
+			'date_parse_from_format',
+			'date_parse',
+			'date_sub',
+			'date_sun_info',
+			'date_sunrise',
+			'date_sunset',
+			'date_time_set',
+			'date_timestamp_get',
+			'date_timestamp_set',
+			'date_timezone_get',
+			'date_timezone_set',
+			'date',
+			'getdate',
+			'gettimeofday',
+			'gmdate',
+			'gmmktime',
+			'gmstrftime',
+			'idate',
+			'localtime',
+			'microtime',
+			'mktime',
+			'strftime',
+			'strptime',
+			'strtotime',
+			'time',
+			'timezone_abbreviations_list',
+			'timezone_identifiers_list',
+			'timezone_location_get',
+			'timezone_name_from_abbr',
+			'timezone_name_get',
+			'timezone_offset_get',
+			'timezone_open',
+			'timezone_transitions_get',
+			'timezone_abbreviations_list',
+			'timezone_version_get',
+		);
+	}
+
+	private static function getFuncRefNames() {
+		return array(
+// Array Functions
+// @see http://www.php.net/manual/en/ref.array.php
+			'array_multisort',
+			'array_pop',
+			'array_push',
+			'array_shift',
+			'array_splice',
+			'array_unshift',
+			'arsort',
+			'asort',
+			'current',
+			'each',
+			'end',
+			'key',
+			'krsort',
+			'ksort',
+			'natcasesort',
+			'natsort',
+			'next',
+			'pos',
+			'prev',
+			'reset',
+			'rsort',
+			'shuffle',
+			'sort',
+
+// PCRE Functions
+// @see http://www.php.net/manual/en/ref.pcre.php
+			'preg_filter',
+			'preg_match_all',
+			'preg_match',
+			'preg_replace',
+
+// Variable handling Functions
+// @see http://www.php.net/manual/en/ref.var.php
+			'settype',
+		);
+	}
+
+	public static function getObjectNames() {
+		return array(
+			'DateTime' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.datetime.php
+			// PHP 5 >= 5.5.0 'DateTimeImmutable' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.datetimeimmutable.php
+			'DateTimeZone' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.datetimezone.php
+			'DateInterval' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.dateinterval.php
+			'DatePeriod' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.dateperiod.php
 		);
 	}
 
