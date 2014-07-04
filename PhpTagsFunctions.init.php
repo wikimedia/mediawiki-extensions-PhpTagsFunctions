@@ -50,25 +50,8 @@ class PhpTagsFunctionsInit {
 		// @todo	'SORT_NATURAL', // PHP >= 5.4.0
 		// @todo	'SORT_FLAG_CASE', // PHP >= 5.4.0
 			'COUNT_RECURSIVE' => COUNT_RECURSIVE,
-			'CRYPT_STD_DES' => CRYPT_STD_DES,
-			'CRYPT_EXT_DES' => CRYPT_EXT_DES,
-			'CRYPT_MD5' => CRYPT_MD5,
-			'CRYPT_BLOWFISH' => CRYPT_BLOWFISH,
 			'CRYPT_SHA256' => CRYPT_SHA256,
 			'CRYPT_SHA512' => CRYPT_SHA512,
-			'ENT_COMPAT' => ENT_COMPAT,
-			'ENT_QUOTES' => ENT_QUOTES,
-			'ENT_NOQUOTES' => ENT_NOQUOTES,
-		// @todo	'ENT_HTML401', // PHP >= 5.4.0
-		// @todo	'ENT_XML1', // PHP >= 5.4.0
-		// @todo	'ENT_XHTML', // PHP >= 5.4.0
-		// @todo	'ENT_HTML5', // PHP >= 5.4.0
-			'ENT_IGNORE' => ENT_IGNORE,
-		// @todo	'ENT_SUBSTITUTE', // PHP >= 5.4.0
-		// @todo	'ENT_DISALLOWED', // PHP >= 5.4.0
-			'STR_PAD_RIGHT' => STR_PAD_RIGHT,
-			'STR_PAD_LEFT' => STR_PAD_LEFT,
-			'STR_PAD_BOTH' => STR_PAD_BOTH,
 			'ABDAY_1' => ABDAY_1,
 			'ABDAY_2' => ABDAY_2,
 			'ABDAY_3' => ABDAY_3,
@@ -144,6 +127,35 @@ class PhpTagsFunctionsInit {
 			'YESSTR' => YESSTR,
 			'NOSTR' => NOSTR,*/
 			'CODESET' => CODESET,
+			// @see http://www.php.net/manual/en/string.constants.php
+			'CRYPT_SALT_LENGTH' => CRYPT_SALT_LENGTH,
+			'CRYPT_STD_DES' => CRYPT_STD_DES,
+			'CRYPT_EXT_DES' => CRYPT_EXT_DES,
+			'CRYPT_MD5' => CRYPT_MD5,
+			'CRYPT_BLOWFISH' => CRYPT_BLOWFISH,
+			'HTML_SPECIALCHARS' => HTML_SPECIALCHARS,
+			'HTML_ENTITIES' => HTML_ENTITIES,
+			'ENT_COMPAT' => ENT_COMPAT,
+			'ENT_QUOTES' => ENT_QUOTES,
+			'ENT_NOQUOTES' => ENT_NOQUOTES,
+			'ENT_IGNORE' => ENT_IGNORE,
+		// @todo	'ENT_SUBSTITUTE', // PHP >= 5.4.0
+		// @todo	'ENT_DISALLOWED', // PHP >= 5.4.0
+		// @todo	'ENT_HTML401', // PHP >= 5.4.0
+		// @todo	'ENT_XML1', // PHP >= 5.4.0
+		// @todo	'ENT_XHTML', // PHP >= 5.4.0
+		// @todo	'ENT_HTML5', // PHP >= 5.4.0
+			'CHAR_MAX' => CHAR_MAX,
+			/*'LC_CTYPE' => LC_CTYPE, it is for setlocale()
+			'LC_NUMERIC' => LC_NUMERIC,
+			'LC_TIME' => LC_TIME,
+			'LC_COLLATE' => LC_COLLATE,
+			'LC_MONETARY' => LC_MONETARY,
+			'LC_ALL' => LC_ALL,
+			'LC_MESSAGES' => LC_MESSAGES,*/
+			'STR_PAD_LEFT' => STR_PAD_LEFT,
+			'STR_PAD_RIGHT' => STR_PAD_RIGHT,
+			'STR_PAD_BOTH' => STR_PAD_BOTH,
 			// @see http://www.php.net/manual/en/math.constants.php
 			'M_PI' => M_PI,
 			'M_E' => M_E,
@@ -355,6 +367,106 @@ class PhpTagsFunctionsInit {
 			// @todo
 			'get_defined_functions',
 			'function_exists',
+// String Functions
+// @see http://php.net/manual/en/ref.strings.php
+			'addcslashes',
+			'addslashes',
+			'bin2hex',
+			'chop',
+			'chr',
+			'chunk_split',
+			'convert_cyr_string',
+			'convert_uudecode',
+			'convert_uuencode',
+			'count_chars',
+			'crc32',
+			'crypt',
+			// echo relised in \PhpTags\Runtime
+			'explode',
+			// fprintf it has not resource
+			'get_html_translation_table',
+			'hebrev',
+			'hebrevc',
+			// @todo PHP >= 5.4.0 'hex2bin',
+			'html_entity_decode',
+			'htmlentities',
+			'htmlspecialchars_decode',
+			'htmlspecialchars',
+			'implode',
+			'join',
+			'lcfirst',
+			'levenshtein',
+			'localeconv',
+			'ltrim',
+			// md5_file can't use file
+			'md5',
+			'metaphone',
+			'money_format',
+			'nl_langinfo',
+			'nl2br',
+			'number_format',
+			'ord',
+			// parse_str use variables
+			// print relised in \PhpTags\Runtime
+			'printf',
+			'quoted_printable_decode',
+			'quoted_printable_encode',
+			'quotemeta',
+			'rtrim',
+			// setlocale ? may be as virtual function
+			// sha1_file can't use file
+			'sha1',
+			'similar_text',
+			'soundex',
+			'sprintf',
+			'sscanf',
+			'str_getcsv',
+			'str_ireplace',
+			'str_pad',
+			'str_repeat',
+			'str_replace',
+			'str_rot13',
+			'str_shuffle',
+			'str_split',
+			'str_word_count',
+			'strcasecmp',
+			'strchr',
+			'strcmp',
+			'strcoll',
+			'strcspn',
+			'strip_tags',
+			'stripcslashes',
+			'stripos',
+			'stripslashes',
+			'stristr',
+			'strlen',
+			'strnatcasecmp',
+			'strnatcmp',
+			'strncasecmp',
+			'strncmp',
+			'strpbrk',
+			'strpos',
+			'strrchr',
+			'strrev',
+			'strripos',
+			'strrpos',
+			'strspn',
+			'strstr',
+			'strtok',
+			'strtolower',
+			'strtoupper',
+			'strtr',
+			'substr_compare',
+			'substr_count',
+			'substr_replace',
+			'substr',
+			'trim',
+			'ucfirst',
+			'ucwords',
+			// vfprintf can't use resources
+			'vprintf',
+			'vsprintf',
+			'wordwrap',
 
 // Multibyte String
 // @see http://www.php.net/manual/en/book.mbstring.php

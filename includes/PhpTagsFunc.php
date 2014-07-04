@@ -47,6 +47,18 @@ class PhpTagsFunc extends PhpTags\GenericFunction {
 		return isset( $functions[$function_name] );
 	}
 
+	public static function f_printf() {
+		$arguments = func_get_args();
+		$ret = call_user_func_array( 'sprintf', $arguments );
+		return new PhpTags\outPrint( strlen($ret), $ret, false, false );
+	}
+
+	public static function f_vprintf() {
+		$arguments = func_get_args();
+		$ret = call_user_func_array( 'vsprintf', $arguments );
+		return new PhpTags\outPrint( strlen($ret), $ret, false, false );
+	}
+
 	public static function f_var_export( $expression, $return = false ) {
 		if ( $expression instanceof \PhpTags\GenericObject ) {
 			$expression = $expression->getValue();
