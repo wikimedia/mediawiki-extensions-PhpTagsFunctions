@@ -15,6 +15,7 @@ class PhpTagsFunctionsInit {
 		\PhpTags\Hooks::setFunctions( 'PhpTagsFunc', self::getFunctionNames() );
 		\PhpTags\Hooks::setFunctions( 'PhpTagsFuncRef', self::getFuncRefNames() );
 		\PhpTags\Hooks::setFunctions( 'PhpTagsFuncUseful', self::getFuncUseful() );
+		\PhpTags\Hooks::setConstants( 'PhpTagsFuncUseful', self::getUsefulConstants() );
 		\PhpTags\Hooks::setObjects( self::getObjectNames() );
 		return true;
 	}
@@ -602,6 +603,12 @@ class PhpTagsFunctionsInit {
 	private static function getFuncUseful() {
 		return array(
 			'uuid_create',
+		);
+	}
+
+	private static function getUsefulConstants() {
+		return array(
+			'UUID',
 		);
 	}
 

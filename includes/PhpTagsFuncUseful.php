@@ -10,6 +10,14 @@
  */
 class PhpTagsFuncUseful extends PhpTags\GenericFunction {
 
+	public static function getConstantValue( $constantName ) {
+		switch ( $constantName ) {
+			case 'UUID':
+				return self::f_uuid_create();
+		}
+		parent::getConstantValue( $constantName );
+	}
+
 	public static function f_uuid_create() {
 		if ( function_exists( 'uuid_create' ) ) {
 			// create random UUID use PECL uuid extension
