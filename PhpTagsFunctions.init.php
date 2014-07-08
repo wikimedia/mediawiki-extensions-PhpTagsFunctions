@@ -14,6 +14,7 @@ class PhpTagsFunctionsInit {
 		\PhpTags\Hooks::setConstantValues( self::GetConstantValues() );
 		\PhpTags\Hooks::setFunctions( 'PhpTagsFunc', self::getFunctionNames() );
 		\PhpTags\Hooks::setFunctions( 'PhpTagsFuncRef', self::getFuncRefNames() );
+		\PhpTags\Hooks::setFunctions( 'PhpTagsFuncUseful', self::getFuncUseful() );
 		\PhpTags\Hooks::setObjects( self::getObjectNames() );
 		return true;
 	}
@@ -263,7 +264,7 @@ class PhpTagsFunctionsInit {
 			'in_array',
 			'key_exists',
 			'range',
-			// 'sizeof',
+			'sizeof',
 			// 'uasort', @todo callback
 			// 'uksort', @todo callback
 			// 'usort', @todo callback
@@ -349,7 +350,7 @@ class PhpTagsFunctionsInit {
 			'is_long',
 			'is_null',
 			'is_numeric',
-			// 'is_object', @todo
+			'is_object',
 			'is_real',
 			// 'is_resource', There is no resource
 			'is_scalar',
@@ -588,13 +589,19 @@ class PhpTagsFunctionsInit {
 		);
 	}
 
-	public static function getObjectNames() {
+	private static function getObjectNames() {
 		return array(
 			'DateTime' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.datetime.php
 			// PHP 5 >= 5.5.0 'DateTimeImmutable' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.datetimeimmutable.php
 			'DateTimeZone' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.datetimezone.php
 			'DateInterval' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.dateinterval.php
 			'DatePeriod' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.dateperiod.php
+		);
+	}
+
+	private static function getFuncUseful() {
+		return array(
+			'uuid_create',
 		);
 	}
 

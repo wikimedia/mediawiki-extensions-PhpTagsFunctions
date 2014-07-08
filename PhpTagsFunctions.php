@@ -33,7 +33,7 @@ if ( PHPTAGS_HOOK_RELEASE != 3 ) {
 	);
 }
 
-define( 'PHPTAGS_FUNCTIONS_VERSION' , '3.1.0' );
+define( 'PHPTAGS_FUNCTIONS_VERSION' , '3.1.1' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -59,6 +59,7 @@ $wgHooks['PhpTagsRuntimeFirstInit'][] = 'PhpTagsFunctionsInit::initializeRuntime
 $wgAutoloadClasses['PhpTagsFunctionsInit']	= __DIR__ . '/PhpTagsFunctions.init.php';
 $wgAutoloadClasses['PhpTagsFunc']			= __DIR__ . '/includes/PhpTagsFunc.php';
 $wgAutoloadClasses['PhpTagsFuncRef']		= __DIR__ . '/includes/PhpTagsFuncRef.php';
+$wgAutoloadClasses['PhpTagsFuncUseful']		= __DIR__ . '/includes/PhpTagsFuncUseful.php';
 $wgAutoloadClasses['PhpTagsObjects\\PhpTagsFuncNativeObject']	= __DIR__ . '/includes/PhpTagsFuncNativeObject.php';
 
 /**
