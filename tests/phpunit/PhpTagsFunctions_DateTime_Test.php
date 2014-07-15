@@ -32,71 +32,71 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_DateTime_exception_1() {
 		$this->assertEquals(
 				Runtime::runSource('$date = DateTime(5);', array('Page') ),
-				array( new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_FATAL_CALL_TO_UNDEFINED_FUNCTION, 'DateTime', 1, 'Page' ) )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALL_TO_UNDEFINED_FUNCTION, 'DateTime', 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_2() {
 		$this->assertEquals(
 				Runtime::runSource('$date = new DateTimeUndefined(5);', array('Page') ),
-				array( new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_FATAL_CLASS_NOT_FOUND, 'DateTimeUndefined', 1, 'Page' ) )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CLASS_NOT_FOUND, 'DateTimeUndefined', 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_3() {
 		$return = Runtime::runSource('$date = new DateTime(5);', array('Page') );
 		$this->assertInstanceOf( '\PhpTags\PhpTagsException', $return[0] );
-		$this->assertEquals( PHPTAGS_EXCEPTION_FATAL_OBJECT_NOT_CREATED, $return[0]->getCode() );
+		$this->assertEquals( \PhpTags\PhpTagsException::FATAL_OBJECT_NOT_CREATED, $return[0]->getCode() );
 	}
 	public function testRun_DateTime_exception_4() {
 		$this->assertEquals(
 				Runtime::runSource('$date = new DateTime(); $date->undefined();', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_FATAL_CALL_TO_UNDEFINED_METHOD, array('DateTime', 'undefined'), 1, 'Page' ) )
+				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALL_TO_UNDEFINED_METHOD, array('DateTime', 'undefined'), 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_5() {
 		$this->assertEquals(
 				Runtime::runSource('$date = date_create_undefined();', array('Page') ),
-				array( new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_FATAL_CALL_TO_UNDEFINED_FUNCTION, 'date_create_undefined', 1, 'Page' ) )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALL_TO_UNDEFINED_FUNCTION, 'date_create_undefined', 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_6() {
 		$this->assertEquals(
 				Runtime::runSource('new DateTime() + 5;', array('Page') ),
-				array( new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_OBJECT_CONVERTED, array('DateTime', 'int'), 1, 'Page' ) )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateTime', 'int'), 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_7() {
 		$this->assertEquals(
 				Runtime::runSource('5 + new DateInterval("P2Y4DT6H8M");', array('Page') ),
-				array( new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_OBJECT_CONVERTED, array('DateInterval', 'int'), 1, 'Page' ) )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateInterval', 'int'), 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_8() {
 		$this->assertEquals(
 				Runtime::runSource('new DateTime() + new DateInterval("P2Y4DT6H8M");', array('Page') ),
 				array(
-					new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_OBJECT_CONVERTED, array('DateTime', 'int'), 1, 'Page' ),
-					new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_OBJECT_CONVERTED, array('DateInterval', 'int'), 1, 'Page' )
+					new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateTime', 'int'), 1, 'Page' ),
+					new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateInterval', 'int'), 1, 'Page' )
 				)
 			);
 	}
 	public function testRun_DateTime_exception_9() {
 		$this->assertEquals(
 				Runtime::runSource('new DateTime() . 5;', array('Page') ),
-				array( new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_OBJECT_CONVERTED, array('DateTime', 'string'), 1, 'Page' ) )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateTime', 'string'), 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_10() {
 		$this->assertEquals(
 				Runtime::runSource('5 . new DateInterval("P2Y4DT6H8M");', array('Page') ),
-				array( new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_OBJECT_CONVERTED, array('DateInterval', 'string'), 1, 'Page' ) )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateInterval', 'string'), 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_11() {
 		$this->assertEquals(
 				Runtime::runSource('new DateTime() . new DateInterval("P2Y4DT6H8M");', array('Page') ),
 				array(
-					new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_OBJECT_CONVERTED, array('DateTime', 'string'), 1, 'Page' ),
-					new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_OBJECT_CONVERTED, array('DateInterval', 'string'), 1, 'Page' )
+					new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateTime', 'string'), 1, 'Page' ),
+					new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateInterval', 'string'), 1, 'Page' )
 				)
 			);
 	}
@@ -104,7 +104,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo date_format(5, "Y-m-d");', array('Page') ),
 				array(
-					new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_WARNING_EXPECTS_PARAMETER, array('date_format', '1', 'DateTime', 'integer'), 1, 'Page' ),
+					new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array('date_format', '1', 'DateTime', 'integer'), 1, 'Page' ),
 					false
 				)
 			);
@@ -113,7 +113,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo date_format( new DateTime(), new DateTime() );', array('Page') ),
 				array(
-					new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_WARNING_EXPECTS_PARAMETER, array('date_format', '2', 'string', 'object'), 1, 'Page' ),
+					new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array('date_format', '2', 'string', 'object'), 1, 'Page' ),
 					false
 				)
 			);
@@ -122,7 +122,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo date_format(new DateTime(), "Y-m-d", 5);', array('Page') ),
 				array(
-					new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_WARNING_EXPECTS_EXACTLY_PARAMETERS, array('date_format', '2', '3'), 1, 'Page' ),
+					new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETERS, array('date_format', '2', '3'), 1, 'Page' ),
 					false
 				)
 			);
@@ -131,7 +131,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo date_format(new DateTime());', array('Page') ),
 				array(
-					new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_WARNING_EXPECTS_EXACTLY_PARAMETERS, array('date_format', '2', '1'), 1, 'Page' ),
+					new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETERS, array('date_format', '2', '1'), 1, 'Page' ),
 					false
 				)
 			);
@@ -139,13 +139,13 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_DateTime_exception_16() {
 		$this->assertEquals(
 				Runtime::runSource('echo DateTime::format("Y-m-d");', array('Page') ),
-				array( new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_FATAL_NONSTATIC_CALLED_STATICALLY, array('DateTime', 'format'), 1, 'Page' ) )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_NONSTATIC_CALLED_STATICALLY, array('DateTime', 'format'), 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_17() {
 		$this->assertEquals(
 				Runtime::runSource('echo new DateTime();', array('Page') ),
-				array( 'object' )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, array('DateTime', 'string'), 1, 'Page' ) )
 			);
 	}
 
@@ -185,7 +185,7 @@ echo $i->y;
 echo $i->yyyyyy;', array('Page') ),
 				array(
 					2,
-					new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_UNDEFINED_PROPERTY, array('DateInterval', 'yyyyyy'), 4, 'Page' ),
+					new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_UNDEFINED_PROPERTY, array('DateInterval', 'yyyyyy'), 4, 'Page' ),
 					null,
 				)
 			);
@@ -236,7 +236,7 @@ echo $date->format("Y-m-d");'),
 	public function testRun_DatePeriod_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo DatePeriod::UNDEFINED;', array('Page') ),
-				array( new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_UNDEFINED_CLASS_CONSTANT, array('DatePeriod', 'UNDEFINED'), 1, 'Page' ), null )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_UNDEFINED_CLASS_CONSTANT, array('DatePeriod', 'UNDEFINED'), 1, 'Page' ), null )
 			);
 	}
 	public function testRun_DateTime_1() {
@@ -248,7 +248,7 @@ echo $date->format("Y-m-d");'),
 	public function testRun_DateTime_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo DateTime::BLABLABLA;', array('Page') ),
-				array( new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_UNDEFINED_CLASS_CONSTANT, array('DateTime', 'BLABLABLA'), 1, 'Page' ), null )
+				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_UNDEFINED_CLASS_CONSTANT, array('DateTime', 'BLABLABLA'), 1, 'Page' ), null )
 			);
 	}
 

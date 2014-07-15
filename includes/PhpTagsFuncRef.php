@@ -82,7 +82,7 @@ class PhpTagsFuncRef extends PhpTagsFunc {
 				$args[0] = self::getValidPattern( $args[0] );
 			}
 		} catch ( \Exception $exc ) {
-			throw new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_FROM_HOOK, array( 'preg_replace(): ' . $exc->getMessage(), $exc->getCode() ) );
+			throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::EXCEPTION_FROM_HOOK, array( 'preg_replace(): ' . $exc->getMessage(), $exc->getCode() ) );
 		}
 
 		return call_user_func_array( 'preg_replace', $args );
@@ -99,7 +99,7 @@ class PhpTagsFuncRef extends PhpTagsFunc {
 		if ( $delimPos === false ) {
 			throw new Exception(
 					wfMessage( 'phptagsfunctions-preg-bad-delimiter' )->text(),
-					PHPTAGS_EXCEPTION_WARNING
+					\PhpTags\PhpTagsException::EXCEPTION_WARNING
 				);
 		}
 
@@ -111,7 +111,7 @@ class PhpTagsFuncRef extends PhpTagsFunc {
 			if ( $pos === false ) {
 				throw new Exception(
 						wfMessage( 'phptagsfunctions-preg-no-ending-delimiter', $end )->text(),
-						PHPTAGS_EXCEPTION_WARNING
+						\PhpTags\PhpTagsException::EXCEPTION_WARNING
 					);
 			}
 			$backslashes = 0;
@@ -134,7 +134,7 @@ class PhpTagsFuncRef extends PhpTagsFunc {
 			if ( strpos( $regexModifiers, $endRegex[$c] ) === false ) {
 				throw new Exception(
 						wfMessage( 'phptagsfunctions-preg-unknown-modifier', $endRegex[$c] )->text(),
-						PHPTAGS_EXCEPTION_WARNING
+						\PhpTags\PhpTagsException::EXCEPTION_WARNING
 					);
 			}
 		}

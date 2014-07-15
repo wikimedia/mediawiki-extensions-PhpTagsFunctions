@@ -434,7 +434,7 @@ class PhpTagsFunctions_Var_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo is_null($inexistent) ? "true" : "false";'),
 				array(
-					(string) new PhpTagsException( PHPTAGS_EXCEPTION_NOTICE_UNDEFINED_VARIABLE, 'inexistent', 1 ),
+					(string) new PhpTagsException( \PhpTags\PhpTagsException::NOTICE_UNDEFINED_VARIABLE, 'inexistent', 1 ),
 					'true'
 				)
 			);

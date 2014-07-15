@@ -70,7 +70,7 @@ class PhpTagsFuncNativeObject extends \PhpTags\GenericObject {
 						}
 						return $return;
 					} else {
-						throw new \PhpTags\PhpTagsException( PHPTAGS_EXCEPTION_FATAL_NONSTATIC_CALLED_STATICALLY, array($object, $subname) );
+						throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_NONSTATIC_CALLED_STATICALLY, array($object, $subname) );
 					}
 				} catch (ReflectionException $e) {}
 

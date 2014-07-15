@@ -544,7 +544,6 @@ class PhpTagsFunctionsInit {
 			'timezone_offset_get',
 			'timezone_open',
 			'timezone_transitions_get',
-			'timezone_abbreviations_list',
 			'timezone_version_get',
 		);
 	}
