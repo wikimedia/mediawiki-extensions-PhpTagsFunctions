@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Lokal Profil"
 		]
 	},
+	"phptagsfunctions-desc": "Implementerar de interna funktionerna för inbyggd PHP för PhpTags-tillägget",
 	"phptagsfunctions-preg-bad-delimiter": "Avgränsningstecknet måste inte vara alfanumeriskt eller ett omvänt snedstreck",
-	"phptagsfunctions-preg-no-ending-delimiter": "Inget avslutande avgränsningstecken \"$1\" hittades"
+	"phptagsfunctions-preg-no-ending-delimiter": "Inget avslutande avgränsningstecken \"$1\" hittades",
+	"phptagsfunctions-preg-unknown-modifier": "Okänd modifierare \"$1\""
 }
