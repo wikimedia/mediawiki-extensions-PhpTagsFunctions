@@ -19,7 +19,7 @@ if ( !defined( 'PHPTAGS_VERSION' ) ) {
 	die( 'ERROR: The <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">extension PhpTags</a> must be installed for the extension PhpTags Functions to run!' );
 }
 
-$needVersion = '2.5.0';
+$needVersion = '3.3.0';
 if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
 	die(
 		'<b>Error:</b> This version of extension PhpTags Functions needs <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">PhpTags</a> ' . $needVersion . ' or later.
@@ -27,13 +27,13 @@ if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
 	);
 }
 
-if ( PHPTAGS_HOOK_RELEASE != 4 ) {
+if ( PHPTAGS_HOOK_RELEASE != 5 ) {
 	die (
 			'<b>Error:</b> This version of extension PhpTags Functions is not compatible to current version of extension PhpTags.'
 	);
 }
 
-define( 'PHPTAGS_FUNCTIONS_VERSION' , '3.2.1' );
+define( 'PHPTAGS_FUNCTIONS_VERSION' , '3.2.2' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(

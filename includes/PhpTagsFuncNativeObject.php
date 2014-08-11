@@ -8,7 +8,7 @@ namespace PhpTagsObjects;
  */
 class PhpTagsFuncNativeObject extends \PhpTags\GenericObject {
 
-	public function m___construct( ) {
+	public function m___construct() {
 		$arguments = func_get_args();
 		foreach ( $arguments as &$arg ) {
 			if ( $arg instanceof \PhpTags\GenericObject ) {
@@ -27,10 +27,9 @@ class PhpTagsFuncNativeObject extends \PhpTags\GenericObject {
 	}
 
 	public function __call( $name, $arguments ) {
-		$callType = substr( $name, 0, 2 );
-		$subname = substr($name, 2);
+		list ( $callType, $subname ) = explode( '_', $name, 2 );
 		switch ( $callType ) {
-			case 'm_':
+			case 'm':
 				if ( method_exists( $this->value, $subname ) ) {
 					foreach ( $arguments as &$arg ) {
 						if( $arg instanceof \PhpTags\GenericObject ) {
@@ -44,7 +43,7 @@ class PhpTagsFuncNativeObject extends \PhpTags\GenericObject {
 					return $return;
 				}
 				break;
-			case 'p_':
+			case 'p':
 				$object_vars = get_object_vars( $this->value );
 				if ( isset( $object_vars[$subname] ) ) {
 					return $this->value->$subname;
@@ -55,11 +54,10 @@ class PhpTagsFuncNativeObject extends \PhpTags\GenericObject {
 	}
 
 	public static function __callStatic( $name, $arguments ) {
-		$object = array_pop( $arguments );
-		$callType = substr( $name, 0, 2 );
-		$subname = substr($name, 2);
+		list ( $callType, $subname ) = explode( '_', $name, 2 );
+		$object = \PhpTags\Hooks::$objectName;
 		switch ( $callType ) {
-			case 's_': // static method
+			case 's': // static method
 				$reflect = new \ReflectionClass( $object );
 				try {
 					$method = $reflect->getMethod( $subname );
@@ -87,14 +85,13 @@ class PhpTagsFuncNativeObject extends \PhpTags\GenericObject {
 					return $return;
 				}
 				break;
-			case 'c_': // constant
+			case 'c': // constant
 				$reflect = new \ReflectionClass( $object );
 				if ( true === $reflect->hasConstant( $subname ) ) {
 					return $reflect->getConstant( $subname );
 				}
 				break;
 		}
-		$arguments[] = $object;
 		return parent::__callStatic( $name, $arguments );
 	}
 
