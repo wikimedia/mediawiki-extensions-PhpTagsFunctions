@@ -52,7 +52,7 @@ class PhpTagsFunctionsInit {
 		// @todo	'SORT_NATURAL', // PHP >= 5.4.0
 		// @todo	'SORT_FLAG_CASE', // PHP >= 5.4.0
 			'COUNT_RECURSIVE' => COUNT_RECURSIVE,
-			'CRYPT_SHA256' => CRYPT_SHA256,
+		//	'CRYPT_SHA256' => CRYPT_SHA256, // PHP >= 5.3.2
 		//	'CRYPT_SHA512' => CRYPT_SHA512, // PHP >= 5.3.2 bug 69002
 			'ABDAY_1' => ABDAY_1,
 			'ABDAY_2' => ABDAY_2,
