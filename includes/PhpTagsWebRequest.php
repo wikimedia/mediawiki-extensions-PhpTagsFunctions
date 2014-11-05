@@ -43,6 +43,7 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 	 */
 	public static function s_getVal( $name, $default = null ) {
 		global $wgRequest;
+		\PhpTags\Runtime::disableParserCache();
 		return $wgRequest->getVal( $name, $default );
 	}
 
@@ -52,6 +53,7 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 	 */
 	public static function s_getInt( $name, $default = 0 ) {
 		global $wgRequest;
+		\PhpTags\Runtime::disableParserCache();
 		return $wgRequest->getInt( $name, $default );
 	}
 
@@ -61,6 +63,7 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 	 */
 	public static function s_getBool( $name, $default = false ) {
 		global $wgRequest;
+		\PhpTags\Runtime::disableParserCache();
 		return $wgRequest->getBool( $name, $default );
 	}
 
@@ -71,6 +74,7 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 	 */
 	public static function s_getArray( $name, $default = null ) {
 		global $wgRequest;
+		\PhpTags\Runtime::disableParserCache();
 		return $wgRequest->getArray( $name, $default );
 	}
 
@@ -80,6 +84,7 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 	 */
 	public static function s_getCheck( $name ) {
 		global $wgRequest;
+		\PhpTags\Runtime::disableParserCache();
 		return $wgRequest->getCheck( $name );
 	}
 
@@ -89,6 +94,7 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 	 */
 	public static function s_wasPosted() {
 		global $wgRequest;
+		\PhpTags\Runtime::disableParserCache();
 		return $wgRequest->wasPosted();
 	}
 
@@ -98,6 +104,7 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 	 */
 	public static function s_getCookie( $key, $default = null ) {
 		global $wgRequest;
+		\PhpTags\Runtime::disableParserCache();
 		return $wgRequest->getCookie( $key, 'ext.phptags.', $default );
 	}
 
@@ -108,6 +115,7 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 	 */
 	public static function s_getValues() {
 		global $wgRequest;
+		\PhpTags\Runtime::disableParserCache();
 		$names = func_get_args();
 		array_walk( $names, function( &$value ){ if ( !is_string($value) ) { $value = ''; } } );
 		return call_user_func_array( array($wgRequest, 'getValues'), $names );
