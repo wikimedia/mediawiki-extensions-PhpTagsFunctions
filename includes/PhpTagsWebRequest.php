@@ -15,6 +15,7 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 			case 'getbool':
 			case 'getarray':
 			case 'getcookie':
+			case 'gettext':
 				$expects = array(
 					\PhpTags\Hooks::TYPE_STRING,
 					\PhpTags\Hooks::TYPE_MIXED,
@@ -45,6 +46,20 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 		global $wgRequest;
 		\PhpTags\Runtime::disableParserCache();
 		return $wgRequest->getVal( $name, $default );
+	}
+
+	/**
+	 * Fetch a text string from the given array or return $default if it's not
+	 * set. Carriage returns are stripped from the text, and with some language
+	 * modules there is an input transliteration applied. This should generally
+	 * be used for form "<textarea>" and "<input>" fields. Used for
+	 * user-supplied freeform text input (for which input transformations may
+	 * be required - e.g.  Esperanto x-coding).
+	 */
+	public static function s_getText( $name, $default = '' ) {
+		global $wgRequest;
+		\PhpTags\Runtime::disableParserCache();
+		return $wgRequest->getText( $name, $default );
 	}
 
 	/**
