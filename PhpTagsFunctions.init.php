@@ -21,6 +21,7 @@ class PhpTagsFunctionsInit {
 	}
 
 	private static function GetConstantValues() {
+		// @todo check perfomance with get_defined_constants( true );
 		return array(
 			'PHPTAGS_FUNCTIONS_VERSION' => PHPTAGS_FUNCTIONS_VERSION,
 			'PHP_VERSION' => PHP_VERSION,
@@ -596,6 +597,7 @@ class PhpTagsFunctionsInit {
 			'DateTimeZone' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.datetimezone.php
 			'DateInterval' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.dateinterval.php
 			'DatePeriod' => 'PhpTagsFuncNativeObject', // @see http://www.php.net/manual/en/class.dateperiod.php
+			'WebRequest' => 'PhpTagsWebRequest',
 		);
 	}
 

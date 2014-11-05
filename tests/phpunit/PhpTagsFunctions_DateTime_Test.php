@@ -9,6 +9,12 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 				array(SUNFUNCS_RET_DOUBLE)
 				);
 	}
+	public function testRun_constant_2() {
+		$this->assertEquals(
+				Runtime::runSource('echo DATE_ATOM;'),
+				array( DATE_ATOM )
+				);
+	}
 
 	public function testRun_checkdate_1() {
 		$this->assertEquals(

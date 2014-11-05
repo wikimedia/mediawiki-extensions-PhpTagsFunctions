@@ -19,7 +19,7 @@ if ( !defined( 'PHPTAGS_VERSION' ) ) {
 	die( 'ERROR: The <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">extension PhpTags</a> must be installed for the extension PhpTags Functions to run!' );
 }
 
-$needVersion = '3.3.0';
+$needVersion = '3.7.0';
 if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
 	die(
 		'<b>Error:</b> This version of extension PhpTags Functions needs <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">PhpTags</a> ' . $needVersion . ' or later.
@@ -33,7 +33,7 @@ if ( PHPTAGS_HOOK_RELEASE != 5 ) {
 	);
 }
 
-const PHPTAGS_FUNCTIONS_VERSION = '3.2.3';
+const PHPTAGS_FUNCTIONS_VERSION = '3.3.0';
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -46,7 +46,7 @@ $wgExtensionCredits['phptags'][] = array(
 );
 
 // Allow translations for this extension
-$wgMessagesDirs['PhpTagsFunctions'] =			__DIR__ . '/i18n';
+$wgMessagesDirs['PhpTagsFunctions'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['PhpTagsFunctions'] =	__DIR__ . '/PhpTagsFunctions.i18n.php';
 
 // Specify the function that will initialize the parser function.
@@ -56,11 +56,12 @@ $wgExtensionMessagesFiles['PhpTagsFunctions'] =	__DIR__ . '/PhpTagsFunctions.i18
 $wgHooks['PhpTagsRuntimeFirstInit'][] = 'PhpTagsFunctionsInit::initializeRuntime';
 
 // Preparing classes for autoloading
-$wgAutoloadClasses['PhpTagsFunctionsInit']	= __DIR__ . '/PhpTagsFunctions.init.php';
-$wgAutoloadClasses['PhpTagsFunc']			= __DIR__ . '/includes/PhpTagsFunc.php';
-$wgAutoloadClasses['PhpTagsFuncRef']		= __DIR__ . '/includes/PhpTagsFuncRef.php';
-$wgAutoloadClasses['PhpTagsFuncUseful']		= __DIR__ . '/includes/PhpTagsFuncUseful.php';
-$wgAutoloadClasses['PhpTagsObjects\\PhpTagsFuncNativeObject']	= __DIR__ . '/includes/PhpTagsFuncNativeObject.php';
+$wgAutoloadClasses['PhpTagsFunctionsInit'] = __DIR__ . '/PhpTagsFunctions.init.php';
+$wgAutoloadClasses['PhpTagsFunc'] = __DIR__ . '/includes/PhpTagsFunc.php';
+$wgAutoloadClasses['PhpTagsFuncRef'] = __DIR__ . '/includes/PhpTagsFuncRef.php';
+$wgAutoloadClasses['PhpTagsFuncUseful'] = __DIR__ . '/includes/PhpTagsFuncUseful.php';
+$wgAutoloadClasses['PhpTagsObjects\\PhpTagsFuncNativeObject'] = __DIR__ . '/includes/PhpTagsFuncNativeObject.php';
+$wgAutoloadClasses['PhpTagsObjects\\PhpTagsWebRequest'] = __DIR__ . '/includes/PhpTagsWebRequest.php';
 
 /**
  * Add files to phpunit test

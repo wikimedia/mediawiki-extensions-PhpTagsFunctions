@@ -9,6 +9,12 @@ class PhpTagsFunctions_PCRE_Test extends \PHPUnit_Framework_TestCase {
 				array(PREG_PATTERN_ORDER)
 				);
 	}
+	public function testRun_constant_2() {
+		$this->assertEquals(
+				Runtime::runSource('echo PREG_OFFSET_CAPTURE;'),
+				array(PREG_OFFSET_CAPTURE)
+				);
+	}
 
 	public function testRun_preg_filter_1() {
 		$return = Runtime::runSource('

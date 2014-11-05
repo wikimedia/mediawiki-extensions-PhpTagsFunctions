@@ -9,6 +9,12 @@ class PhpTagsFunctions_Mbstring_Test extends \PHPUnit_Framework_TestCase {
 				array(MB_CASE_UPPER)
 				);
 	}
+	public function testRun_constant_2() {
+		$this->assertEquals(
+				Runtime::runSource('echo MB_OVERLOAD_STRING;'),
+				array(MB_OVERLOAD_STRING)
+				);
+	}
 
 	public function testRun_mb_convert_case_1() {
 		$this->assertEquals(
