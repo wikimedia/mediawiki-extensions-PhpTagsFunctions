@@ -33,7 +33,7 @@ if ( PHPTAGS_HOOK_RELEASE != 5 ) {
 	);
 }
 
-const PHPTAGS_FUNCTIONS_VERSION = '3.3.2';
+const PHPTAGS_FUNCTIONS_VERSION = '3.3.3';
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(

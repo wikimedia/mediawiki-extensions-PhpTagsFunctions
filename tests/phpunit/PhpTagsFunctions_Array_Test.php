@@ -717,6 +717,15 @@ while ($fruit_name = current($array)) {
 				array('fruit1<br />', 'fruit4<br />', 'fruit5<br />')
 			);
 	}
+	public function testRun_echo_while_function_1() {
+		$this->assertEquals(
+				Runtime::runSource('
+$foo = [1,2];
+while ( count($foo) < 4 ) array_push($foo, 8);
+echo $foo == [1,2,8,8] ? "true" : false;'),
+				array('true')
+				);
+	}
 
 	public function testRun_in_array_1() {
 		$this->assertEquals(
@@ -836,6 +845,43 @@ print_r( $fruits );');
 				(string) new outPrint( null, print_r(array('apple', 'banana', 'lemon', 'orange'), true) ),
 				(string) $return[0]
 			);
+	}
+
+	public function testRun_echo_if_else_simple_function_1() {
+		$this->assertEquals(
+				Runtime::runSource('$foo = [1,2,3]; if ( true ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2] ? "true" : "false";'),
+				array('true')
+				);
+	}
+	public function testRun_echo_if_else_simple_function__2() {
+		$this->assertEquals(
+				Runtime::runSource('$foo = [1,2,3]; if ( false ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2,3,4] ? "true" : "false";'),
+				array('true')
+				);
+	}
+	public function testRun_echo_if_else_simple_function__3() {
+		$this->assertEquals(
+				Runtime::runSource('$foo = [1,2,3]; if ( true ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2] ? "true" : "false"; echo " always!";'),
+				array('true', ' always!')
+				);
+	}
+	public function testRun_echo_if_else_simple_function__4() {
+		$this->assertEquals(
+				Runtime::runSource('$foo = [1,2,3]; if ( false ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2,3,4] ? "true" : "false"; echo " always!";'),
+				array('true', ' always!')
+				);
+	}
+	public function testRun_echo_if_else_simple_variable_1() {
+		$this->assertEquals(
+				Runtime::runSource('if ( true ) $foo="true"; else $foo="false"; echo  $foo;'),
+				array('true')
+				);
+	}
+	public function testRun_echo_if_else_simple_variable_2() {
+		$this->assertEquals(
+				Runtime::runSource('if ( false ) $foo="true"; else $foo="false"; echo  $foo;'),
+				array('false')
+				);
 	}
 
 }

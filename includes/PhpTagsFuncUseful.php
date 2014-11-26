@@ -32,4 +32,12 @@ class PhpTagsFuncUseful extends PhpTags\GenericFunction {
 				mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
 			);
 	}
+
+	public static function f_mw_json_decode( $value ) {
+		return \FormatJson::decode( $value, true );
+	}
+
+	public static function f_mw_json_encode( $value ) {
+		return \FormatJson::encode( $value, false, \FormatJson::UTF8_OK );
+	}
 }

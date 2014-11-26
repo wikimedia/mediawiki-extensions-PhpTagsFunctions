@@ -604,6 +604,8 @@ class PhpTagsFunctionsInit {
 	private static function getFuncUseful() {
 		return array(
 			'uuid_create',
+			'mw_json_decode',
+			'mw_json_encode',
 		);
 	}
 
