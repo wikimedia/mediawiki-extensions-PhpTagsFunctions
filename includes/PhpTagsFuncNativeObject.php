@@ -6,7 +6,7 @@ namespace PhpTagsObjects;
  *
  * @author pastakhov
  */
-class PhpTagsFuncNativeObject extends \PhpTags\GenericObject {
+class PhpTagsFuncNativeObject extends PhpTagsFunc {
 
 	public function m___construct() {
 		$arguments = func_get_args();
@@ -28,27 +28,28 @@ class PhpTagsFuncNativeObject extends \PhpTags\GenericObject {
 
 	public function __call( $name, $arguments ) {
 		list ( $callType, $subname ) = explode( '_', $name, 2 );
+
 		switch ( $callType ) {
-			case 'm':
-				if ( method_exists( $this->value, $subname ) ) {
-					foreach ( $arguments as &$arg ) {
-						if( $arg instanceof \PhpTags\GenericObject ) {
-							$arg = $arg->getValue();
-						}
+			case 'm': // metchod
+				foreach ( $arguments as &$arg ) {
+					if( $arg instanceof \PhpTags\GenericObject ) {
+						$arg = $arg->getValue();
 					}
-					$return = call_user_func_array( array($this->value, $subname), $arguments );
-					if ( is_object($return) ) {
-						$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
-					}
-					return $return;
 				}
-				break;
-			case 'p':
-				$object_vars = get_object_vars( $this->value );
-				if ( isset( $object_vars[$subname] ) ) {
-					return $this->value->$subname;
+				$return = call_user_func_array( array($this->value, $subname), $arguments );
+				if ( is_object($return) ) {
+					$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
 				}
-				break;
+				return $return;
+			case 'p': // get property
+				$return = $this->value->$subname;
+				if ( is_object($return) ) {
+					$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
+				}
+				return $return;
+			case 'b': // set property
+				$this->value->$subname = $arguments[0];
+				return;
 		}
 		return parent::__call( $name, $arguments );
 	}
@@ -56,41 +57,51 @@ class PhpTagsFuncNativeObject extends \PhpTags\GenericObject {
 	public static function __callStatic( $name, $arguments ) {
 		list ( $callType, $subname ) = explode( '_', $name, 2 );
 		$object = \PhpTags\Hooks::$objectName;
-		switch ( $callType ) {
-			case 's': // static method
-				$reflect = new \ReflectionClass( $object );
-				try {
-					$method = $reflect->getMethod( $subname );
-					if( true === $method->isStatic() ) {
-						$return = call_user_func_array( array($object, $subname), $arguments );
-						if ( is_object($return) ) {
-							$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
-						}
-						return $return;
-					} else {
-						throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_NONSTATIC_CALLED_STATICALLY, array($object, $subname) );
-					}
-				} catch (ReflectionException $e) {}
 
-				if ( method_exists( $object, $subname ) ) {
-					foreach ( $arguments as &$arg ) {
-						if( $arg instanceof \PhpTags\GenericObject ) {
-							$arg = $arg->getValue();
-						}
+		switch ( $callType ) {
+			case 'f': // function
+				foreach ( $arguments as &$arg ) {
+					if ( $arg instanceof \PhpTags\GenericObject ) {
+						$arg = $arg->getValue();
 					}
-					$return = call_user_func_array( array($object, $subname), $arguments );
+				}
+				$return = call_user_func_array( "parent::$name", $arguments );
+				if ( is_object($return) ) {
+					$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
+				}
+				return $return;
+			case 's': // static method
+				foreach ( $arguments as &$arg ) {
+					if( $arg instanceof \PhpTags\GenericObject ) {
+						$arg = $arg->getValue();
+					}
+				}
+				$return = call_user_func_array( array($object, $subname), $arguments );
+				if ( is_object($return) ) {
+					$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
+				}
+				return $return;
+			case 'c': // constant
+				$reflect = new \ReflectionClass( $object );
+				if ( true === $reflect->hasConstant( $subname ) ) {
+					$return = $reflect->getConstant( $subname );
 					if ( is_object($return) ) {
 						$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
 					}
 					return $return;
 				}
 				break;
-			case 'c': // constant
+			case 'q': // get static property
 				$reflect = new \ReflectionClass( $object );
-				if ( true === $reflect->hasConstant( $subname ) ) {
-					return $reflect->getConstant( $subname );
+				$return = $reflect->getStaticPropertyValue( $subname );
+				if ( is_object($return) ) {
+					$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
 				}
-				break;
+				return $return;
+			case 'd': // set static property
+				$reflect = new \ReflectionClass( $object );
+				$reflect->setStaticPropertyValue( $subname, $arguments[0] );
+				return;
 		}
 		return parent::__callStatic( $name, $arguments );
 	}

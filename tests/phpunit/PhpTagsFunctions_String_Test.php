@@ -1,7 +1,7 @@
 <?php
 namespace PhpTags;
 
-class PhpTagsFunctions_String_Test extends \PHPUnit_Framework_TestCase {
+class PhpTagsFunctions_String_Test /*extends \PHPUnit_Framework_TestCase*/ {
 
 	public function testRun_constant_1() {
 		$this->assertEquals(
@@ -13,7 +13,7 @@ class PhpTagsFunctions_String_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_printf_exception_1() {
 		$this->assertEquals(
 				Runtime::runSource('sprintf();', array('Page') ),
-				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_AT_LEAST_PARAMETER, array('sprintf', 1, 0), 1, 'Page' ) )
+				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_AT_LEAST_PARAMETER, array('sprintf', 1, 0), 1, 'Page' ) )
 			);
 	}
 	public function testRun_printf_exception_2() {

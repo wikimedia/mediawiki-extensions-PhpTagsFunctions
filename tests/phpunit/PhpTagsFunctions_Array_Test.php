@@ -46,11 +46,66 @@ class PhpTagsFunctions_Array_Test extends \PHPUnit_Framework_TestCase {
 			);
 	}
 
+	public function testRun_array_combine_2() {
+		$return = Runtime::runSource('$a = array(); $b = array(); $c = array_combine($a, $b); print_r($c);');
+		$this->assertEquals(
+				(string) new outPrint( null, print_r(array(), true) ),
+				(string) $return[0]
+			);
+	}
+
+	public function testRun_array_combine_3() {
+		$return = Runtime::runSource('$a = array("green", "qt"=>true, 1); $b = array("avocado", "apple", "banana"); $c = array_combine($a, $b); print_r($c);');
+		$this->assertEquals(
+				(string) new outPrint( null, print_r(array('green'=>'avocado', '1'=>'banana'), true) ),
+				(string) $return[0]
+			);
+	}
+
+	public function testRun_array_combine_exception_1() {
+		$return = Runtime::runSource('$a = array(); $b = array("avocado", "apple", "banana"); $c = array_combine($a, $b); print_r($c);', array('Test') );
+		$this->assertEquals(
+				(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_combine(): Both parameters should have an equal number of elements', HookException::EXCEPTION_WARNING), 1, 'Test' ),
+				(string) $return[0]
+			);
+	}
+
+	public function testRun_array_combine_exception_2() {
+		$return = Runtime::runSource('$a = array("green", array(), "yellow"); $b = array("avocado", "apple", "banana"); $c = array_combine($a, $b); print_r($c);', array('Test'));
+		$this->assertEquals(
+				(string) new PhpTagsException( PhpTagsException::NOTICE_ARRAY_TO_STRING, null, 1, 'Test' ),
+				(string) $return[0]
+			);
+		$this->assertEquals(
+				(string) new outPrint( null, print_r(array('green'=>'avocado', 'Array'=>'apple', 'yellow'=>'banana'), true) ),
+				(string) $return[1]
+			);
+	}
+
+	public function testRun_array_combine_exception_3() {
+		$return = Runtime::runSource('$a = array("green", new DateTime(), "yellow"); $b = array("avocado", "apple", "banana"); $c = array_combine($a, $b); print_r($c);', array('Test'));
+		$this->assertEquals(
+				(string) new PhpTagsException( PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, array('DateTime', 'string'), 1, 'Test' ),
+				(string) $return[0]
+			);
+	}
+
 	public function testRun_array_count_values_1() {
 		$return = Runtime::runSource('$array = array(1, "hello", 1, "world", "hello"); print_r(array_count_values($array));');
 		$this->assertEquals(
 				(string) new outPrint( null, print_r(array(1=>2, 'hello'=>2, 'world'=>1), true) ),
 				(string) $return[0]
+			);
+	}
+
+	public function testRun_array_count_values_exception_1() {
+		$this->assertEquals(
+				array(
+					(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_count_values(): Can only count STRING and INTEGER values!', HookException::EXCEPTION_WARNING), 1, 'Test' ),
+					(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_count_values(): Can only count STRING and INTEGER values!', HookException::EXCEPTION_WARNING), 1, 'Test' ),
+					(string) new outPrint( null, print_r(array(6=>3, 7=>1), true) ),
+				),
+				Runtime::runSource('$f = array_count_values( array(6,6,6,7, new Datetime(), new DateTime()) ); print_r( $f );', array('Test') )
 			);
 	}
 
@@ -109,6 +164,20 @@ print_r($a);');
 				(string) $return[0]
 			);
 	}
+	public function testRun_array_fill_keys_2() {
+		$return = Runtime::runSource('
+$keys = array("foo", 5, array(), "bar");
+$a = array_fill_keys($keys, "banana");
+print_r($a);', array('Test') );
+		$this->assertEquals(
+				(string) (string) new PhpTagsException( PhpTagsException::NOTICE_ARRAY_TO_STRING, null, 3, 'Test' ),
+				(string) $return[0]
+			);
+		$this->assertEquals(
+				(string) new outPrint( null, print_r(array('foo'=>'banana',5=>'banana','Array'=>'banana','bar'=>'banana'), true) ),
+				(string) $return[1]
+			);
+	}
 
 	public function testRun_array_fill_1() {
 		$return = Runtime::runSource('
@@ -116,6 +185,15 @@ $a = array_fill(5, 3, "banana");
 print_r($a);');
 		$this->assertEquals(
 				(string) new outPrint( null, print_r(array(5=>'banana',6=>'banana',7=>'banana'), true) ),
+				(string) $return[0]
+			);
+	}
+	public function testRun_array_fill_2() {
+		$return = Runtime::runSource('
+$a = array_FILL(5, -3, "banana");
+print_r($a);', array('Test') );
+		$this->assertEquals(
+				(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_fill(): Number of elements must be positive', HookException::EXCEPTION_WARNING), 2, 'Test' ),
 				(string) $return[0]
 			);
 	}
@@ -128,6 +206,20 @@ print_r($trans);');
 		$this->assertEquals(
 				(string) new outPrint( null, print_r(array(1=>'b', 2=>'c'), true) ),
 				(string) $return[0]
+			);
+	}
+	public function testRun_array_flip_2() {
+		$return = Runtime::runSource('
+$trans = array("a" => 1, "b" => array(), "c" => 2);
+$trans = array_flip($trans);
+print_r($trans);', array('Test') );
+		$this->assertEquals(
+				(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_count_values(): Can only count STRING and INTEGER values!', HookException::EXCEPTION_WARNING), 3, 'Test' ),
+				(string) $return[0]
+			);
+		$this->assertEquals(
+				(string) new outPrint( null, print_r(array(1=>'a', 2=>'c'), true) ),
+				(string) $return[1]
 			);
 	}
 
@@ -295,6 +387,35 @@ print_r($ar);');
 				(string) $return[0]
 			);
 	}
+	public function testRun_array_multisort_3() {
+		$return = Runtime::runSource('
+$ar1 = array(10, 100, 100, 0);
+$ar2 = array(1, 3, 2, 4);
+$ar3 = array(-1, -3, -2, -4);
+$ar4 = array(777, 7777, 77777, 777777);
+array_multisort($ar1, $ar2, $ar3, $ar4);
+
+print_r($ar1);
+print_r($ar2);
+print_r($ar3);
+print_r($ar4);');
+		$this->assertEquals(
+				(string) new outPrint( null, print_r(array(0,10,100,100), true) ),
+				(string) $return[0]
+			);
+		$this->assertEquals(
+				(string) new outPrint( null, print_r(array(4,1,2,3), true) ),
+				(string) $return[1]
+			);
+		$this->assertEquals(
+				(string) new outPrint( null, print_r(array(-4,-1,-2,-3), true) ),
+				(string) $return[2]
+			);
+		$this->assertEquals(
+				(string) new outPrint( null, print_r(array(777777,777,77777,7777), true) ),
+				(string) $return[3]
+			);
+	}
 
 	public function testRun_array_pad_1() {
 		$return = Runtime::runSource('
@@ -360,6 +481,15 @@ $rand_keys = array_rand($input, 2);
 echo $input[$rand_keys[0]] . "\n";
 echo $input[$rand_keys[1]] . "\n";');
 		$this->assertCount(2 ,$return);
+	}
+	public function testRun_array_rand_2() {
+		$return = Runtime::runSource('
+$input = array("Neo", "Morpheus", "Trinity", "Cypher", "Tank");
+$rand_keys = array_rand($input, 20);', array('Test') );
+		$this->assertEquals(
+				(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_rand(): Second argument has to be between 1 and the number of elements in the array', HookException::EXCEPTION_WARNING), 3, 'Test' ),
+				(string) $return[0]
+			);
 	}
 
 	public function testRun_array_replace_recursive_1() {
@@ -814,6 +944,20 @@ print_r( $array2 );');
 				(string) $return[0]
 			);
 	}
+	public function testRun_range_3() {
+		$return = Runtime::runSource('print_r( range(0, 30, -10) );');
+		$this->assertEquals(
+				(string) new outPrint( null, print_r(array(0, 10, 20, 30), true) ),
+				(string) $return[0]
+			);
+	}
+	public function testRun_range_4() {
+		$return = Runtime::runSource( 'print_r( range(0, 30, 100) );', array('Test') );
+		$this->assertEquals(
+				(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('range(): step exceeds the specified range', HookException::EXCEPTION_WARNING), 1, 'Test' ),
+				(string) $return[0]
+			);
+	}
 
 	public function testRun_rsort_1() {
 		$return = Runtime::runSource('
@@ -853,19 +997,19 @@ print_r( $fruits );');
 				array('true')
 				);
 	}
-	public function testRun_echo_if_else_simple_function__2() {
+	public function testRun_echo_if_else_simple_function_2() {
 		$this->assertEquals(
 				Runtime::runSource('$foo = [1,2,3]; if ( false ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2,3,4] ? "true" : "false";'),
 				array('true')
 				);
 	}
-	public function testRun_echo_if_else_simple_function__3() {
+	public function testRun_echo_if_else_simple_function_3() {
 		$this->assertEquals(
 				Runtime::runSource('$foo = [1,2,3]; if ( true ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2] ? "true" : "false"; echo " always!";'),
 				array('true', ' always!')
 				);
 	}
-	public function testRun_echo_if_else_simple_function__4() {
+	public function testRun_echo_if_else_simple_function_4() {
 		$this->assertEquals(
 				Runtime::runSource('$foo = [1,2,3]; if ( false ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2,3,4] ? "true" : "false"; echo " always!";'),
 				array('true', ' always!')
@@ -882,6 +1026,67 @@ print_r( $fruits );');
 				Runtime::runSource('if ( false ) $foo="true"; else $foo="false"; echo  $foo;'),
 				array('false')
 				);
+	}
+
+	public function testRun_echo_array_chunk_1() {
+		$this->assertEquals(
+				array(
+					(string) new outPrint( null, print_r( array_chunk(array("a", "b", "c", "d", "e"), 2), true ), true),
+				),
+				Runtime::runSource( '$input_array = array("a", "b", "c", "d", "e"); print_r( array_chunk($input_array, 2) );', array('Test') )
+			);
+	}
+	public function testRun_echo_array_chunk_exception_1() {
+		$this->assertEquals(
+				array(
+					(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_chunk(): Size parameter expected to be greater than 0', HookException::EXCEPTION_WARNING), 1, 'Test' ),
+					new outPrint( true, print_r( null, true ) ),
+				),
+				Runtime::runSource( '$input_array = array("a", "b", "c", "d", "e"); print_r( array_chunk($input_array, 0) );', array('Test') )
+			);
+	}
+	public function testRun_echo_array_chunk_exception_2() {
+		$this->assertEquals(
+				array(
+					new outPrint( true, print_r( null, true ) ),
+				),
+				Runtime::runSource( '$input_array = array("a", "b", "c", "d", "e"); @ print_r( array_chunk($input_array, 0) );', array('Test') )
+			);
+	}
+	public function testRun_echo_array_chunk_exception_3() {
+		$this->assertEquals(
+				array(
+					(string) new PhpTagsException( PhpTagsException::WARNING_EXPECTS_PARAMETER, array('array_chunk', 1, 'array', 'NULL'), 1, 'Test' ),
+					new outPrint( true, print_r( null, true ) ),
+				),
+				Runtime::runSource( 'print_r( array_chunk( @ $itIsUndefined, 2 ) );', array('Test') )
+			);
+	}
+	public function testRun_echo_array_chunk_exception_4() {
+		$this->assertEquals(
+				array(
+					new outPrint( true, print_r( null, true ) ),
+				),
+				Runtime::runSource( 'print_r( @ array_chunk( $itIsUndefined, 2) );', array('Test') )
+			);
+	}
+	public function testRun_echo_array_chunk_exception_5() {
+		$this->assertEquals(
+				array(
+					new outPrint( true, print_r( null, true ) ),
+				),
+				Runtime::runSource( '@ print_r( array_chunk( $itIsUndefined, 2) );', array('Test') )
+			);
+	}
+	public function testRun_echo_array_chunk_exception_6() {
+		$this->assertEquals(
+				array(
+					new outPrint( true, print_r( null, true ) ),
+					(string) new PhpTagsException( PhpTagsException::NOTICE_UNDEFINED_VARIABLE, 'itIsUndefined', 1, 'Test' ),
+					null,
+				),
+				Runtime::runSource( '@ print_r( array_chunk( $itIsUndefined, 2) ); echo $itIsUndefined;', array('Test') )
+			);
 	}
 
 }

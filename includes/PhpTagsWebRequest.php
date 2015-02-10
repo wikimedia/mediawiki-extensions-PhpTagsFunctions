@@ -8,36 +8,6 @@ namespace PhpTagsObjects;
  */
 class PhpTagsWebRequest extends \PhpTags\GenericObject {
 
-	public static function checkArguments( $object, $method, $arguments, $expects = false ) {
-		switch ( $method ) {
-			case 'getval':
-			case 'getint':
-			case 'getbool':
-			case 'getarray':
-			case 'getcookie':
-			case 'gettext':
-				$expects = array(
-					\PhpTags\Hooks::TYPE_STRING,
-					\PhpTags\Hooks::TYPE_MIXED,
-					\PhpTags\Hooks::EXPECTS_MINIMUM_PARAMETERS => 1,
-					\PhpTags\Hooks::EXPECTS_MAXIMUM_PARAMETERS => 2,
-				);
-				break;
-			case 'getcheck':
-				$expects = array(
-					\PhpTags\Hooks::TYPE_STRING,
-					\PhpTags\Hooks::EXPECTS_EXACTLY_PARAMETERS => 1,
-				);
-				break;
-			case 'wasposted':
-				$expects = array(
-					\PhpTags\Hooks::EXPECTS_EXACTLY_PARAMETERS => 0,
-				);
-				break;
-		}
-		return parent::checkArguments( $object, $method, $arguments, $expects );
-	}
-
 	/**
 	 * Get a scalar or null if the parameter was not passed
 	 * @global \WebRequest $wgRequest
@@ -104,7 +74,8 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 	}
 
 	/**
-	 * Returns a bool whether the request was posted
+	 * Returns true if the present request was reached by a POST operation
+	 * false otherwise (GET, HEAD, or command-line).
 	 * @global \WebRequest $wgRequest
 	 */
 	public static function s_wasPosted() {
