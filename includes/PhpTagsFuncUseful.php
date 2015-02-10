@@ -1,4 +1,5 @@
 <?php
+namespace PhpTagsObjects;
 
 /**
  *
@@ -8,7 +9,7 @@
  * @author Pavel Astakhov <pastakhov@yandex.ru>
  * @licence GNU General Public Licence 2.0 or later
  */
-class PhpTagsFuncUseful extends PhpTags\GenericFunction {
+class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 
 	public static function getConstantValue( $constantName ) {
 		switch ( $constantName ) {

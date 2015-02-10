@@ -37,8 +37,8 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 
 	public function testRun_date_create_1() {
 		$this->assertEquals(
-				Runtime::runSource('$date = date_create(5); echo $date === false ? "false" : "not false";'),
-				array('false')
+				Runtime::runSource( '$date = date_create(5); echo $date === false ? "false" : "not false";', array('Page') ),
+				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array('date_create', 1, 'string', 'integer'), 1, 'Page' ), "false" )
 			);
 	}
 	public function testRun_DateTime_exception_1() {
@@ -133,7 +133,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo date_format(new DateTime(), "Y-m-d", 5);', array('Page') ),
 				array(
-					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETERS, array('date_format', '2', '3'), 1, 'Page' ),
+					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETER, array('date_format', '2', '3'), 1, 'Page' ),
 					false
 				)
 			);
@@ -142,7 +142,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo date_format(new DateTime());', array('Page') ),
 				array(
-					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETERS, array('date_format', '2', '1'), 1, 'Page' ),
+					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETER, array('date_format', '2', '1'), 1, 'Page' ),
 					false
 				)
 			);
@@ -270,6 +270,19 @@ echo $date->format("Y-m-d");'),
 		$this->assertEquals(
 				Runtime::runSource( 'echo DateTime::ATOM;' ),
 				array( \DateTime::ATOM )
+			);
+	}
+	public function testRun_DateTime_2() {
+		$this->assertEquals(
+				Runtime::runSource( 'echo datetime::ATOM;' ),
+				array( \datetime::ATOM )
+			);
+	}
+	public function testRun_DateTime_3() {
+		$return = Runtime::runSource('$d = new dateTIME(); print_r( $d->getlastERRORS() );');
+		$this->assertEquals(
+				(string) new outPrint( null, print_r( \DateTime::getLastErrors(), true) ),
+				(string) $return[0]
 			);
 	}
 

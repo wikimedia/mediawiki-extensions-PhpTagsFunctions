@@ -28,6 +28,18 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit_Framework_TestCase {
 				array( '5' )
 			);
 	}
+	public function testRun_abs_4() {
+		$this->assertEquals(
+				Runtime::runSource('$f = "abs"; echo $f(-5);'),
+				array( '5' )
+			);
+	}
+	public function testRun_abs_5() {
+		$this->assertEquals(
+				Runtime::runSource('$f = "ABS"; echo $f(-5);'),
+				array( '5' )
+			);
+	}
 
 	public function testRun_acos_1() {
 		$this->assertEquals(

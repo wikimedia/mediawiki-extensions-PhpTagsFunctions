@@ -15,25 +15,7 @@ if ( !defined('MEDIAWIKI') ) {
 	die( 'This file is an extension to MediaWiki and thus not a valid entry point.' );
 }
 
-if ( !defined( 'PHPTAGS_VERSION' ) ) {
-	die( 'ERROR: The <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">extension PhpTags</a> must be installed for the extension PhpTags Functions to run!' );
-}
-
-$needVersion = '3.8.0';
-if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
-	die(
-		'<b>Error:</b> This version of extension PhpTags Functions needs <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">PhpTags</a> ' . $needVersion . ' or later.
-		You are currently using version ' . PHPTAGS_VERSION . '.<br />'
-	);
-}
-
-if ( PHPTAGS_HOOK_RELEASE != 5 ) {
-	die (
-			'<b>Error:</b> This version of extension PhpTags Functions is not compatible to current version of extension PhpTags.'
-	);
-}
-
-const PHPTAGS_FUNCTIONS_VERSION = '3.3.3';
+const PHPTAGS_FUNCTIONS_VERSION = '3.4.0';
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -49,18 +31,35 @@ $wgExtensionCredits['phptags'][] = array(
 $wgMessagesDirs['PhpTagsFunctions'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['PhpTagsFunctions'] =	__DIR__ . '/PhpTagsFunctions.i18n.php';
 
-// Specify the function that will initialize the parser function.
 /**
  * @codeCoverageIgnore
  */
-$wgHooks['PhpTagsRuntimeFirstInit'][] = 'PhpTagsFunctionsInit::initializeRuntime';
+$wgHooks['ParserFirstCallInit'][] = function() {
+	if ( !defined( 'PHPTAGS_VERSION' ) ) {
+	throw new MWException( "\n\nYou need to have the PhpTags extension installed in order to use the PhpTags Functions extension." );
+	}
+	$needVersion = '4.0.0';
+	if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
+		throw new MWException( "\n\nThis version of the PhpTags Functions extension requires the PhpTags extension $needVersion or above.\n You have " . PHPTAGS_VERSION . ". Please update it." );
+	}
+	if ( PHPTAGS_HOOK_RELEASE != 6 ) {
+		throw new MWException( "\n\nThis version of the PhpTags Functions extension is outdated and not compatible with current version of the PhpTags extension.\n Please update it." );
+	}
+	return true;
+};
+
+/**
+ * @codeCoverageIgnore
+ */
+$wgHooks['PhpTagsRuntimeFirstInit'][] = function() {
+	\PhpTags\Hooks::addJsonFile( __DIR__ . '/PhpTagsFunctions.json', PHPTAGS_FUNCTIONS_VERSION );
+};
 
 // Preparing classes for autoloading
-$wgAutoloadClasses['PhpTagsFunctionsInit'] = __DIR__ . '/PhpTagsFunctions.init.php';
-$wgAutoloadClasses['PhpTagsFunc'] = __DIR__ . '/includes/PhpTagsFunc.php';
-$wgAutoloadClasses['PhpTagsFuncRef'] = __DIR__ . '/includes/PhpTagsFuncRef.php';
-$wgAutoloadClasses['PhpTagsFuncUseful'] = __DIR__ . '/includes/PhpTagsFuncUseful.php';
+$wgAutoloadClasses['PhpTagsObjects\\PhpTagsFunc'] = __DIR__ . '/includes/PhpTagsFunc.php';
+$wgAutoloadClasses['PhpTagsObjects\\PhpTagsFuncUseful'] = __DIR__ . '/includes/PhpTagsFuncUseful.php';
 $wgAutoloadClasses['PhpTagsObjects\\PhpTagsFuncNativeObject'] = __DIR__ . '/includes/PhpTagsFuncNativeObject.php';
+$wgAutoloadClasses['PhpTagsObjects\\PhpTagsFuncDatePeriod'] = __DIR__ . '/includes/PhpTagsFuncDatePeriod.php';
 $wgAutoloadClasses['PhpTagsObjects\\PhpTagsWebRequest'] = __DIR__ . '/includes/PhpTagsWebRequest.php';
 
 /**
