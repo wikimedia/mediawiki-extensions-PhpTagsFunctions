@@ -42,11 +42,14 @@ class PhpTagsFuncNativeObject extends PhpTagsFunc {
 				}
 				return $return;
 			case 'p': // get property
-				$return = $this->value->$subname;
-				if ( is_object($return) ) {
-					$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
+				if ( \PhpTags\Hooks::hasProperty( $this->name, $subname ) ) {
+					$return = $this->value->$subname;
+					if ( is_object($return) ) {
+						$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
+					}
+					return $return;
 				}
-				return $return;
+				break;
 			case 'b': // set property
 				$this->value->$subname = $arguments[0];
 				return;
@@ -93,11 +96,14 @@ class PhpTagsFuncNativeObject extends PhpTagsFunc {
 				break;
 			case 'q': // get static property
 				$reflect = new \ReflectionClass( $object );
-				$return = $reflect->getStaticPropertyValue( $subname );
-				if ( is_object($return) ) {
-					$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
-				}
-				return $return;
+				try {
+					$return = $reflect->getStaticPropertyValue( $subname );
+					if ( is_object($return) ) {
+						$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
+					}
+					return $return;
+				} catch ( ReflectionException $e ) {}
+				break;
 			case 'd': // set static property
 				$reflect = new \ReflectionClass( $object );
 				$reflect->setStaticPropertyValue( $subname, $arguments[0] );
