@@ -532,9 +532,9 @@
 			"class": "PhpTagsFunc",
 			"parameters": [
 				{ "type": "array", "name": "array1", "refarray": "true" },
-				{ "type": "not object", "name": "array1_sort_order", "refarray": "1", "default": "SORT_ASC" },
-				{ "type": "not object", "name": "array1_sort_flags", "refarray": "1", "default": "SORT_REGULAR" },
-				{ "type": "not object", "name": "...", "refarray": "1" }
+				{ "type": "nonobject", "name": "array1_sort_order", "refarray": "1", "default": "SORT_ASC" },
+				{ "type": "nonobject", "name": "array1_sort_flags", "refarray": "1", "default": "SORT_REGULAR" },
+				{ "type": "nonobject", "name": "...", "refarray": "1" }
 			],
 			"onfailure": "false",
 			"return": "bool",
@@ -872,9 +872,9 @@
 		"preg_filter": {
 			"class": "PhpTagsFunc",
 			"parameters": [
-				{ "type": "not object", "name": "pattern" },
-				{ "type": "not object", "name": "replacement" },
-				{ "type": "not object", "name": "subject" },
+				{ "type": "nonobject", "name": "pattern" },
+				{ "type": "nonobject", "name": "replacement" },
+				{ "type": "nonobject", "name": "subject" },
 				{ "type": "int", "name": "limit", "default": "-1" },
 				{ "type": "int", "name": "count", "reference": "1", "default": "NULL" }
 			],
@@ -935,9 +935,9 @@
 		"preg_replace": {
 			"class": "PhpTagsFunc",
 			"parameters": [
-				{ "type": "not object", "name": "pattern" },
-				{ "type": "not object", "name": "replacement" },
-				{ "type": "not object", "name": "subject" },
+				{ "type": "nonobject", "name": "pattern" },
+				{ "type": "nonobject", "name": "replacement" },
+				{ "type": "nonobject", "name": "subject" },
 				{ "type": "int", "name": "limit", "default": "-1" },
 				{ "type": "int", "name": "count", "reference": "1", "default": "NULL" }
 			],
@@ -1208,9 +1208,9 @@
 		"max": {
 			"class": "PhpTagsFunc",
 			"parameters": [
-				{ "type": "not object", "name": "value" },
-				{ "type": "not object", "name": "value2", "default": "NULL" },
-				{ "type": "not object", "name": "..." }
+				{ "type": "nonobject", "name": "value" },
+				{ "type": "nonobject", "name": "value2", "default": "NULL" },
+				{ "type": "nonobject", "name": "..." }
 			],
 			"return": "mixed",
 			"desc": "Find highest value"
@@ -1218,9 +1218,9 @@
 		"min": {
 			"class": "PhpTagsFunc",
 			"parameters": [
-				{ "type": "not object", "name": "value" },
-				{ "type": "not object", "name": "value2", "default": "NULL" },
-				{ "type": "not object", "name": "..." }
+				{ "type": "nonobject", "name": "value" },
+				{ "type": "nonobject", "name": "value2", "default": "NULL" },
+				{ "type": "nonobject", "name": "..." }
 			],
 			"return": "mixed",
 			"desc": "Find lowest value"
@@ -1357,7 +1357,7 @@
 		"floatval": {
 			"class": "PhpTagsFunc",
 			"parameters": [
-				{ "type": "not object", "name": "var" }
+				{ "type": "nonobject", "name": "var" }
 			],
 			"return": "float",
 			"desc": "Get float value of a variable"
@@ -1380,7 +1380,7 @@
 		"intval": {
 			"class": "PhpTagsFunc",
 			"parameters": [
-				{ "type": "not object", "name": "var" },
+				{ "type": "nonobject", "name": "var" },
 				{ "type": "int", "name": "base", "default": "10" }
 			],
 			"return": "int",
@@ -1697,7 +1697,7 @@
 		"implode": {
 			"class": "PhpTagsFunc",
 			"parameters": [
-				{ "type": "not object", "name": "glue_or_pieces" },
+				{ "type": "nonobject", "name": "glue_or_pieces" },
 				{ "type": "array", "name": "pieces", "default": "" }
 			],
 			"return": "string",
@@ -1871,8 +1871,8 @@
 			"class": "PhpTagsFunc",
 			"parameters": [
 				{ "type": "string", "name": "format" },
-				{ "type": "not object", "name": "args", "default": "" },
-				{ "type": "not object", "name": "..." }
+				{ "type": "nonobject", "name": "args", "default": "" },
+				{ "type": "nonobject", "name": "..." }
 			],
 			"return": "string",
 			"desc": "Return a formatted string"
@@ -1882,7 +1882,7 @@
 			"parameters": [
 				{ "type": "string", "name": "str" },
 				{ "type": "string", "name": "format" },
-				{ "type": "not object", "name": "..." }
+				{ "type": "nonobject", "name": "..." }
 			],
 			"return": "string",
 			"desc": "Parses input from a string according to a format"
@@ -2133,7 +2133,7 @@
 			"class": "PhpTagsFunc",
 			"parameters": [
 				{ "type": "string", "name": "str" },
-				{ "type": "not object", "name": "from" },
+				{ "type": "nonobject", "name": "from" },
 				{ "type": "string", "name": "to", "default": "" }
 			],
 			"return": "string",
@@ -2165,8 +2165,8 @@
 		"substr_replace": {
 			"class": "PhpTagsFunc",
 			"parameters": [
-				{ "type": "not object", "name": "string" },
-				{ "type": "not object", "name": "replacement" },
+				{ "type": "nonobject", "name": "string" },
+				{ "type": "nonobject", "name": "replacement" },
 				{ "type": "int", "name": "start" },
 				{ "type": "int", "name": "length", "default": "" }
 			],
@@ -2241,7 +2241,7 @@
 			"class": "PhpTagsFunc",
 			"parameters": [
 				{ "type": "string", "name": "str" },
-				{ "type": "not object", "name": "encoding_list", "default": "mb_detect_order()" },
+				{ "type": "nonobject", "name": "encoding_list", "default": "mb_detect_order()" },
 				{ "type": "bool", "name": "strict", "default": "false" }
 			],
 			"return": "string",

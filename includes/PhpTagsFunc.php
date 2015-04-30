@@ -12,11 +12,46 @@ use PhpTags;
  */
 class PhpTagsFunc extends \PhpTags\GenericObject {
 
+	private static $bannedFunctions = array(
+		'compact' => true,
+		'extract' => true,
+		'array_diff_uassoc' => true, // @todo callback
+		'array_diff_ukey' => true, // @todo callback
+		'array_filter' => true, // @todo callback
+		'array_intersect_uassoc' => true, // @todo callback
+		'array_intersect_ukey' => true, // @todo callback
+		'array_map' => true, // @todo callback
+		'array_reduce' => true, // @todo callback
+		'array_udiff_assoc' => true, // @todo callback
+		'array_udiff_uassoc' => true, // @todo callback
+		'array_udiff' => true, // @todo callback
+		'array_uintersect_assoc' => true, // @todo callback
+		'array_uintersect_uassoc' => true, // @todo callback
+		'array_uintersect' => true, // @todo callback
+		'array_walk_recursive' => true, // @todo callback
+		'array_walk' => true, // @todo callback
+		'uasort' => true, // @todo callback
+		'uksort' => true, // @todo callback
+		'usort' => true, // @todo callback
+		'preg_replace_callback' => true, // @todo callback
+		'is_callable' => true, // @todo callback
+		'setlocale' => true, // @todo use virtual locale???
+		'import_request_variables' => true,
+		'unserialize' => true,
+		'fprintf' => true,
+		'eval' => true, // @todo
+		'parse_str' => true,
+	);
+
 	public static function __callStatic( $name, $arguments ) {
 		list ( $callType, $subname ) = explode( '_', $name, 2 );
+		$lowSubname = strtolower( $subname );
 
 		if ( $callType === 'f' ) {
-			if ( $subname === 'array_multisort' ) {
+			if ( isset( self::$bannedFunctions[$lowSubname] ) ) {
+				throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALLFUNCTION_INVALID_HOOK, static::getClassName() );
+			}
+			if ( $lowSubname === 'array_multisort' ) {
 				return self::array_multisort( $arguments );
 			}
 			return call_user_func_array( $subname, $arguments );
@@ -26,25 +61,17 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	public static function array_multisort( $arguments ) {
 		$n = 0;
-		$current = 0;
 
-		foreach ( $arguments as $v ) {
-			$current++;
+		foreach ( $arguments as $k => $v ) {
 			if ( is_array( $v ) ) {
 				$n = 0;
 			} elseif ( is_int( $v ) ) {
 				$n++;
 				if ( $n > 2 ) {
-					return new \PhpTags\PhpTagsException(
-							\PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER,
-							array( 'array_multisort', $current, 'array', gettype( $v ) )
-						);
+					return self::pushExceptionExpectsParameter( $k+1, 'array', $v );
 				}
 			} else {
-				return new \PhpTags\PhpTagsException(
-						\PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER,
-						array( 'array_multisort', $current, 'array or int', gettype( $v ) )
-					);
+				return self::pushExceptionExpectsParameter( $k+1, 'array or int', $v );
 			}
 		}
 
@@ -142,7 +169,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 				$args[0] = self::getValidPattern( $args[0] );
 			}
 		} catch ( \Exception $exc ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'preg_replace', new \PhpTags\HookException( $exc->getCode(), 'preg_replace(): ' . $exc->getMessage() ) );
+			throw new \PhpTags\HookException( $exc->getMessage() );
 		}
 
 		return call_user_func_array( 'preg_replace', $args );
@@ -157,7 +184,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 		$delimPos = strpos( $regexStarts, $pattern[0] );
 		if ( $delimPos === false ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'preg_replace', new \PhpTags\HookException( \PhpTags\HookException::EXCEPTION_WARNING, wfMessage( 'phptagsfunctions-preg-bad-delimiter' )->text() ) );
+			throw new \PhpTags\HookException( wfMessage( 'phptagsfunctions-preg-bad-delimiter' )->text() );
 		}
 
 		$end = $regexEnds[$delimPos];
@@ -166,7 +193,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		while ( !isset( $endPos ) ) {
 			$pos = strpos( $pattern, $end, $pos );
 			if ( $pos === false ) {
-				return \PhpTags\Hooks::getReturnsOnFailure( 'preg_replace', new \PhpTags\HookException( \PhpTags\HookException::EXCEPTION_WARNING, wfMessage( 'phptagsfunctions-preg-no-ending-delimiter', $end )->text() ) );
+				throw new \PhpTags\HookException( wfMessage( 'phptagsfunctions-preg-no-ending-delimiter', $end )->text() );
 			}
 			$backslashes = 0;
 			for ( $l = $pos - 1; $l >= 0; $l-- ) {
@@ -186,7 +213,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		$len = strlen( $endRegex );
 		for ( $c = 0; $c < $len; $c++ ) {
 			if ( strpos( $regexModifiers, $endRegex[$c] ) === false ) {
-				return \PhpTags\Hooks::getReturnsOnFailure( 'preg_replace', new \PhpTags\HookException( \PhpTags\HookException::EXCEPTION_WARNING, wfMessage( 'phptagsfunctions-preg-unknown-modifier', $endRegex[$c] )->text() ) );
+				throw new \PhpTags\HookException( wfMessage( 'phptagsfunctions-preg-unknown-modifier', $endRegex[$c] )->text() );
 			}
 		}
 		return $startRegex . $endRegex;
@@ -194,13 +221,13 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	public static function f_settype ( &$var, $type ) {
 		if ( false === in_array( $type, array( 'boolean', 'bool', 'integer', 'int', 'float', 'double', 'string', 'array', 'object', 'null' ) ) ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'settype', new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_INVALID_TYPE, 'settype()') );
+			throw new \PhpTags\HookException( 'Invalid type' );
 		}
 		if ( $var instanceof \PhpTags\GenericObject ) {
 			if ( $type === 'object' ) {
 				return true;
 			}
-			return \PhpTags\Hooks::getReturnsOnFailure( 'settype', new \PhpTags\HookException( \PhpTags\HookException::EXCEPTION_NOTICE, "object  {$var->getName()} could not be converted to $type" ) );
+			throw new \PhpTags\HookException( "object  {$var->getName()} could not be converted to $type", \PhpTags\HookException::EXCEPTION_NOTICE );
 		}
 		return settype( $var, $type );
 	}
@@ -208,7 +235,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	public static function f_max () {
 		$values = func_get_args();
 		if ( func_num_args() === 1 && false === is_array( $values[0] ) ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'max', new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array( 'max', 1, 'array', gettype( $values[0] ) ) ) );
+			return self::pushExceptionExpectsParameter( 1, 'array', $values[0] );
 		}
 		return call_user_func_array( 'max', $values );
 	}
@@ -216,7 +243,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	public static function f_min () {
 		$values = func_get_args();
 		if ( func_num_args() === 1 && false === is_array( $values[0] ) ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'min', new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array( 'min', 1, 'array', gettype( $values[0] ) ) ) );
+			return self::pushExceptionExpectsParameter( 1, 'array', $values[0] );
 		}
 		return call_user_func_array( 'min', $values );
 	}
@@ -226,10 +253,10 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 		if ( func_num_args() === 1 ) {
 			if ( false === is_array( $values[0] ) ) {
-				return \PhpTags\Hooks::getReturnsOnFailure( 'implode', new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array( 'implode', 1, 'array', gettype( $values[0] ) ) ) );
+				return self::pushExceptionExpectsParameter( 1, 'array', $values[0] );
 			}
 		} elseif ( false === is_string( $values[0] ) ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'implode', new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array( 'implode', 1, 'string', gettype( $values[0] ) ) ) );
+			return self::pushExceptionExpectsParameter( 1, 'string', $values[0] );
 		}
 
 		return call_user_func_array( 'implode', $values );
@@ -318,8 +345,8 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 			case 5:
 				return call_user_func_array( 'levenshtein', func_get_args() );
 		}
-
-		return \PhpTags\Hooks::getReturnsOnFailure( 'levenshtein', new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETER, array( 'levenshtein', '2 or 5', $argCount ) ) );
+		\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETER, array('2 or 5', $argCount) ) );
+		return \PhpTags\Hooks::getCallInfo( \PhpTags\Hooks::INFO_RETURNS_ON_FAILURE );
 	}
 
 	public static function f_strtr( $str, $from, $to = null ) {
@@ -328,18 +355,18 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 				if ( is_array( $from ) ) {
 					return strtr( $str, $from );
 				}
-				return \PhpTags\Hooks::getReturnsOnFailure( 'strtr', new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array( 'strtr', 2, 'array', gettype( $from ) ) ) );
+				return self::pushExceptionExpectsParameter( 2, 'array', $from );
 			case 3:
 				if ( false === is_array( $from ) ) {
 					return strtr( $str, (string)$from, $to );
 				}
-				return \PhpTags\Hooks::getReturnsOnFailure( 'strtr', new \PhpTags\PhpTagsException(	\PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array( 'strtr', 2, 'string', gettype( $from ) ) ) );
+				return self::pushExceptionExpectsParameter( 2, 'string', $from );
 		}
 	}
 
 	public static function f_array_chunk( $array , $size, $preserve_keys = false ) {
 		if ( $size < 1 ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'strtr', new \PhpTags\HookException( \PhpTags\HookException::EXCEPTION_WARNING, 'array_chunk(): Size parameter expected to be greater than 0' ) );
+			throw new \PhpTags\HookException( 'Size parameter expected to be greater than 0' );
 		}
 		return array_chunk( $array, $size, $preserve_keys );
 	}
@@ -347,7 +374,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	public static function f_array_combine( $keys, $values ) {
 		$k = count( $keys );
 		if ( $k !== count( $values ) ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'strtr', new \PhpTags\HookException( \PhpTags\HookException::EXCEPTION_WARNING, 'array_combine(): Both parameters should have an equal number of elements' ) );
+			throw new \PhpTags\HookException( 'Both parameters should have an equal number of elements' );
 		}
 		if ( $k === 0 ) { // @todo this is only for compatibility with PHP < 5.4.0
 			return array();
@@ -363,10 +390,10 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return array_map(
 				function( $key ) {
 					if ( is_array( $key ) ) {
-						\PhpTags\Runtime::pushException( new PhpTags\PhpTagsException( PhpTags\PhpTagsException::NOTICE_ARRAY_TO_STRING ) );
+						\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( PhpTags\PhpTagsException::NOTICE_ARRAY_TO_STRING ) );
 						return 'Array';
 					} elseif ( $key instanceof \PhpTags\GenericObject ) {
-						throw new PhpTags\PhpTagsException( PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, array($key->getName(), 'string') );
+						throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, array($key->getName(), 'string') );
 					}
 					return $key;
 				},
@@ -386,7 +413,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return array_filter(
 				$array,
 				function ( $value ) {
-					return is_string($value) || is_int($value) || \PhpTags\Runtime::pushException( new PhpTags\HookException( PhpTags\HookException::EXCEPTION_WARNING, 'array_count_values(): Can only count STRING and INTEGER values!' ) );
+					return is_string($value) || is_int($value) || \PhpTags\Runtime::pushException( new PhpTags\HookException( 'Can only count STRING and INTEGER values!' ) );
 
 				}
 			);
@@ -394,137 +421,23 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	public static function f_array_fill( $start_index , $num , $value ) {
 		if ( $num < 1 ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'array_fill', new \PhpTags\HookException( \PhpTags\HookException::EXCEPTION_WARNING, 'array_fill(): Number of elements must be positive' ) );
+			throw new \PhpTags\HookException( 'Number of elements must be positive' );
 		}
 		return array_fill( $start_index , $num , $value );
 	}
 
 	public static function f_array_rand( $array, $num = 1 ) {
 		if ( $num < 1 || $num > count($array) ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'array_rand', new \PhpTags\HookException( \PhpTags\HookException::EXCEPTION_WARNING, 'array_rand(): Second argument has to be between 1 and the number of elements in the array' ) );
+			throw new \PhpTags\HookException( 'Second argument has to be between 1 and the number of elements in the array' );
 		}
 		return array_rand( $array, $num );
 	}
 
 	public static function f_range( $start, $end, $step = 1 ) {
 		if ( is_numeric($start) && is_numeric($end) && abs( $step ) > abs( $start - $end ) ) {
-			return \PhpTags\Hooks::getReturnsOnFailure( 'range', new \PhpTags\HookException( \PhpTags\HookException::EXCEPTION_WARNING, 'range(): step exceeds the specified range' ) );
+			throw new \PhpTags\HookException( 'step exceeds the specified range' );
 		}
 		return range( $start, $end, $step );
 	}
-
-	public static function f_compact() {
-		return parent::f_compact(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_extract() {
-		return parent::f_extract(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_diff_uassoc() { // @todo callback
-		return parent::f_array_diff_uassoc(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_diff_ukey() { // @todo callback
-		return parent::f_array_diff_ukey(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_filter() { // @todo callback
-		return parent::f_array_filter(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_intersect_uassoc() { // @todo callback
-		return parent::f_array_intersect_uassoc(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_intersect_ukey() { // @todo callback
-		return parent::f_array_intersect_ukey(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_map() { // @todo callback
-		return parent::f_array_map(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_reduce() { // @todo callback
-		return parent::f_array_reduce(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_udiff_assoc() { // @todo callback
-		return parent::f_array_udiff_assoc(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_udiff_uassoc() { // @todo callback
-		return parent::f_array_udiff_uassoc(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_udiff() { // @todo callback
-		return parent::f_array_udiff(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_uintersect_assoc() { // @todo callback
-		return parent::f_array_uintersect_assoc(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_uintersect_uassoc() { // @todo callback
-		return parent::f_array_uintersect_uassoc(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_uintersect() { // @todo callback
-		return parent::f_array_uintersect(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_walk_recursive() { // @todo callback
-		return parent::f_array_walk_recursive(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_array_walk() { // @todo callback
-		return parent::f_array_walk(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_uasort() { // @todo callback
-		return parent::f_uasort(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_uksort() { // @todo callback
-		return parent::f_uksort(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_usort() { // @todo callback
-		return parent::f_usort(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_preg_replace_callback() { // @todo callback
-		return parent::f_preg_replace_callback(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_is_callable() { // @todo callback
-		return parent::f_is_callable(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_setlocale() { // @todo use virtual locale???
-		return parent::f_setlocale(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_import_request_variables() {
-		return parent::f_import_request_variables(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_unserialize() {
-		return parent::f_unserialize(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_fprintf() {
-		return parent::f_fprintf(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_eval() {
-		return parent::f_eval(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	public static function f_parse_str() {
-		return parent::f_parse_str(); // Error message: WARNING_CALLFUNCTION_INVALID_HOOK
-	}
-
-	// @todo localeconv
 
 }

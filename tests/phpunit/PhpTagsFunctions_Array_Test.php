@@ -65,7 +65,7 @@ class PhpTagsFunctions_Array_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_array_combine_exception_1() {
 		$return = Runtime::runSource('$a = array(); $b = array("avocado", "apple", "banana"); $c = array_combine($a, $b); print_r($c);', array('Test') );
 		$this->assertEquals(
-				(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_combine(): Both parameters should have an equal number of elements', HookException::EXCEPTION_WARNING), 1, 'Test' ),
+				'<span class="error">PhpTags Warning:  array_combine(): Both parameters should have an equal number of elements in Test on line 1</span><br />',
 				(string) $return[0]
 			);
 	}
@@ -101,8 +101,8 @@ class PhpTagsFunctions_Array_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_array_count_values_exception_1() {
 		$this->assertEquals(
 				array(
-					(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_count_values(): Can only count STRING and INTEGER values!', HookException::EXCEPTION_WARNING), 1, 'Test' ),
-					(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_count_values(): Can only count STRING and INTEGER values!', HookException::EXCEPTION_WARNING), 1, 'Test' ),
+					'<span class="error">PhpTags Warning:  array_count_values(): Can only count STRING and INTEGER values! in Test on line 1</span><br />',
+					'<span class="error">PhpTags Warning:  array_count_values(): Can only count STRING and INTEGER values! in Test on line 1</span><br />',
 					(string) new outPrint( null, print_r(array(6=>3, 7=>1), true) ),
 				),
 				Runtime::runSource('$f = array_count_values( array(6,6,6,7, new Datetime(), new DateTime()) ); print_r( $f );', array('Test') )
@@ -193,7 +193,7 @@ print_r($a);');
 $a = array_FILL(5, -3, "banana");
 print_r($a);', array('Test') );
 		$this->assertEquals(
-				(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_fill(): Number of elements must be positive', HookException::EXCEPTION_WARNING), 2, 'Test' ),
+				'<span class="error">PhpTags Warning:  array_fill(): Number of elements must be positive in Test on line 2</span><br />',
 				(string) $return[0]
 			);
 	}
@@ -214,7 +214,7 @@ $trans = array("a" => 1, "b" => array(), "c" => 2);
 $trans = array_flip($trans);
 print_r($trans);', array('Test') );
 		$this->assertEquals(
-				(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_count_values(): Can only count STRING and INTEGER values!', HookException::EXCEPTION_WARNING), 3, 'Test' ),
+				'<span class="error">PhpTags Warning:  array_flip(): Can only count STRING and INTEGER values! in Test on line 3</span><br />',
 				(string) $return[0]
 			);
 		$this->assertEquals(
@@ -487,7 +487,7 @@ echo $input[$rand_keys[1]] . "\n";');
 $input = array("Neo", "Morpheus", "Trinity", "Cypher", "Tank");
 $rand_keys = array_rand($input, 20);', array('Test') );
 		$this->assertEquals(
-				(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_rand(): Second argument has to be between 1 and the number of elements in the array', HookException::EXCEPTION_WARNING), 3, 'Test' ),
+				'<span class="error">PhpTags Warning:  array_rand(): Second argument has to be between 1 and the number of elements in the array in Test on line 3</span><br />',
 				(string) $return[0]
 			);
 	}
@@ -954,7 +954,7 @@ print_r( $array2 );');
 	public function testRun_range_4() {
 		$return = Runtime::runSource( 'print_r( range(0, 30, 100) );', array('Test') );
 		$this->assertEquals(
-				(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('range(): step exceeds the specified range', HookException::EXCEPTION_WARNING), 1, 'Test' ),
+				'<span class="error">PhpTags Warning:  range(): step exceeds the specified range in Test on line 1</span><br />',
 				(string) $return[0]
 			);
 	}
@@ -1039,7 +1039,7 @@ print_r( $fruits );');
 	public function testRun_echo_array_chunk_exception_1() {
 		$this->assertEquals(
 				array(
-					(string) new PhpTagsException( PhpTagsException::EXCEPTION_FROM_HOOK, array('array_chunk(): Size parameter expected to be greater than 0', HookException::EXCEPTION_WARNING), 1, 'Test' ),
+					'<span class="error">PhpTags Warning:  array_chunk(): Size parameter expected to be greater than 0 in Test on line 1</span><br />',
 					new outPrint( true, print_r( null, true ) ),
 				),
 				Runtime::runSource( '$input_array = array("a", "b", "c", "d", "e"); print_r( array_chunk($input_array, 0) );', array('Test') )
@@ -1056,7 +1056,7 @@ print_r( $fruits );');
 	public function testRun_echo_array_chunk_exception_3() {
 		$this->assertEquals(
 				array(
-					(string) new PhpTagsException( PhpTagsException::WARNING_EXPECTS_PARAMETER, array('array_chunk', 1, 'array', 'NULL'), 1, 'Test' ),
+					'<span class="error">PhpTags Warning:  array_chunk() expects parameter 1 to be array, NULL given in Test on line 1</span><br />',
 					new outPrint( true, print_r( null, true ) ),
 				),
 				Runtime::runSource( 'print_r( array_chunk( @ $itIsUndefined, 2 ) );', array('Test') )

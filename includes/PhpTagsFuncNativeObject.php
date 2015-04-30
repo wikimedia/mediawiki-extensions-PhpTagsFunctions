@@ -16,7 +16,7 @@ class PhpTagsFuncNativeObject extends PhpTagsFunc {
 			}
 		}
 
-		$reclass = new \ReflectionClass( $this->name );
+		$reclass = new \ReflectionClass( $this->objectName );
 		$object = $reclass->newInstanceArgs( $arguments );
 		if ( is_object($object) ) {
 			$this->value = $object;
@@ -42,7 +42,7 @@ class PhpTagsFuncNativeObject extends PhpTagsFunc {
 				}
 				return $return;
 			case 'p': // get property
-				if ( \PhpTags\Hooks::hasProperty( $this->name, $subname ) ) {
+				if ( \PhpTags\Hooks::hasProperty( $this->objectKey, $subname ) ) {
 					$return = $this->value->$subname;
 					if ( is_object($return) ) {
 						$return = \PhpTags\Hooks::getObjectWithValue( get_class($return), $return );
@@ -59,7 +59,7 @@ class PhpTagsFuncNativeObject extends PhpTagsFunc {
 
 	public static function __callStatic( $name, $arguments ) {
 		list ( $callType, $subname ) = explode( '_', $name, 2 );
-		$object = \PhpTags\Hooks::$objectName;
+		$object = \PhpTags\Hooks::getCallInfo( \PhpTags\Hooks::INFO_ORIGINAL_OBJECT_NAME );
 
 		switch ( $callType ) {
 			case 'f': // function

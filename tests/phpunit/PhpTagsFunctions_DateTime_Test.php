@@ -38,13 +38,13 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_date_create_1() {
 		$this->assertEquals(
 				Runtime::runSource( '$date = date_create(5); echo $date === false ? "false" : "not false";', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array('date_create', 1, 'string', 'integer'), 1, 'Page' ), "false" )
+				array( '<span class="error">PhpTags Warning:  date_create() expects parameter 1 to be string, integer given in Page on line 1</span><br />', 'false' )
 			);
 	}
 	public function testRun_DateTime_exception_1() {
 		$this->assertEquals(
 				Runtime::runSource('$date = DateTime(5);', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALL_TO_UNDEFINED_FUNCTION, 'DateTime', 1, 'Page' ) )
+				array( '<span class="error">PhpTags Fatal error:  Call to undefined function DateTime() in Page on line 1</span><br />' )
 			);
 	}
 	public function testRun_DateTime_exception_2() {
@@ -60,13 +60,13 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_DateTime_exception_4() {
 		$this->assertEquals(
 				Runtime::runSource('$date = new DateTime(); $date->undefined();', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALL_TO_UNDEFINED_METHOD, array('DateTime', 'undefined'), 1, 'Page' ) )
+				array( '<span class="error">PhpTags Fatal error:  Call to undefined method DateTime->undefined() in Page on line 1</span><br />' )
 			);
 	}
 	public function testRun_DateTime_exception_5() {
 		$this->assertEquals(
 				Runtime::runSource('$date = date_create_undefined();', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALL_TO_UNDEFINED_FUNCTION, 'date_create_undefined', 1, 'Page' ) )
+				array( '<span class="error">PhpTags Fatal error:  Call to undefined function date_create_undefined() in Page on line 1</span><br />' )
 			);
 	}
 	public function testRun_DateTime_exception_6() {
@@ -115,7 +115,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo date_format(5, "Y-m-d");', array('Page') ),
 				array(
-					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array('date_format', '1', 'DateTime', 'integer'), 1, 'Page' ),
+					'<span class="error">PhpTags Warning:  date_format() expects parameter 1 to be DateTime, integer given in Page on line 1</span><br />',
 					false
 				)
 			);
@@ -124,7 +124,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo date_format( new DateTime(), new DateTime() );', array('Page') ),
 				array(
-					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array('date_format', '2', 'string', 'object'), 1, 'Page' ),
+					'<span class="error">PhpTags Warning:  date_format() expects parameter 2 to be string, DateTime given in Page on line 1</span><br />',
 					false
 				)
 			);
@@ -133,7 +133,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo date_format(new DateTime(), "Y-m-d", 5);', array('Page') ),
 				array(
-					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETER, array('date_format', '2', '3'), 1, 'Page' ),
+					'<span class="error">PhpTags Warning:  date_format() expects exactly 2 parameter, 3 given in Page on line 1</span><br />',
 					false
 				)
 			);
@@ -142,7 +142,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 				Runtime::runSource('echo date_format(new DateTime());', array('Page') ),
 				array(
-					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETER, array('date_format', '2', '1'), 1, 'Page' ),
+					'<span class="error">PhpTags Warning:  date_format() expects exactly 2 parameter, 1 given in Page on line 1</span><br />',
 					false
 				)
 			);
@@ -150,7 +150,7 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_DateTime_exception_16() {
 		$this->assertEquals(
 				Runtime::runSource('echo DateTime::format("Y-m-d");', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_NONSTATIC_CALLED_STATICALLY, array('DateTime', 'format'), 1, 'Page' ) )
+				array( '<span class="error">PhpTags Fatal error:  Non-static method DateTime::format() cannot be called statically in Page on line 1</span><br />' )
 			);
 	}
 	public function testRun_DateTime_exception_17() {
@@ -162,7 +162,19 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_DateTime_exception_18() {
 		$this->assertEquals(
 				Runtime::runSource('$foo = "DateTime"; echo $foo->format("Y-m-d");', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALL_FUNCTION_ON_NON_OBJECT, 'format', 1, 'Page' ) )
+				array( '<span class="error">PhpTags Fatal error:  Call to a member function format() on a non-object in Page on line 1</span><br />' )
+			);
+	}
+	public function testRun_DateTime_exception_19() {
+		$this->assertEquals(
+				Runtime::runSource('$date = new DateTime(); $date::undefined();', array('Page') ),
+				array( '<span class="error">PhpTags Fatal error:  Call to undefined method DateTime::undefined() in Page on line 1</span><br />' )
+			);
+	}
+	public function testRun_DateTime_exception_20() {
+		$this->assertEquals(
+				Runtime::runSource('DateTime::undefined();', array('Page') ),
+				array( '<span class="error">PhpTags Fatal error:  Call to undefined method DateTime::undefined() in Page on line 1</span><br />' )
 			);
 	}
 
@@ -212,7 +224,7 @@ echo $i->y;
 echo $i->yyyyyy;', array('Page') ),
 				array(
 					2,
-					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_UNDEFINED_PROPERTY, array('DateInterval', 'yyyyyy'), 4, 'Page' ),
+					'<span class="error">PhpTags Notice:  Undefined property: DateInterval->yyyyyy in Page on line 4</span><br />',
 					null,
 				)
 			);
@@ -263,7 +275,7 @@ echo $date->format("Y-m-d");'),
 	public function testRun_DatePeriod_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo DatePeriod::UNDEFINED;', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_UNDEFINED_CLASS_CONSTANT, array('DatePeriod', 'UNDEFINED'), 1, 'Page' ), null )
+				array( '<span class="error">PhpTags Notice:  Undefined class constant: DatePeriod::UNDEFINED in Page on line 1</span><br />', null )
 			);
 	}
 	public function testRun_DateTime_1() {

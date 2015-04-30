@@ -1,7 +1,7 @@
 <?php
 namespace PhpTags;
 
-class PhpTagsFunctions_String_Test /*extends \PHPUnit_Framework_TestCase*/ {
+class PhpTagsFunctions_String_Test extends \PHPUnit_Framework_TestCase {
 
 	public function testRun_constant_1() {
 		$this->assertEquals(
@@ -12,14 +12,14 @@ class PhpTagsFunctions_String_Test /*extends \PHPUnit_Framework_TestCase*/ {
 
 	public function testRun_printf_exception_1() {
 		$this->assertEquals(
-				Runtime::runSource('sprintf();', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_AT_LEAST_PARAMETER, array('sprintf', 1, 0), 1, 'Page' ) )
+				Runtime::runSource('spRintf();', array('Page') ),
+				array( '<span class="error">PhpTags Warning:  sprintf() expects at least 1 parameter, 0 given in Page on line 1</span><br />' )
 			);
 	}
 	public function testRun_printf_exception_2() {
 		$this->assertEquals(
 				Runtime::runSource('sprintf("%d обезьян сидят на %s", new DateTime(), "дереве");', array('Page') ),
-				array( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateTime', 'int'), 1, 'Page' ) )
+				array( '<span class="error">PhpTags Warning:  sprintf() expects parameter 2 to be not object, DateTime given in Page on line 1</span><br />' )
 			);
 	}
 
