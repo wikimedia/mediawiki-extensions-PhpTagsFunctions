@@ -41,4 +41,25 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 	public static function f_mw_json_encode( $value ) {
 		return \FormatJson::encode( $value, false, \FormatJson::UTF8_OK );
 	}
+
+	public static function f_get_arg( $index, $default = null ) {
+		$args = self::f_get_args();
+		if ( isset( $args[$index] ) || key_exists( $index, $args )) {
+			return $args[$index];
+		}
+		return $default;
+	}
+
+	public static function f_get_args() {
+		$variables = \PhpTags\Runtime::getVariables();
+		$argv = $variables['argv'];
+		array_shift( $argv );
+		return $argv;
+	}
+
+	public static function f_num_args() {
+		$variables = \PhpTags\Runtime::getVariables();
+		return $variables['argc'] - 1;
+	}
+
 }

@@ -2931,6 +2931,29 @@
 			"onfailure": "false",
 			"return": "string",
 			"desc": "Returns the JSON representation of a value"
+		},
+		"get_arg": {
+			"class": "PhpTagsFuncUseful",
+			"parameters": [
+				{ "type": "nonobject", "name": "index" },
+				{ "type": "mixed", "name": "default", "default": "NULL" }
+			],
+			"return": "mixed",
+			"desc": "Return an item from the argument list"
+		},
+		"get_args": {
+			"class": "PhpTagsFuncUseful",
+			"parameters": [],
+			"onfailure": "false",
+			"return": "array",
+			"desc": "Returns an array comprising a template's argument list"
+		},
+		"num_args": {
+			"class": "PhpTagsFuncUseful",
+			"parameters": [],
+			"onfailure": "false",
+			"return": "int",
+			"desc": "Returns the number of arguments passed to the template"
 		}
 	},
 	"constants": {
