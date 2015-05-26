@@ -33,7 +33,7 @@ class PhpTagsFunctions_Useful_Test extends \PHPUnit_Framework_TestCase {
 
 	public function testRun_get_args_1() {
 		$this->assertEquals(
-				Runtime::runSource( '$tmp = get_args(); echo $tmp[0], $tmp["foo"];', array( 'TestPage', 'one', 'foo'=>'bar' ) ),
+				Runtime::runSource( '$tmp = get_args(); echo $tmp[1], $tmp["foo"];', array( 'TestPage', 'one', 'foo'=>'bar' ) ),
 				array('one', 'bar')
 				);
 	}
@@ -45,7 +45,7 @@ class PhpTagsFunctions_Useful_Test extends \PHPUnit_Framework_TestCase {
 	}
 	public function testRun_get_arg_1() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo get_arg( 0 ), get_arg( "foo" ), get_arg( "bar", "not defined" );', array( 'TestPage', 'one', 'foo'=>'bar' ) ),
+				Runtime::runSource( 'echo get_arg( 1 ), get_arg( "foo" ), get_arg( "bar", "not defined" );', array( 'TestPage', 'one', 'foo'=>'bar' ) ),
 				array('one', 'bar', 'not defined')
 				);
 	}

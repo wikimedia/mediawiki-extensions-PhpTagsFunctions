@@ -2954,6 +2954,16 @@
 			"onfailure": "false",
 			"return": "int",
 			"desc": "Returns the number of arguments passed to the template"
+		},
+		"transclude": {
+			"class": "PhpTagsFuncUseful",
+			"parameters": [
+				{ "type": "mixed", "name": "title" },
+				{ "type": "array", "name": "parameters", "default": "array()" }
+			],
+			"onfailure": "false",
+			"return": "string",
+			"desc": "Returns text of a template after parse"
 		}
 	},
 	"constants": {

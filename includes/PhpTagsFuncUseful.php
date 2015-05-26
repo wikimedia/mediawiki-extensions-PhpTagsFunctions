@@ -53,13 +53,58 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 	public static function f_get_args() {
 		$variables = \PhpTags\Runtime::getVariables();
 		$argv = $variables['argv'];
-		array_shift( $argv );
+		unset( $argv[0] );
 		return $argv;
 	}
 
 	public static function f_num_args() {
 		$variables = \PhpTags\Runtime::getVariables();
 		return $variables['argc'] - 1;
+	}
+
+	public static function f_transclude( $template, $parameters = array() ) {
+		$parser = \PhpTags\Renderer::getParser();
+		$frame = \PhpTags\Renderer::getFrame();
+		if ( $frame->depth >= $parser->mOptions->getMaxTemplateDepth() ) {
+			throw new \PhpTags\HookException( 'Template depth limit exceeded' );
+		}
+
+		if ( $template instanceof \PhpTags\GenericObject ) {
+			$title = $template->value;
+			if ( false === $title instanceof \Title ) {
+				if ( $template->getName() !== 'WTitle' ) {
+					throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, array($template->getName(), 'WTitle') );
+				}
+				throw new \PhpTags\HookException( 'Wrong WTitle object', \PhpTags\HookException::EXCEPTION_FATAL );
+			}
+		} elseif ( is_string( $template  ) ) {
+			$title = \Title::newFromText( $template, NS_TEMPLATE );
+		} else {
+			throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array(1, 'string or WTitle', gettype($template))	);
+		}
+
+		if ( \MWNamespace::isNonincludable( $title->getNamespace() ) ) {
+			throw new \PhpTags\HookException( 'Template inclusion denied' );
+		}
+		list( $dom, $finalTitle ) = $parser->getTemplateDom( $title );
+		if ( $dom === false ) {
+			throw new \PhpTags\HookException( "Template \"{$title->getPrefixedText()}\" does not exist" );
+		}
+		if ( !$frame->loopCheck( $finalTitle ) ) {
+			throw new \PhpTags\HookException( 'Template loop detected' );
+		}
+
+		foreach ( $parameters as $key => $value ) {
+			if ( is_scalar( $value ) ) {
+				$parameters[$key] = (string)$value;
+				continue;
+			}
+			throw new \PhpTags\HookException( 'Expects parameter 2 to be array that contains only string values' );
+		}
+
+		$fargs = $parser->getPreprocessor()->newPartNodeArray( $parameters );
+		$newFrame = $frame->newChild( $fargs, $finalTitle, -1 );
+		return $newFrame->expand( $dom );
 	}
 
 }
