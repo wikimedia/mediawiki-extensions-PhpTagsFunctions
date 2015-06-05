@@ -324,7 +324,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_lcg_value_1() {
 		$return = Runtime::runSource('echo lcg_value();');
 		$this->assertRegExp(
-				'/0\.\d+/',
+				'/\d\.\d+(E\-\d)?/',
 				(string) $return[0]
 			);
 	}
