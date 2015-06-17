@@ -62,7 +62,7 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 		return $variables['argc'] - 1;
 	}
 
-	public static function f_transclude( $template, $parameters = array() ) {
+	public static function f_transclude( $template, $parameters = array(), $default = null ) {
 		$parser = \PhpTags\Renderer::getParser();
 		$frame = \PhpTags\Renderer::getFrame();
 		if ( $frame->depth >= $parser->mOptions->getMaxTemplateDepth() ) {
@@ -88,6 +88,9 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 		}
 		list( $dom, $finalTitle ) = $parser->getTemplateDom( $title );
 		if ( $dom === false ) {
+			if ( $default !== null ) {
+				return $default;
+			}
 			throw new \PhpTags\HookException( "Template \"{$title->getPrefixedText()}\" does not exist" );
 		}
 		if ( !$frame->loopCheck( $finalTitle ) ) {

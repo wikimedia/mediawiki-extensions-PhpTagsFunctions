@@ -2959,11 +2959,12 @@
 			"class": "PhpTagsFuncUseful",
 			"parameters": [
 				{ "type": "mixed", "name": "title" },
-				{ "type": "array", "name": "parameters", "default": "array()" }
+				{ "type": "array", "name": "parameters", "default": "array()" },
+				{ "type": "mixed", "name": "default", "default": "null" }
 			],
 			"onfailure": "false",
 			"return": "string",
-			"desc": "Returns text of a template after parse"
+			"desc": "Returns text of a template after parse, or $default if the template doesn't exist and $default is not null"
 		}
 	},
 	"constants": {
