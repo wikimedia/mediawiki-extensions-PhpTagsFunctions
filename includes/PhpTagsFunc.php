@@ -45,13 +45,12 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	public static function __callStatic( $name, $arguments ) {
 		list ( $callType, $subname ) = explode( '_', $name, 2 );
-		$lowSubname = strtolower( $subname );
 
 		if ( $callType === 'f' ) {
-			if ( isset( self::$bannedFunctions[$lowSubname] ) ) {
-				throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALLFUNCTION_INVALID_HOOK, static::getClassName() );
+			if ( isset( self::$bannedFunctions[$subname] ) ) {
+				throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALLFUNCTION_INVALID_HOOK, get_called_class() );
 			}
-			if ( $lowSubname === 'array_multisort' ) {
+			if ( $subname === 'array_multisort' ) {
 				return self::array_multisort( $arguments );
 			}
 			return call_user_func_array( $subname, $arguments );

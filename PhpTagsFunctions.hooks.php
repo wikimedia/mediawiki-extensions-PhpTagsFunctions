@@ -19,7 +19,7 @@ class PhpTagsFunctionsHooks {
 		if ( !defined( 'PHPTAGS_VERSION' ) ) {
 			throw new MWException( "\n\nYou need to have the PhpTags extension installed in order to use the PhpTags Functions extension." );
 		}
-		$needVersion = '5.1.0';
+		$needVersion = '5.2.0';
 		if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
 			throw new MWException( "\n\nThis version of the PhpTags Functions extension requires the PhpTags extension $needVersion or above.\n You have " . PHPTAGS_VERSION . ". Please update it." );
 		}
@@ -34,7 +34,7 @@ class PhpTagsFunctionsHooks {
 	 * @return boolean
 	 */
 	public static function onPhpTagsRuntimeFirstInit() {
-		\PhpTags\Hooks::addJsonFile( __DIR__ . '/PhpTagsFunctions.json', PHPTAGS_FUNCTIONS_VERSION );
+		\PhpTags\Hooks::addJsonFile( __DIR__ . '/PhpTagsFunctions.json', PHPTAGS_FUNCTIONS_VERSION . PHP_VERSION );
 		return true;
 	}
 
