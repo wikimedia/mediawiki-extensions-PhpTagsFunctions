@@ -15,7 +15,7 @@ if ( !defined('MEDIAWIKI') ) {
 	die( 'This file is an extension to MediaWiki and thus not a valid entry point.' );
 }
 
-const PHPTAGS_FUNCTIONS_VERSION = '3.5.3';
+const PHPTAGS_FUNCTIONS_VERSION = '3.6.0';
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(

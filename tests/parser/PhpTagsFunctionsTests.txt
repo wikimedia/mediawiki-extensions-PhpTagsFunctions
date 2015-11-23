@@ -44,12 +44,45 @@ Transclude Echo
 <phptag>
 echo "Hello\n\n";
 $foo = transclude( "Echo", ['1', '22', '333', '4444'] );
-echo $foo;
+echo "\n\n$foo";
 echo "\n\nBye";
 </phptag>
 !! result
 <p>Hello
 </p><p>1223334444
+</p><p>1
+</p><p>Bye
+</p>
+!! end
+
+!! test
+Transclude Echo2
+!! input
+<phptag>
+echo "Hello\n\n";
+$foo = transclude( "Echo", ['1', '22', '333', '4444'], null, true );
+echo "\n\nBye";
+echo "\n\n$foo";
+</phptag>
+!! result
+<p>Hello
+</p><p><br />
+</p><p>Bye
+</p><p>1223334444
+</p>
+!! end
+
+!! test
+Transclude Echo3
+!! input
+<phptag>
+echo "Hello\n\n";
+transclude( "Echo", ['1', '22', '333', '4444'], null, true );
+echo "\n\nBye";
+</phptag>
+!! result
+<p>Hello
+</p><p><br />
 </p><p>Bye
 </p>
 !! end
@@ -59,8 +92,7 @@ Transclude Dump
 !! input
 <phptag>
 echo "Hello\n\n";
-$foo = transclude( "Dump", ['1', '22', '333', '4444', 'test'=>'TEST'] );
-echo $foo;
+transclude( "Dump", ['1', '22', '333', '4444', 'test'=>'TEST'] );
 echo "\n\nBye";
 </phptag>
 !! result
@@ -83,8 +115,7 @@ Transclude Loop
 !! text
 <phptag>
 echo "Hello\n\n";
-$foo = transclude( ":Transclude Loop", ['1', '22', '333', '4444', 'test'=>'TEST'] );
-echo $foo;
+transclude( ":Transclude Loop", ['1', '22', '333', '4444', 'test'=>'TEST'] );
 echo "\n\nBye";
 </phptag>
 !! endarticle

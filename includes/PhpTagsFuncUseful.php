@@ -51,7 +51,7 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 		return $variables['argc'] - 1;
 	}
 
-	public static function f_transclude( $template, $parameters = array(), $default = null ) {
+	public static function f_transclude( $template, $parameters = array(), $default = null, $return = false ) {
 		$parser = \PhpTags\Renderer::getParser();
 		$frame = \PhpTags\Renderer::getFrame();
 		if ( $frame->depth >= $parser->mOptions->getMaxTemplateDepth() ) {
@@ -96,7 +96,14 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 
 		$fargs = $parser->getPreprocessor()->newPartNodeArray( $parameters );
 		$newFrame = $frame->newChild( $fargs, $finalTitle, -1 );
-		return $newFrame->expand( $dom );
+		$strip = $newFrame->expand( $dom );
+		if ( $return ) {
+			if ( defined( 'PHPTAGS_WIDGETS_VERSION' ) && version_compare( PHPTAGS_WIDGETS_VERSION, '1.6.0', '<' ) ) {
+				throw new \PhpTags\HookException( 'You cannot use this function for return value while using PhpTags Widgets until version 1.6.0.', \PhpTags\HookException::EXCEPTION_FATAL );
+			}
+			return $parser->mStripState->unstripGeneral( $strip );
+		}
+		return new \PhpTags\outStrip( true, $strip );
 	}
 
 }
