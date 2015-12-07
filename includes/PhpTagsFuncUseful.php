@@ -51,14 +51,25 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 		return $variables['argc'] - 1;
 	}
 
-	public static function f_transclude( $template, $parameters = array(), $default = null, $return = false ) {
+	public static function f_transclude( $template, $parameters = array(), $default = null ) {
 		$parser = \PhpTags\Renderer::getParser();
 		$frame = \PhpTags\Renderer::getFrame();
+
+		foreach ( $parameters as $key => $value ) {
+			if ( is_scalar( $value ) ) {
+				$parameters[$key] = (string)$value;
+				continue;
+			}
+			throw new \PhpTags\HookException( 'Expects parameter 2 to be array that contains only string values' );
+		}
+
 		if ( $frame->depth >= $parser->mOptions->getMaxTemplateDepth() ) {
 			throw new \PhpTags\HookException( 'Template depth limit exceeded' );
 		}
 
-		if ( $template instanceof \PhpTags\GenericObject ) {
+		if ( $template === false || $template === true || $template === null ) {
+			$title = false;
+		} else if ( $template instanceof \PhpTags\GenericObject ) {
 			$title = $template->value;
 			if ( false === $title instanceof \Title ) {
 				if ( $template->getName() !== 'WTitle' ) {
@@ -72,38 +83,39 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 			throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array(1, 'string or WTitle', gettype($template))	);
 		}
 
-		if ( \MWNamespace::isNonincludable( $title->getNamespace() ) ) {
-			throw new \PhpTags\HookException( 'Template inclusion denied' );
-		}
-		list( $dom, $finalTitle ) = $parser->getTemplateDom( $title );
-		if ( $dom === false ) {
-			if ( $default !== null ) {
-				return $default;
+		if ( $title ) {
+			if ( \MWNamespace::isNonincludable( $title->getNamespace() ) ) {
+				throw new \PhpTags\HookException( 'Template inclusion denied' );
 			}
-			throw new \PhpTags\HookException( "Template \"{$title->getPrefixedText()}\" does not exist" );
-		}
-		if ( !$frame->loopCheck( $finalTitle ) ) {
-			throw new \PhpTags\HookException( 'Template loop detected' );
+			if ( $title->isExternal() ) {
+				throw new \PhpTags\HookException( 'Cannot transclude external template' );
+			}
+			if ( $title->isSpecialPage() ) {
+				throw new \PhpTags\HookException( 'Cannot transclude special page' );
+			}
+
+			list( $dom, $finalTitle ) = $parser->getTemplateDom( $title );
+			if ( !$frame->loopCheck( $finalTitle ) ) {
+				throw new \PhpTags\HookException( 'Template loop detected' );
+			}
 		}
 
-		foreach ( $parameters as $key => $value ) {
-			if ( is_scalar( $value ) ) {
-				$parameters[$key] = (string)$value;
-				continue;
+		if ( !$title || !$dom ) {
+			if ( $default === null ) {
+				$titleName = $title ? '"' . $title->getPrefixedText() . '"' : 'NULL';
+				throw new \PhpTags\HookException( "Template $titleName does not exist" );
 			}
-			throw new \PhpTags\HookException( 'Expects parameter 2 to be array that contains only string values' );
+			$dom = $parser->getPreprocessor()->preprocessToObj(
+					str_replace( array( "\r\n", "\r" ), "\n", $default ),
+					$frame->depth ? Parser::PTD_FOR_INCLUSION : 0
+				);
+			$newFrame = $parser->getPreprocessor()->newFrame();
+		} else {
+			$fargs = $parser->getPreprocessor()->newPartNodeArray( $parameters );
+			$newFrame = $frame->newChild( $fargs, $finalTitle, -1 );
 		}
 
-		$fargs = $parser->getPreprocessor()->newPartNodeArray( $parameters );
-		$newFrame = $frame->newChild( $fargs, $finalTitle, -1 );
-		$strip = $newFrame->expand( $dom );
-		if ( $return ) {
-			if ( defined( 'PHPTAGS_WIDGETS_VERSION' ) && version_compare( PHPTAGS_WIDGETS_VERSION, '1.6.0', '<' ) ) {
-				throw new \PhpTags\HookException( 'You cannot use this function for return value while using PhpTags Widgets until version 1.6.0.', \PhpTags\HookException::EXCEPTION_FATAL );
-			}
-			return $parser->mStripState->unstripGeneral( $strip );
-		}
-		return new \PhpTags\outStrip( true, $strip );
+		return $newFrame->expand( $dom );
 	}
 
 }

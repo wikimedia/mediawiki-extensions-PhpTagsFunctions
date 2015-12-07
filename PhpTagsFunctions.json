@@ -2960,8 +2960,7 @@
 			"parameters": [
 				{ "type": "mixed", "name": "title" },
 				{ "type": "array", "name": "parameters", "default": "array()" },
-				{ "type": "mixed", "name": "default", "default": "null" },
-				{ "type": "bool", "name": "return", "default": "false" }
+				{ "type": "mixed", "name": "default", "default": "null" }
 			],
 			"onfailure": "false",
 			"return": "string",
