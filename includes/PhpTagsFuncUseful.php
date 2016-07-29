@@ -15,6 +15,8 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 		switch ( $constantName ) {
 			case 'UUID':
 				return self::f_uuid_create();
+			case 'PHPTAGS_FUNCTIONS_VERSION':
+				return \ExtensionRegistry::getInstance()->getAllThings()['PhpTags Functions']['version'];
 		}
 		parent::getConstantValue( $constantName );
 	}

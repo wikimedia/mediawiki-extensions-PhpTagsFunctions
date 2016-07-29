@@ -10,6 +10,13 @@ class PhpTagsFunctions_Useful_Test extends \PHPUnit_Framework_TestCase {
 			);
 	}
 
+	public function testRun_constant_2() {
+		$this->assertEquals(
+				Runtime::runSource('echo PHPTAGS_FUNCTIONS_VERSION;'),
+				array( \ExtensionRegistry::getInstance()->getAllThings()['PhpTags Functions']['version'] )
+			);
+	}
+
 	public function testRun_uuid_create_1() {
 		$this->assertEquals(
 				Runtime::runSource('echo strlen( uuid_create() );'),

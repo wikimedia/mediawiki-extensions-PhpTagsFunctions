@@ -12,18 +12,24 @@
 class PhpTagsFunctionsHooks {
 
 	/**
-	 *
+	 * Check on version compatibility
 	 * @return boolean
 	 */
 	public static function onParserFirstCallInit() {
-		if ( !defined( 'PHPTAGS_VERSION' ) ) {
+		$extRegistry = ExtensionRegistry::getInstance();
+		$phpTagsLoaded = $extRegistry->isLoaded( 'PhpTags' );
+		//if ( !$extRegistry->isLoaded( 'PhpTags' ) ) { use PHPTAGS_VERSION for backward compatibility
+		if ( !($phpTagsLoaded || PHPTAGS_VERSION) ) {
 			throw new MWException( "\n\nYou need to have the PhpTags extension installed in order to use the PhpTags Functions extension." );
 		}
-		$needVersion = '5.6.0';
-		if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
-			throw new MWException( "\n\nThis version of the PhpTags Functions extension requires the PhpTags extension $needVersion or above.\n You have " . PHPTAGS_VERSION . ". Please update it." );
+		if ( $phpTagsLoaded ) {
+			$neededVersion = '5.8.0';
+			$phpTagsVersion = $extRegistry->getAllThings()['PhpTags']['version'];
+			if ( version_compare( $phpTagsVersion, $neededVersion, '<' ) ) {
+				throw new MWException( "\n\nThis version of the PhpTags Functions extension requires the PhpTags extension $neededVersion or above.\n You have $phpTagsVersion. Please update it." );
+			}
 		}
-		if ( PHPTAGS_HOOK_RELEASE != 8 ) {
+		if ( !$phpTagsLoaded || PHPTAGS_HOOK_RELEASE != 8 ) {
 			throw new MWException( "\n\nThis version of the PhpTags Functions extension is outdated and not compatible with current version of the PhpTags extension.\n Please update it." );
 		}
 		return true;
@@ -34,7 +40,8 @@ class PhpTagsFunctionsHooks {
 	 * @return boolean
 	 */
 	public static function onPhpTagsRuntimeFirstInit() {
-		\PhpTags\Hooks::addJsonFile( __DIR__ . '/PhpTagsFunctions.json', PHPTAGS_FUNCTIONS_VERSION . PHP_VERSION );
+		$version = ExtensionRegistry::getInstance()->getAllThings()['PhpTags Functions']['version'];
+		\PhpTags\Hooks::addJsonFile( __DIR__ . '/PhpTagsFunctions.json', $version . PHP_VERSION );
 		return true;
 	}
 

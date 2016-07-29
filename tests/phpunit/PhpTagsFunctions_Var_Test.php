@@ -167,6 +167,12 @@ class PhpTagsFunctions_Var_Test extends \PHPUnit_Framework_TestCase {
 				array('34')
 				);
 	}
+	public function testRun_intval_6_1() {
+		$this->assertEquals(
+				Runtime::runSource('echo intval(-042);'),
+				array('-34')
+				);
+	}
 	public function testRun_intval_7() {
 		$this->assertEquals(
 				Runtime::runSource('echo intval("042");'),
