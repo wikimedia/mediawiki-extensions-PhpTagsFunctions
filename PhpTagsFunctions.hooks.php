@@ -19,7 +19,7 @@ class PhpTagsFunctionsHooks {
 		$extRegistry = ExtensionRegistry::getInstance();
 		$phpTagsLoaded = $extRegistry->isLoaded( 'PhpTags' );
 		//if ( !$extRegistry->isLoaded( 'PhpTags' ) ) { use PHPTAGS_VERSION for backward compatibility
-		if ( !($phpTagsLoaded || PHPTAGS_VERSION) ) {
+		if ( !($phpTagsLoaded || defined( 'PHPTAGS_VERSION' )) ) {
 			throw new MWException( "\n\nYou need to have the PhpTags extension installed in order to use the PhpTags Functions extension." );
 		}
 		if ( $phpTagsLoaded ) {
