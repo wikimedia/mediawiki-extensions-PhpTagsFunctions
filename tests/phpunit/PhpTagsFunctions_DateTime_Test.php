@@ -93,21 +93,20 @@ class PhpTagsFunctions_DateTime_Test extends \PHPUnit_Framework_TestCase {
 	public function testRun_DateTime_exception_9() {
 		$this->assertEquals(
 				Runtime::runSource('new DateTime() . 5;', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateTime', 'string'), 1, 'Page' ) )
+				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, array('DateTime', 'string'), 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_10() {
 		$this->assertEquals(
 				Runtime::runSource('5 . new DateInterval("P2Y4DT6H8M");', array('Page') ),
-				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateInterval', 'string'), 1, 'Page' ) )
+				array( (string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, array('DateInterval', 'string'), 1, 'Page' ) )
 			);
 	}
 	public function testRun_DateTime_exception_11() {
 		$this->assertEquals(
 				Runtime::runSource('new DateTime() . new DateInterval("P2Y4DT6H8M");', array('Page') ),
 				array(
-					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateTime', 'string'), 1, 'Page' ),
-					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_OBJECT_CONVERTED, array('DateInterval', 'string'), 1, 'Page' )
+					(string) new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, array('DateTime', 'string'), 1, 'Page' ),
 				)
 			);
 	}
