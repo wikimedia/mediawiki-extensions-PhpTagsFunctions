@@ -96,43 +96,57 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	}
 
 	public static function f_printf() {
-		$arguments = func_get_args();
-		$ret = call_user_func_array( 'sprintf', $arguments );
+		$args = func_get_args();
+		$v = array();
+		foreach ( $args as $value => $key ) {
+			$v[$key] = self::getValidDumpValue( $value );
+		}
+		$ret = call_user_func_array( 'sprintf', $v );
 		return new \PhpTags\outPrint( strlen($ret), $ret, false, false );
 	}
 
 	public static function f_vprintf() {
-		$arguments = func_get_args();
-		$ret = call_user_func_array( 'vsprintf', $arguments );
+		$args = func_get_args();
+		$v = array();
+		foreach ( $args as $value => $key ) {
+			$v[$key] = self::getValidDumpValue( $value );
+		}
+		$ret = call_user_func_array( 'vsprintf', $v );
 		return new \PhpTags\outPrint( strlen($ret), $ret, false, false );
 	}
 
 	public static function f_var_export( $expression, $return = false ) {
-		if ( $expression instanceof \PhpTags\GenericObject ) {
-			$expression = $expression->getValue();
-		}
-		$ret = var_export( $expression, true );
+		$v = self::getValidDumpValue( $expression );
+		$ret = var_export( $v, true );
 		return $return ? $ret : new \PhpTags\outPrint( null, $ret );
 	}
 
 	public static function f_var_dump() {
 		$args = func_get_args();
-		foreach ( $args as &$value ) {
-			if ( $value instanceof \PhpTags\GenericObject ) {
-				$value = $value->getValue();
-			}
+		$v = array();
+		foreach ( $args as $value => $key ) {
+			$v[$key] = self::getValidDumpValue( $value );
 		}
 		ob_start();
-		call_user_func_array( 'var_dump', $args );
+		call_user_func_array( 'var_dump', $v );
 		return new \PhpTags\outPrint( null, ob_get_clean() );
 	}
 
 	public static function f_print_r( $expression, $return = false ) {
-		if ( $expression instanceof \PhpTags\GenericObject ) {
-			$expression = $expression->getValue();
-		}
-		$ret = print_r( $expression, true );
+		$v = self::getValidDumpValue( $expression );
+		$ret = print_r( $v, true );
 		return $return ? $ret : new \PhpTags\outPrint( true, $ret );
+	}
+
+	private static function getValidDumpValue( $expression ) {
+		if ( is_object( $expression ) ) {
+			if ( $expression instanceof \PhpTags\GenericObject ) {
+				return (array)$expression->getDumpValue();
+			} else {
+				throw new PhpTagsException( PhpTagsException::FATAL_INTERNAL_ERROR );
+			}
+		}
+		return $expression;
 	}
 
 	/**

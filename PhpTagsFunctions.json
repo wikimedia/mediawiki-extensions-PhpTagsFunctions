@@ -2970,6 +2970,7 @@
 	"constants": {
 		"PHPTAGS_FUNCTIONS_VERSION": {
 			"desc": "The current version of the PhpTags Functions extension as a string",
+			"class": "PhpTagsFuncUseful",
 			"type": "string",
 			"link": "mw://Extension:PhpTags_Functions"
 		},
