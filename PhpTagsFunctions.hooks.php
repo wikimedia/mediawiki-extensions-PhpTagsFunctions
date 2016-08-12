@@ -23,7 +23,7 @@ class PhpTagsFunctionsHooks {
 			throw new MWException( "\n\nYou need to have the PhpTags extension installed in order to use the PhpTags Functions extension." );
 		}
 		if ( $phpTagsLoaded ) {
-			$neededVersion = '5.8.0';
+			$neededVersion = '5.9';
 			$phpTagsVersion = $extRegistry->getAllThings()['PhpTags']['version'];
 			if ( version_compare( $phpTagsVersion, $neededVersion, '<' ) ) {
 				throw new MWException( "\n\nThis version of the PhpTags Functions extension requires the PhpTags extension $neededVersion or above.\n You have $phpTagsVersion. Please update it." );
