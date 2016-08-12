@@ -98,7 +98,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	public static function f_printf() {
 		$args = func_get_args();
 		$v = array();
-		foreach ( $args as $value => $key ) {
+		foreach ( $args as $key => $value ) {
 			$v[$key] = self::getValidDumpValue( $value );
 		}
 		$ret = call_user_func_array( 'sprintf', $v );
@@ -108,7 +108,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	public static function f_vprintf() {
 		$args = func_get_args();
 		$v = array();
-		foreach ( $args as $value => $key ) {
+		foreach ( $args as $key => $value ) {
 			$v[$key] = self::getValidDumpValue( $value );
 		}
 		$ret = call_user_func_array( 'vsprintf', $v );
@@ -124,7 +124,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	public static function f_var_dump() {
 		$args = func_get_args();
 		$v = array();
-		foreach ( $args as $value => $key ) {
+		foreach ( $args as $key => $value ) {
 			$v[$key] = self::getValidDumpValue( $value );
 		}
 		ob_start();
