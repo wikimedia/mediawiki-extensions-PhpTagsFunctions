@@ -4,5 +4,6 @@
 			"Red Winged Duck"
 		]
 	},
-	"phptagsfunctions-desc": "Рэалізуе ўнутраныя функцыі PHP для пашырэньня PhpTags"
+	"phptagsfunctions-desc": "Рэалізуе ўнутраныя функцыі PHP для пашырэньня PhpTags",
+	"phptagsfunctions-preg-bad-delimiter": "Падзяляльнік ня мусіць быць літарай ці лічбай або зваротнай касой рысай"
 }
