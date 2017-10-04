@@ -1,6 +1,6 @@
 {
 	"name": "PhpTags Functions",
-	"version": "3.8",
+	"version": "3.8.1",
 	"author": "[https://www.mediawiki.org/wiki/User:Pastakhov Pavel Astakhov]",
 	"url": "https://www.mediawiki.org/wiki/Extension:PhpTags_Functions",
 	"descriptionmsg": "phptagsfunctions-desc",
@@ -27,5 +27,9 @@
 	"ParserTestFiles": [
 		"tests/parser/PhpTagsFunctionsTests.txt"
 	],
+	"config": {
+		"PhpTagsFunctionDumpDepth": 3,
+		"PhpTagsFunctionDumpAmount": 10
+	},
 	"manifest_version": 1
 }

@@ -138,13 +138,30 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return $return ? $ret : new \PhpTags\outPrint( true, $ret );
 	}
 
-	private static function getValidDumpValue( $expression ) {
+	private static function getValidDumpValue( $expression, $arrayDepth = 0 ) {
+		global $wgPhpTagsFunctionDumpDepth, $wgPhpTagsFunctionDumpAmount;
+
 		if ( is_object( $expression ) ) {
 			if ( $expression instanceof \PhpTags\GenericObject ) {
 				return (array)$expression->getDumpValue();
 			} else {
 				throw new PhpTagsException( PhpTagsException::FATAL_INTERNAL_ERROR );
 			}
+		} else if ( is_array( $expression ) ) {
+			if ( $arrayDepth >= $wgPhpTagsFunctionDumpDepth ) {
+				return '... Depth limit reached ...';
+			}
+			$return = [];
+			$n = 0;
+			foreach ( $expression as $key => $e ) {
+				if ( $n >= $wgPhpTagsFunctionDumpAmount ) {
+					$return[ $key ] = '... Amount limit reached ...';
+					break;
+				}
+				$n++;
+				$return[ $key ] = self::getValidDumpValue( $e, $arrayDepth + 1 );
+			}
+			return $return;
 		}
 		return $expression;
 	}
