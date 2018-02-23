@@ -109,7 +109,7 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 			}
 			$dom = $parser->getPreprocessor()->preprocessToObj(
 					str_replace( array( "\r\n", "\r" ), "\n", $default ),
-					$frame->depth ? Parser::PTD_FOR_INCLUSION : 0
+					$frame->depth ? \Parser::PTD_FOR_INCLUSION : 0
 				);
 			$newFrame = $parser->getPreprocessor()->newFrame();
 		} else {
