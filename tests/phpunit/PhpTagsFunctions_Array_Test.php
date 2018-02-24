@@ -1,7 +1,7 @@
 <?php
 namespace PhpTags;
 
-class PhpTagsFunctions_Array_Test extends \PHPUnit_Framework_TestCase {
+class PhpTagsFunctions_Array_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_constant_1() {
 		$this->assertEquals(
