@@ -99,12 +99,12 @@ echo "\n\nBye";
 <p>Hello
 </p><p><br />
 </p>
-<ul><li> 0 =&gt; Template:Dump</li>
-<li> 1 =&gt; 1</li>
-<li> 2 =&gt; 22</li>
-<li> 3 =&gt; 333</li>
-<li> 4 =&gt; 4444</li>
-<li> test =&gt; TEST</li></ul>
+<ul><li>0 =&gt; Template:Dump</li>
+<li>1 =&gt; 1</li>
+<li>2 =&gt; 22</li>
+<li>3 =&gt; 333</li>
+<li>4 =&gt; 4444</li>
+<li>test =&gt; TEST</li></ul>
 <p><br />
 Bye
 </p>
