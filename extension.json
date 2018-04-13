@@ -24,9 +24,6 @@
 		"PhpTagsRuntimeFirstInit": "PhpTagsFunctionsHooks::onPhpTagsRuntimeFirstInit",
 		"UnitTestsList": "PhpTagsFunctionsHooks::onUnitTestsList"
 	},
-	"ParserTestFiles": [
-		"tests/parser/PhpTagsFunctionsTests.txt"
-	],
 	"config": {
 		"PhpTagsFunctionDumpDepth": 3,
 		"PhpTagsFunctionDumpAmount": 10
