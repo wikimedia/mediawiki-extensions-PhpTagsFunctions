@@ -7,7 +7,7 @@ namespace PhpTagsObjects;
  * @file PhpTagsFuncUseful.php
  * @ingroup PhpTagsFunctions
  * @author Pavel Astakhov <pastakhov@yandex.ru>
- * @licence GNU General Public Licence 2.0 or later
+ * @license GPL-2.0-or-later
  */
 class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 
@@ -35,7 +35,7 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 
 	public static function f_get_arg( $index, $default = null ) {
 		$args = self::f_get_args();
-		if ( isset( $args[$index] ) || key_exists( $index, $args )) {
+		if ( isset( $args[$index] ) || array_key_exists( $index, $args ) ) {
 			return $args[$index];
 		}
 		return $default;
@@ -53,7 +53,7 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 		return $variables['argc'] - 1;
 	}
 
-	public static function f_transclude( $template, $parameters = array(), $default = null ) {
+	public static function f_transclude( $template, $parameters = [], $default = null ) {
 		$parser = \PhpTags\Renderer::getParser();
 		$frame = \PhpTags\Renderer::getFrame();
 
@@ -71,18 +71,18 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 
 		if ( $template === false || $template === true || $template === null ) {
 			$title = false;
-		} else if ( $template instanceof \PhpTags\GenericObject ) {
+		} elseif ( $template instanceof \PhpTags\GenericObject ) {
 			$title = $template->value;
 			if ( false === $title instanceof \Title ) {
 				if ( $template->getName() !== 'WTitle' ) {
-					throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, array($template->getName(), 'WTitle') );
+					throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, [ $template->getName(), 'WTitle' ] );
 				}
 				throw new \PhpTags\HookException( 'Wrong WTitle object', \PhpTags\HookException::EXCEPTION_FATAL );
 			}
-		} elseif ( is_string( $template  ) ) {
+		} elseif ( is_string( $template ) ) {
 			$title = \Title::newFromText( $template, NS_TEMPLATE );
 		} else {
-			throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, array(1, 'string or WTitle', gettype($template))	);
+			throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER, [ 1, 'string or WTitle', gettype( $template ) ] );
 		}
 
 		if ( $title ) {
@@ -108,7 +108,7 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 				throw new \PhpTags\HookException( "Template $titleName does not exist" );
 			}
 			$dom = $parser->getPreprocessor()->preprocessToObj(
-					str_replace( array( "\r\n", "\r" ), "\n", $default ),
+					str_replace( [ "\r\n", "\r" ], "\n", $default ),
 					$frame->depth ? \Parser::PTD_FOR_INCLUSION : 0
 				);
 			$newFrame = $parser->getPreprocessor()->newFrame();

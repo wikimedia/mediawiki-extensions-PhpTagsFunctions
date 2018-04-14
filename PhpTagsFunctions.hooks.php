@@ -7,19 +7,19 @@
  * @file PhpTagsFunctions.hooks.php
  * @ingroup PhpTags
  * @author Pavel Astakhov <pastakhov@yandex.ru>
- * @licence GNU General Public Licence 2.0 or later
+ * @license GPL-2.0-or-later
  */
 class PhpTagsFunctionsHooks {
 
 	/**
 	 * Check on version compatibility
-	 * @return boolean
+	 * @return bool
 	 */
 	public static function onParserFirstCallInit() {
 		$extRegistry = ExtensionRegistry::getInstance();
 		$phpTagsLoaded = $extRegistry->isLoaded( 'PhpTags' );
-		//if ( !$extRegistry->isLoaded( 'PhpTags' ) ) { use PHPTAGS_VERSION for backward compatibility
-		if ( !($phpTagsLoaded || defined( 'PHPTAGS_VERSION' )) ) {
+		// if ( !$extRegistry->isLoaded( 'PhpTags' ) ) { use PHPTAGS_VERSION for backward compatibility
+		if ( !( $phpTagsLoaded || defined( 'PHPTAGS_VERSION' ) ) ) {
 			throw new MWException( "\n\nYou need to have the PhpTags extension installed in order to use the PhpTags Functions extension." );
 		}
 		if ( $phpTagsLoaded ) {
@@ -37,7 +37,7 @@ class PhpTagsFunctionsHooks {
 
 	/**
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public static function onPhpTagsRuntimeFirstInit() {
 		$version = ExtensionRegistry::getInstance()->getAllThings()['PhpTags Functions']['version'];
@@ -48,7 +48,7 @@ class PhpTagsFunctionsHooks {
 	/**
 	 *
 	 * @param array $files
-	 * @return boolean
+	 * @return bool
 	 */
 	public static function onUnitTestsList( &$files ) {
 		$testDir = __DIR__ . '/tests/phpunit';

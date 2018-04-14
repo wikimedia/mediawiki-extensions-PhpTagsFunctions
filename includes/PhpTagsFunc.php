@@ -1,5 +1,6 @@
 <?php
 namespace PhpTagsObjects;
+
 use PhpTags;
 
 /**
@@ -8,11 +9,11 @@ use PhpTags;
  * @file PhpTagsFunc.php
  * @ingroup PhpTagsFunctions
  * @author Pavel Astakhov <pastakhov@yandex.ru>
- * @licence GNU General Public Licence 2.0 or later
+ * @license GPL-2.0-or-later
  */
 class PhpTagsFunc extends \PhpTags\GenericObject {
 
-	private static $bannedFunctions = array(
+	private static $bannedFunctions = [
 		'compact' => true,
 		'extract' => true,
 		'array_diff_uassoc' => true, // @todo callback
@@ -41,10 +42,10 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		'fprintf' => true,
 		'eval' => true, // @todo
 		'parse_str' => true,
-	);
+	];
 
 	public static function __callStatic( $name, $arguments ) {
-		list ( $callType, $subname ) = explode( '_', $name, 2 );
+		list( $callType, $subname ) = explode( '_', $name, 2 );
 
 		if ( $callType === 'f' ) {
 			if ( isset( self::$bannedFunctions[$subname] ) ) {
@@ -67,10 +68,10 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 			} elseif ( is_int( $v ) ) {
 				$n++;
 				if ( $n > 2 ) {
-					return self::pushExceptionExpectsParameter( $k+1, 'array', $v );
+					return self::pushExceptionExpectsParameter( $k + 1, 'array', $v );
 				}
 			} else {
-				return self::pushExceptionExpectsParameter( $k+1, 'array or int', $v );
+				return self::pushExceptionExpectsParameter( $k + 1, 'array or int', $v );
 			}
 		}
 
@@ -83,7 +84,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	public static function f_get_defined_vars() {
 		$variables = \PhpTags\Runtime::getVariables();
-		return array_combine( array_keys( $variables ), array_map( "reset", array_chunk( $variables, 1) ) );
+		return array_combine( array_keys( $variables ), array_map( "reset", array_chunk( $variables, 1 ) ) );
 	}
 
 	public static function f_get_defined_functions() {
@@ -97,22 +98,22 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	public static function f_printf() {
 		$args = func_get_args();
-		$v = array();
+		$v = [];
 		foreach ( $args as $key => $value ) {
 			$v[$key] = self::getValidDumpValue( $value );
 		}
 		$ret = call_user_func_array( 'sprintf', $v );
-		return new \PhpTags\outPrint( strlen($ret), $ret, false, false );
+		return new \PhpTags\outPrint( strlen( $ret ), $ret, false, false );
 	}
 
 	public static function f_vprintf() {
 		$args = func_get_args();
-		$v = array();
+		$v = [];
 		foreach ( $args as $key => $value ) {
 			$v[$key] = self::getValidDumpValue( $value );
 		}
 		$ret = call_user_func_array( 'vsprintf', $v );
-		return new \PhpTags\outPrint( strlen($ret), $ret, false, false );
+		return new \PhpTags\outPrint( strlen( $ret ), $ret, false, false );
 	}
 
 	public static function f_var_export( $expression, $return = false ) {
@@ -123,7 +124,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	public static function f_var_dump() {
 		$args = func_get_args();
-		$v = array();
+		$v = [];
 		foreach ( $args as $key => $value ) {
 			$v[$key] = self::getValidDumpValue( $value );
 		}
@@ -147,7 +148,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 			} else {
 				throw new PhpTagsException( PhpTagsException::FATAL_INTERNAL_ERROR );
 			}
-		} else if ( is_array( $expression ) ) {
+		} elseif ( is_array( $expression ) ) {
 			if ( $arrayDepth >= $wgPhpTagsFunctionDumpDepth ) {
 				return '... Depth limit reached ...';
 			}
@@ -169,33 +170,33 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	/**
 	 * @todo remove it for PHP >= 5.4.0
 	 */
-	public static function f_preg_match_all ( $pattern , $subject, &$matches = null, $flags = PREG_PATTERN_ORDER, $offset = 0 ) {
-//		1) PhpTags\PhpTagsFunctions_PCRE_Test::testRun_preg_match_all_1
-//		Parameter 3 to preg_match_all() expected to be a reference, value given
-//		2) PhpTags\PhpTagsFunctions_PCRE_Test::testRun_preg_match_all_2
-//		Parameter 3 to preg_match_all() expected to be a reference, value given
-//
-//		// $trace = debug_backtrace();
-//      // $args = $trace[1]['args'];
-//		$args = func_get_args();
-//		if ( ! array_key_exists( 2, $args ) ) {
-//			$args[2] = null;
-//		}
-//		return call_user_func_array( 'preg_match_all', $args );
+	public static function f_preg_match_all( $pattern , $subject, &$matches = null, $flags = PREG_PATTERN_ORDER, $offset = 0 ) {
+		// 1) PhpTags\PhpTagsFunctions_PCRE_Test::testRun_preg_match_all_1
+		// Parameter 3 to preg_match_all() expected to be a reference, value given
+		// 2) PhpTags\PhpTagsFunctions_PCRE_Test::testRun_preg_match_all_2
+		// Parameter 3 to preg_match_all() expected to be a reference, value given
+		//
+		// // $trace = debug_backtrace();
+		// // $args = $trace[1]['args'];
+		// $args = func_get_args();
+		// if ( ! array_key_exists( 2, $args ) ) {
+		// $args[2] = null;
+		// }
+		// return call_user_func_array( 'preg_match_all', $args );
 
-		return preg_match_all( $pattern , $subject, $matches, $flags, $offset );
+		return preg_match_all( $pattern, $subject, $matches, $flags, $offset );
 	}
 
 	protected static function f_preg_replace() {
 		$args = func_get_args();
 		try {
-			if ( is_array($args[0]) ) {
-				$tmp = array();
+			if ( is_array( $args[0] ) ) {
+				$tmp = [];
 				foreach ( $args[0] as $key => $value ) {
 					$tmp[$key] = self::getValidPattern( $value );
 				}
 				$args[0] = $tmp;
-			}else{
+			} else {
 				$args[0] = self::getValidPattern( $args[0] );
 			}
 		} catch ( \Exception $exc ) {
@@ -205,8 +206,8 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return call_user_func_array( 'preg_replace', $args );
 	}
 
-	private static function getValidPattern ( $pattern_value ) {
-		$pattern = str_replace( chr(0), '', $pattern_value );
+	private static function getValidPattern( $pattern_value ) {
+		$pattern = str_replace( chr( 0 ), '', $pattern_value );
 		// Set basic statics
 		$regexStarts = '`~!@#$%^&*-_+=.,?"\':;|/<([{';
 		$regexEnds   = '`~!@#$%^&*-_+=.,?"\':;|/>)]}';
@@ -249,8 +250,8 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return $startRegex . $endRegex;
 	}
 
-	public static function f_settype ( &$var, $type ) {
-		if ( false === in_array( $type, array( 'boolean', 'bool', 'integer', 'int', 'float', 'double', 'string', 'array', 'object', 'null' ) ) ) {
+	public static function f_settype( &$var, $type ) {
+		if ( false === in_array( $type, [ 'boolean', 'bool', 'integer', 'int', 'float', 'double', 'string', 'array', 'object', 'null' ] ) ) {
 			throw new \PhpTags\HookException( 'Invalid type' );
 		}
 		if ( $var instanceof \PhpTags\GenericObject ) {
@@ -262,7 +263,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return settype( $var, $type );
 	}
 
-	public static function f_max () {
+	public static function f_max() {
 		$values = func_get_args();
 		if ( func_num_args() === 1 && false === is_array( $values[0] ) ) {
 			return self::pushExceptionExpectsParameter( 1, 'array', $values[0] );
@@ -270,7 +271,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return call_user_func_array( 'max', $values );
 	}
 
-	public static function f_min () {
+	public static function f_min() {
 		$values = func_get_args();
 		if ( func_num_args() === 1 && false === is_array( $values[0] ) ) {
 			return self::pushExceptionExpectsParameter( 1, 'array', $values[0] );
@@ -278,7 +279,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return call_user_func_array( 'min', $values );
 	}
 
-	public static function f_implode () {
+	public static function f_implode() {
 		$values = func_get_args();
 
 		if ( func_num_args() === 1 ) {
@@ -292,22 +293,22 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return call_user_func_array( 'implode', $values );
 	}
 
-	public static function f_mt_rand () {
+	public static function f_mt_rand() {
 		switch ( func_num_args() ) {
 			case 1:
-				return mt_rand( func_get_arg(0), mt_getrandmax() );
+				return mt_rand( func_get_arg( 0 ), mt_getrandmax() );
 			case 2:
-				return mt_rand( func_get_arg(0), func_get_arg(1) );
+				return mt_rand( func_get_arg( 0 ), func_get_arg( 1 ) );
 		}
 		return mt_rand();
 	}
 
-	public static function f_rand () {
+	public static function f_rand() {
 		switch ( func_num_args() ) {
 			case 1:
-				return rand( func_get_arg(0), getrandmax() );
+				return rand( func_get_arg( 0 ), getrandmax() );
 			case 2:
-				return rand( func_get_arg(0), func_get_arg(1) );
+				return rand( func_get_arg( 0 ), func_get_arg( 1 ) );
 		}
 		return rand();
 	}
@@ -375,7 +376,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 			case 5:
 				return call_user_func_array( 'levenshtein', func_get_args() );
 		}
-		\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETER, array('2 or 5', $argCount) ) );
+		\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETER, [ '2 or 5', $argCount ] ) );
 		return \PhpTags\Hooks::getCallInfo( \PhpTags\Hooks::INFO_RETURNS_ON_FAILURE );
 	}
 
@@ -407,7 +408,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 			throw new \PhpTags\HookException( 'Both parameters should have an equal number of elements' );
 		}
 		if ( $k === 0 ) { // @todo this is only for compatibility with PHP < 5.4.0
-			return array();
+			return [];
 		}
 		return array_combine( self::mapArrayKeys( $keys ), $values );
 	}
@@ -418,21 +419,21 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	private static function mapArrayKeys( array $array ) {
 		return array_map(
-				function( $key ) {
-					if ( is_array( $key ) ) {
-						\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( PhpTags\PhpTagsException::NOTICE_ARRAY_TO_STRING ) );
-						return 'Array';
-					} elseif ( $key instanceof \PhpTags\GenericObject ) {
-						throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, array($key->getName(), 'string') );
-					}
-					return $key;
-				},
-				$array
-			);
+			function ( $key ) {
+				if ( is_array( $key ) ) {
+					\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( PhpTags\PhpTagsException::NOTICE_ARRAY_TO_STRING ) );
+					return 'Array';
+				} elseif ( $key instanceof \PhpTags\GenericObject ) {
+					throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, [ $key->getName(), 'string' ] );
+				}
+				return $key;
+			},
+			$array
+		);
 	}
 
 	public static function f_array_count_values( $array ) {
-		return array_count_values( self::filterArrayKeys($array) );
+		return array_count_values( self::filterArrayKeys( $array ) );
 	}
 
 	public static function f_array_flip( $array ) {
@@ -441,30 +442,29 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	private static function filterArrayKeys( array $array ) {
 		return array_filter(
-				$array,
-				function ( $value ) {
-					return is_string($value) || is_int($value) || \PhpTags\Runtime::pushException( new PhpTags\HookException( 'Can only count STRING and INTEGER values!' ) );
-
-				}
-			);
+			$array,
+			function ( $value ) {
+				return is_string( $value ) || is_int( $value ) || \PhpTags\Runtime::pushException( new PhpTags\HookException( 'Can only count STRING and INTEGER values!' ) );
+			}
+		);
 	}
 
 	public static function f_array_fill( $start_index , $num , $value ) {
 		if ( $num < 1 ) {
 			throw new \PhpTags\HookException( 'Number of elements must be positive' );
 		}
-		return array_fill( $start_index , $num , $value );
+		return array_fill( $start_index, $num, $value );
 	}
 
 	public static function f_array_rand( $array, $num = 1 ) {
-		if ( $num < 1 || $num > count($array) ) {
+		if ( $num < 1 || $num > count( $array ) ) {
 			throw new \PhpTags\HookException( 'Second argument has to be between 1 and the number of elements in the array' );
 		}
 		return array_rand( $array, $num );
 	}
 
 	public static function f_range( $start, $end, $step = 1 ) {
-		if ( is_numeric($start) && is_numeric($end) && abs( $step ) > abs( $start - $end ) ) {
+		if ( is_numeric( $start ) && is_numeric( $end ) && abs( $step ) > abs( $start - $end ) ) {
 			throw new \PhpTags\HookException( 'step exceeds the specified range' );
 		}
 		return range( $start, $end, $step );

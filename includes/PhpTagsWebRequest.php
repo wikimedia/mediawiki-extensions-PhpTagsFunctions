@@ -103,8 +103,12 @@ class PhpTagsWebRequest extends \PhpTags\GenericObject {
 		global $wgRequest;
 		\PhpTags\Renderer::disableParserCache();
 		$names = func_get_args();
-		array_walk( $names, function( &$value ){ if ( !is_string($value) ) { $value = ''; } } );
-		return call_user_func_array( array($wgRequest, 'getValues'), $names );
+		array_walk( $names, function ( &$value ){
+			if ( !is_string( $value ) ) {
+				$value = '';
+			}
+		} );
+		return call_user_func_array( [ $wgRequest, 'getValues' ], $names );
 	}
 
 }
