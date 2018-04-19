@@ -21,8 +21,7 @@
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "PhpTagsFunctionsHooks::onParserFirstCallInit",
-		"PhpTagsRuntimeFirstInit": "PhpTagsFunctionsHooks::onPhpTagsRuntimeFirstInit",
-		"UnitTestsList": "PhpTagsFunctionsHooks::onUnitTestsList"
+		"PhpTagsRuntimeFirstInit": "PhpTagsFunctionsHooks::onPhpTagsRuntimeFirstInit"
 	},
 	"config": {
 		"PhpTagsFunctionDumpDepth": 3,
