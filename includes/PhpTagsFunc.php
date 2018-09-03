@@ -170,7 +170,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	/**
 	 * @todo remove it for PHP >= 5.4.0
 	 */
-	public static function f_preg_match_all( $pattern , $subject, &$matches = null, $flags = PREG_PATTERN_ORDER, $offset = 0 ) {
+	public static function f_preg_match_all( $pattern, $subject, &$matches = null, $flags = PREG_PATTERN_ORDER, $offset = 0 ) {
 		// 1) PhpTags\PhpTagsFunctions_PCRE_Test::testRun_preg_match_all_1
 		// Parameter 3 to preg_match_all() expected to be a reference, value given
 		// 2) PhpTags\PhpTagsFunctions_PCRE_Test::testRun_preg_match_all_2
@@ -395,7 +395,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		}
 	}
 
-	public static function f_array_chunk( $array , $size, $preserve_keys = false ) {
+	public static function f_array_chunk( $array, $size, $preserve_keys = false ) {
 		if ( $size < 1 ) {
 			throw new \PhpTags\HookException( 'Size parameter expected to be greater than 0' );
 		}
@@ -449,7 +449,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		);
 	}
 
-	public static function f_array_fill( $start_index , $num , $value ) {
+	public static function f_array_fill( $start_index, $num, $value ) {
 		if ( $num < 1 ) {
 			throw new \PhpTags\HookException( 'Number of elements must be positive' );
 		}
