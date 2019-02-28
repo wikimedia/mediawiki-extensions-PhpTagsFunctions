@@ -1,7 +1,7 @@
 <?php
 namespace PhpTagsObjects;
 
-use PhpTags;
+use PhpTags\PhpTagsException;
 
 /**
  *
@@ -49,7 +49,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 		if ( $callType === 'f' ) {
 			if ( isset( self::$bannedFunctions[$subname] ) ) {
-				throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_CALLFUNCTION_INVALID_HOOK, get_called_class() );
+				throw new PhpTagsException( PhpTagsException::FATAL_CALLFUNCTION_INVALID_HOOK, get_called_class() );
 			}
 			if ( $subname === 'array_multisort' ) {
 				return self::array_multisort( $arguments );
@@ -76,6 +76,24 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		}
 
 		return call_user_func_array( 'array_multisort', $arguments );
+	}
+
+	public static function f_each( &$var ) {
+		// The each() function is deprecated.
+		$key = key( $var );
+		if ( $key === null ) {
+			// the latest element
+			return false;
+		}
+		$value = current( $var );
+		next( $var );
+
+		return [
+			0 => $key,
+			'key' => $key,
+			1 => $value,
+			'value' => $value,
+		];
 	}
 
 	public static function f_boolval( $var ) {
@@ -376,7 +394,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 			case 5:
 				return call_user_func_array( 'levenshtein', func_get_args() );
 		}
-		\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETER, [ '2 or 5', $argCount ] ) );
+		\PhpTags\Runtime::pushException( new PhpTagsException( PhpTagsException::WARNING_EXPECTS_EXACTLY_PARAMETER, [ '2 or 5', $argCount ] ) );
 		return \PhpTags\Hooks::getCallInfo( \PhpTags\Hooks::INFO_RETURNS_ON_FAILURE );
 	}
 
@@ -421,10 +439,10 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return array_map(
 			function ( $key ) {
 				if ( is_array( $key ) ) {
-					\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( PhpTags\PhpTagsException::NOTICE_ARRAY_TO_STRING ) );
+					\PhpTags\Runtime::pushException( new PhpTagsException( PhpTagsException::NOTICE_ARRAY_TO_STRING ) );
 					return 'Array';
 				} elseif ( $key instanceof \PhpTags\GenericObject ) {
-					throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, [ $key->getName(), 'string' ] );
+					throw new PhpTagsException( PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, [ $key->getName(), 'string' ] );
 				}
 				return $key;
 			},
@@ -444,7 +462,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		return array_filter(
 			$array,
 			function ( $value ) {
-				return is_string( $value ) || is_int( $value ) || \PhpTags\Runtime::pushException( new PhpTags\HookException( 'Can only count STRING and INTEGER values!' ) );
+				return is_string( $value ) || is_int( $value ) || \PhpTags\Runtime::pushException( new \PhpTags\HookException( 'Can only count STRING and INTEGER values!' ) );
 			}
 		);
 	}

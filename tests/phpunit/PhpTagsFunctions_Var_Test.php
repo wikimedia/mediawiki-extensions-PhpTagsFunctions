@@ -188,7 +188,7 @@ class PhpTagsFunctions_Var_Test extends \PHPUnit\Framework\TestCase {
 	public function testRun_intval_9() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo intval("1e10");' ),
-				[ '1' ]
+				[ intval( "1e10" ) ]
 				);
 	}
 	public function testRun_intval_10() {
