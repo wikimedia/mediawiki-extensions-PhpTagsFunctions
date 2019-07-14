@@ -9,6 +9,7 @@ class PhpTagsFunctions_Mbstring_Test extends \PHPUnit\Framework\TestCase {
 				[ MB_CASE_UPPER ]
 				);
 	}
+
 	public function testRun_constant_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo MB_OVERLOAD_STRING;' ),
@@ -25,6 +26,7 @@ echo $str;' ),
 				[ 'MARY HAD A LITTLE LAMB AND SHE LOVED IT SO' ]
 				);
 	}
+
 	public function testRun_mb_convert_case_2() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -34,6 +36,7 @@ echo $str;' ),
 				[ 'Mary Had A Little Lamb And She Loved It So' ]
 				);
 	}
+
 	public function testRun_mb_convert_case_3() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -43,6 +46,7 @@ echo $str;' ),
 				[ 'ΤΆΧΙΣΤΗ ΑΛΏΠΗΞ ΒΑΦΉΣ ΨΗΜΈΝΗ ΓΗ, ΔΡΑΣΚΕΛΊΖΕΙ ΥΠΈΡ ΝΩΘΡΟΎ ΚΥΝΌΣ' ]
 				);
 	}
+
 	public function testRun_mb_convert_case_4() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -60,6 +64,7 @@ echo mb_stripos($str, "LAMB");' ),
 				[ '18' ]
 				);
 	}
+
 	public function testRun_mb_stripos_2() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -77,6 +82,7 @@ echo mb_strlen($str);' ),
 				[ '42' ]
 				);
 	}
+
 	public function testRun_mb_strlen_2() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -94,6 +100,7 @@ echo mb_strpos($str, "lamb");' ),
 				[ '18' ]
 				);
 	}
+
 	public function testRun_mb_strpos_2() {
 		$this->assertEquals(
 				Runtime::runSource( '

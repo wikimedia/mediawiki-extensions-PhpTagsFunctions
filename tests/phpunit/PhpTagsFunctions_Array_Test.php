@@ -16,6 +16,7 @@ class PhpTagsFunctions_Array_Test extends \PHPUnit\Framework\TestCase {
 				[ '1', '4' ]
 				);
 	}
+
 	public function testRun_array_change_key_case_2() {
 		$this->assertEquals(
 				Runtime::runSource( '$input_array = array("FirSt" => 1, "SecOnd" => 4); $res = array_change_key_case($input_array); echo $res["first"], $res["second"];' ),
@@ -30,6 +31,7 @@ class PhpTagsFunctions_Array_Test extends \PHPUnit\Framework\TestCase {
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_chunk_2() {
 		$return = Runtime::runSource( 'print_r( array_chunk($input_array, 2, true) );' );
 		$this->assertEquals(
@@ -120,6 +122,7 @@ print_r($result);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_diff_assoc_2() {
 		$return = Runtime::runSource( '
 $array3 = array("red");
@@ -164,6 +167,7 @@ print_r($a);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_fill_keys_2() {
 		$return = Runtime::runSource( '
 $keys = array("foo", 5, array(), "bar");
@@ -188,6 +192,7 @@ print_r($a);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_fill_2() {
 		$return = Runtime::runSource( '
 $a = array_FILL(5, -3, "banana");
@@ -208,6 +213,7 @@ print_r($trans);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_flip_2() {
 		$return = Runtime::runSource( '
 $trans = array("a" => 1, "b" => array(), "c" => 2);
@@ -279,6 +285,7 @@ print_r(array_keys($array));' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_keys_2() {
 		$return = Runtime::runSource( '
 $array = array("blue", "red", "green", "blue", "blue");
@@ -288,6 +295,7 @@ print_r(array_keys($array, "blue"));' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_keys_3() {
 		$return = Runtime::runSource( '
 $array = array("color" => array("blue", "red", "green"),
@@ -322,6 +330,7 @@ print_r($result);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_merge_2() {
 		$return = Runtime::runSource( '
 $array1 = array("color" => "red", 2, 4);
@@ -333,6 +342,7 @@ print_r($result);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_merge_3() {
 		$return = Runtime::runSource( '
 $array1 = array();
@@ -344,6 +354,7 @@ print_r($result);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_merge_4() {
 		$return = Runtime::runSource( '
 $array1 = array(0 => "zero_a", 2 => "two_a", 3 => "three_a");
@@ -373,6 +384,7 @@ print_r($ar2);' );
 				(string)$return[1]
 			);
 	}
+
 	public function testRun_array_multisort_2() {
 		$return = Runtime::runSource( '
 $ar = array(
@@ -387,6 +399,7 @@ print_r($ar);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_multisort_3() {
 		$return = Runtime::runSource( '
 $ar1 = array(10, 100, 100, 0);
@@ -426,6 +439,7 @@ print_r( array_pad($input, 5, 0) );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_pad_2() {
 		$return = Runtime::runSource( 'print_r( array_pad($input, -7, -1) );' );
 		$this->assertEquals(
@@ -433,6 +447,7 @@ print_r( array_pad($input, 5, 0) );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_pad_3() {
 		$return = Runtime::runSource( 'print_r( array_pad($input, 2, "noop") );' );
 		$this->assertEquals(
@@ -482,6 +497,7 @@ echo $input[$rand_keys[0]] . "\n";
 echo $input[$rand_keys[1]] . "\n";' );
 		$this->assertCount( 2, $return );
 	}
+
 	public function testRun_array_rand_2() {
 		$return = Runtime::runSource( '
 $input = array("Neo", "Morpheus", "Trinity", "Cypher", "Tank");
@@ -504,6 +520,7 @@ print_r($basket);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_replace_recursive_2() {
 		$return = Runtime::runSource( '
 $base = array("citrus" => array("orange") , "berries" => array("blackberry", "raspberry"), "others" => "banana" );
@@ -540,6 +557,7 @@ print_r($reversed);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_reverse_2() {
 		$return = Runtime::runSource( '
 $input  = array("php", 4.0, array("green", "red"));
@@ -582,6 +600,7 @@ print_r( array_slice($input, 2) );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_slice_2() {
 		$return = Runtime::runSource( 'print_r( array_slice($input, -2, 1) );' );
 		$this->assertEquals(
@@ -589,6 +608,7 @@ print_r( array_slice($input, 2) );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_slice_3() {
 		$return = Runtime::runSource( 'print_r( array_slice($input, 0, 3) );' );
 		$this->assertEquals(
@@ -596,6 +616,7 @@ print_r( array_slice($input, 2) );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_slice_4() {
 		$return = Runtime::runSource( 'print_r( array_slice($input, 2, -1) );' );
 		$this->assertEquals(
@@ -603,6 +624,7 @@ print_r( array_slice($input, 2) );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_slice_5() {
 		$return = Runtime::runSource( 'print_r( array_slice($input, 2, -1, true) );' );
 		$this->assertEquals(
@@ -621,6 +643,7 @@ print_r( $input );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_splice_2() {
 		$return = Runtime::runSource( '
 $input = array("red", "green", "blue", "yellow");
@@ -631,6 +654,7 @@ print_r( $input );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_splice_3() {
 		$return = Runtime::runSource( '
 $input = array("red", "green", "blue", "yellow");
@@ -641,6 +665,7 @@ print_r( $input );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_splice_4() {
 		$return = Runtime::runSource( '
 $input = array("red", "green", "blue", "yellow");
@@ -651,6 +676,7 @@ print_r( $input );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_splice_5() {
 		$return = Runtime::runSource( '
 $input = array("red", "green", "blue", "yellow");
@@ -671,6 +697,7 @@ echo "sum(a) = " . array_sum($a);' );
 				[ 'sum(a) = 20' ]
 			);
 	}
+
 	public function testRun_array_sum_2() {
 		$return = Runtime::runSource( '
 $b = array("a" => 1.2, "b" => 2.3, "c" => 3.4);
@@ -691,6 +718,7 @@ print_r($result);' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_array_unique_2() {
 		$return = Runtime::runSource( '
 $input = array(4, "4", "3", 4, 3, "3");
@@ -751,54 +779,63 @@ print_r( $fruits );' );
 				[ '4' ]
 				);
 	}
+
 	public function testRun_current_1() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo current($transport);' ),
 				[ 'foot' ]
 				);
 	}
+
 	public function testRun_next_1() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo next($transport), next($transport);' ),
 				[ 'bike', 'car' ]
 				);
 	}
+
 	public function testRun_current_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo current($transport);' ),
 				[ 'car' ]
 				);
 	}
+
 	public function testRun_each_1() {
 		$this->assertEquals(
 				Runtime::runSource( '$a = each( $transport); echo $a[0], $a[1], $a["key"], $a["value"];' ),
 				[ '2', 'car', '2', 'car' ]
 				);
 	}
+
 	public function testRun_end_1() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo end($transport);' ),
 				[ 'plane' ]
 				);
 	}
+
 	public function testRun_prev_1() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo prev($transport);' ),
 				[ 'car' ]
 				);
 	}
+
 	public function testRun_key_1() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo key($transport);' ),
 				[ '2' ]
 				);
 	}
+
 	public function testRun_reset_1() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo reset($transport);' ),
 				[ 'foot' ]
 				);
 	}
+
 	public function testRun_key_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo key($transport);' ),
@@ -816,6 +853,7 @@ echo "$key => $val";' ),
 				[ 'a => apple' ]
 				);
 	}
+
 	public function testRun_echo_list_while_1() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -827,6 +865,7 @@ while ( list($key, $val) = each($fruit) ) {
 				[ 'a => apple', 'b => banana', 'c => cranberry' ]
 				);
 	}
+
 	public function testRun_echo_next_while_1() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -847,6 +886,7 @@ while ($fruit_name = current($array)) {
 				[ 'fruit1<br />', 'fruit4<br />', 'fruit5<br />' ]
 			);
 	}
+
 	public function testRun_echo_while_function_1() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -870,6 +910,7 @@ if (in_array("mac", $os)) {
 				[ 'Нашел Irix' ]
 				);
 	}
+
 	public function testRun_in_array_2() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -937,6 +978,7 @@ print_r( $array2 );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_range_2() {
 		$return = Runtime::runSource( 'print_r( range(0, 30, 10) );' );
 		$this->assertEquals(
@@ -944,6 +986,7 @@ print_r( $array2 );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_range_3() {
 		$return = Runtime::runSource( 'print_r( range(0, 30, -10) );' );
 		$this->assertEquals(
@@ -951,6 +994,7 @@ print_r( $array2 );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_range_4() {
 		$return = Runtime::runSource( 'print_r( range(0, 30, 100) );', [ 'Test' ] );
 		$this->assertEquals(
@@ -997,30 +1041,35 @@ print_r( $fruits );' );
 				[ 'true' ]
 				);
 	}
+
 	public function testRun_echo_if_else_simple_function_2() {
 		$this->assertEquals(
 				Runtime::runSource( '$foo = [1,2,3]; if ( false ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2,3,4] ? "true" : "false";' ),
 				[ 'true' ]
 				);
 	}
+
 	public function testRun_echo_if_else_simple_function_3() {
 		$this->assertEquals(
 				Runtime::runSource( '$foo = [1,2,3]; if ( true ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2] ? "true" : "false"; echo " always!";' ),
 				[ 'true', ' always!' ]
 				);
 	}
+
 	public function testRun_echo_if_else_simple_function_4() {
 		$this->assertEquals(
 				Runtime::runSource( '$foo = [1,2,3]; if ( false ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2,3,4] ? "true" : "false"; echo " always!";' ),
 				[ 'true', ' always!' ]
 				);
 	}
+
 	public function testRun_echo_if_else_simple_variable_1() {
 		$this->assertEquals(
 				Runtime::runSource( 'if ( true ) $foo="true"; else $foo="false"; echo  $foo;' ),
 				[ 'true' ]
 				);
 	}
+
 	public function testRun_echo_if_else_simple_variable_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'if ( false ) $foo="true"; else $foo="false"; echo  $foo;' ),
@@ -1036,6 +1085,7 @@ print_r( $fruits );' );
 				Runtime::runSource( '$input_array = array("a", "b", "c", "d", "e"); print_r( array_chunk($input_array, 2) );', [ 'Test' ] )
 			);
 	}
+
 	public function testRun_echo_array_chunk_exception_1() {
 		$this->assertEquals(
 				[
@@ -1045,6 +1095,7 @@ print_r( $fruits );' );
 				Runtime::runSource( '$input_array = array("a", "b", "c", "d", "e"); print_r( array_chunk($input_array, 0) );', [ 'Test' ] )
 			);
 	}
+
 	public function testRun_echo_array_chunk_exception_2() {
 		$this->assertEquals(
 				[
@@ -1053,6 +1104,7 @@ print_r( $fruits );' );
 				Runtime::runSource( '$input_array = array("a", "b", "c", "d", "e"); @ print_r( array_chunk($input_array, 0) );', [ 'Test' ] )
 			);
 	}
+
 	public function testRun_echo_array_chunk_exception_3() {
 		$this->assertEquals(
 				[
@@ -1062,6 +1114,7 @@ print_r( $fruits );' );
 				Runtime::runSource( 'print_r( array_chunk( @ $itIsUndefined, 2 ) );', [ 'Test' ] )
 			);
 	}
+
 	public function testRun_echo_array_chunk_exception_4() {
 		$this->assertEquals(
 				[
@@ -1070,6 +1123,7 @@ print_r( $fruits );' );
 				Runtime::runSource( 'print_r( @ array_chunk( $itIsUndefined, 2) );', [ 'Test' ] )
 			);
 	}
+
 	public function testRun_echo_array_chunk_exception_5() {
 		$this->assertEquals(
 				[
@@ -1078,6 +1132,7 @@ print_r( $fruits );' );
 				Runtime::runSource( '@ print_r( array_chunk( $itIsUndefined, 2) );', [ 'Test' ] )
 			);
 	}
+
 	public function testRun_echo_array_chunk_exception_6() {
 		$this->assertEquals(
 				[

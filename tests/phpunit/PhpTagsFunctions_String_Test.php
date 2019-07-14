@@ -16,6 +16,7 @@ class PhpTagsFunctions_String_Test extends \PHPUnit\Framework\TestCase {
 				[ '<span class="error">PhpTags Warning:  sprintf() expects at least 1 parameter, 0 given in Page on line 1</span><br />' ]
 			);
 	}
+
 	public function testRun_printf_exception_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'sprintf("%d обезьян сидят на %s", new DateTime(), "дереве");', [ 'Page' ] ),

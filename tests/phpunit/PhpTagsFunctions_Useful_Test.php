@@ -44,18 +44,21 @@ class PhpTagsFunctions_Useful_Test extends \PHPUnit\Framework\TestCase {
 				[ 'one', 'bar' ]
 				);
 	}
+
 	public function testRun_get_args_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo implode( ", ", get_args() );', [ 'TestPage', 'one', 'foo' => 'bar' ] ),
 				[ 'one, bar' ]
 				);
 	}
+
 	public function testRun_get_arg_1() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo get_arg( 1 ), get_arg( "foo" ), get_arg( "bar", "not defined" );', [ 'TestPage', 'one', 'foo' => 'bar' ] ),
 				[ 'one', 'bar', 'not defined' ]
 				);
 	}
+
 	public function testRun_num_args_1() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo num_args(), $argc;', [ 'TestPage', 'one', 'foo' => 'bar' ] ),

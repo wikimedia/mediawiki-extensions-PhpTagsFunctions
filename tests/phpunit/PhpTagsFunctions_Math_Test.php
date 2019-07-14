@@ -16,24 +16,28 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '4.2' ]
 			);
 	}
+
 	public function testRun_abs_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo abs(5);' ),
 				[ '5' ]
 			);
 	}
+
 	public function testRun_abs_3() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo abs(-5);' ),
 				[ '5' ]
 			);
 	}
+
 	public function testRun_abs_4() {
 		$this->assertEquals(
 				Runtime::runSource( '$f = "abs"; echo $f(-5);' ),
 				[ '5' ]
 			);
 	}
+
 	public function testRun_abs_5() {
 		$this->assertEquals(
 				Runtime::runSource( '$f = "ABS"; echo $f(-5);' ),
@@ -103,12 +107,14 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '51' ]
 			);
 	}
+
 	public function testRun_bindec_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo bindec("000110011");' ),
 				[ '51' ]
 			);
 	}
+
 	public function testRun_bindec_3() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo bindec("111");' ),
@@ -122,12 +128,14 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '5' ]
 			);
 	}
+
 	public function testRun_ceil_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo ceil(9.999);' ),
 				[ '10' ]
 			);
 	}
+
 	public function testRun_ceil_3() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo ceil(-3.14);' ),
@@ -155,6 +163,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '1100' ]
 			);
 	}
+
 	public function testRun_decbin_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo decbin(26);' ),
@@ -168,6 +177,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ 'a' ]
 			);
 	}
+
 	public function testRun_dechex_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo dechex(47);' ),
@@ -181,6 +191,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '17' ]
 			);
 	}
+
 	public function testRun_decoct_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo decoct(264);' ),
@@ -194,6 +205,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ M_PI_4 ]
 			);
 	}
+
 	public function testRun_deg2rad_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo deg2rad(45) === M_PI_4 ? "true" : "false";' ),
@@ -207,6 +219,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ exp( 12 ) ]
 			);
 	}
+
 	public function testRun_exp_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo exp(5.7);' ),
@@ -227,12 +240,14 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '4' ]
 			);
 	}
+
 	public function testRun_floor_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo floor(9.999);' ),
 				[ '9' ]
 			);
 	}
+
 	public function testRun_floor_3() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo floor(-3.14);' ),
@@ -260,18 +275,21 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '238' ]
 			);
 	}
+
 	public function testRun_hexdec_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo hexdec("ee");' ),
 				[ '238' ]
 			);
 	}
+
 	public function testRun_hexdec_3() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo hexdec("that");' ),
 				[ '10' ]
 			);
 	}
+
 	public function testRun_hexdec_4() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo hexdec("a0");' ),
@@ -292,6 +310,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ is_finite( 5 ) ? "true" : "false" ]
 			);
 	}
+
 	public function testRun_is_infinite_1() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo is_infinite(5) ? "true" : "false";' ),
@@ -306,6 +325,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_is_nan_2() {
 		$return = Runtime::runSource( 'print_r( is_nan($nan) );' );
 		$this->assertEquals(
@@ -313,6 +333,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_is_nan_3() {
 		$return = Runtime::runSource( 'print_r( is_nan(NAN) );' );
 		$this->assertEquals(
@@ -349,6 +370,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ log( 45 ) ]
 			);
 	}
+
 	public function testRun_log_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo log(45, 05);' ),
@@ -362,36 +384,42 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '7' ]
 			);
 	}
+
 	public function testRun_max_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo max(array(2, 4, 5));' ),
 				[ '5' ]
 			);
 	}
+
 	public function testRun_max_3() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo max(0, "hello");' ),
 				[ '0' ]
 			);
 	}
+
 	public function testRun_max_4() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo max("hello", 0);' ),
 				[ 'hello' ]
 			);
 	}
+
 	public function testRun_max_5() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo max("42", 3);' ),
 				[ '42' ]
 			);
 	}
+
 	public function testRun_max_6() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo max(-1, "hello");' ),
 				[ 'hello' ]
 			);
 	}
+
 	public function testRun_max_7() {
 		$return = Runtime::runSource( 'print_r( max(array(2, 2, 2), array(1, 1, 1, 1)) );' );
 		$this->assertEquals(
@@ -399,6 +427,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_max_8() {
 		$return = Runtime::runSource( 'print_r( max("string", array(2, 5, 7), 42) );' );
 		$this->assertEquals(
@@ -413,6 +442,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '1' ]
 			);
 	}
+
 	public function testRun_min_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo min(array(2, 4, 5));' ),
@@ -434,6 +464,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_mt_rand_2() {
 		$return = Runtime::runSource( 'echo mt_rand(4, 9);' );
 		$this->assertRegExp(
@@ -448,6 +479,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '63' ]
 			);
 	}
+
 	public function testRun_octdec_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo octdec(decoct(45));' ),
@@ -468,12 +500,14 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '256' ]
 			);
 	}
+
 	public function testRun_pow_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo pow(-1, 20);' ),
 				[ '1' ]
 			);
 	}
+
 	public function testRun_pow_3() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo pow(0, 0);' ),
@@ -495,6 +529,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_rand_2() {
 		$return = Runtime::runSource( 'echo rand(4, 9);' );
 		$this->assertRegExp(
@@ -509,36 +544,42 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '3' ]
 			);
 	}
+
 	public function testRun_round_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo round(3.5);' ),
 				[ '4' ]
 			);
 	}
+
 	public function testRun_round_3() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo round(3.6, 0);' ),
 				[ '4' ]
 			);
 	}
+
 	public function testRun_round_4() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo round(1241757, -3);' ),
 				[ '1242000' ]
 			);
 	}
+
 	public function testRun_round_5() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo round(9.5, 0, PHP_ROUND_HALF_UP);' ),
 				[ '10' ]
 			);
 	}
+
 	public function testRun_round_6() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo round(9.5, 0, PHP_ROUND_HALF_DOWN);' ),
 				[ '9' ]
 			);
 	}
+
 	public function testRun_round_7() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo round(-1.55, 1, PHP_ROUND_HALF_DOWN);' ),
@@ -552,6 +593,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ sin( deg2rad( 60 ) ) ]
 			);
 	}
+
 	public function testRun_sin_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo sin(60);' ),
@@ -572,6 +614,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 				[ '3' ]
 			);
 	}
+
 	public function testRun_sqrt_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo sqrt(10);' ),

@@ -9,6 +9,7 @@ class PhpTagsFunctions_PCRE_Test extends \PHPUnit\Framework\TestCase {
 				[ PREG_PATTERN_ORDER ]
 				);
 	}
+
 	public function testRun_constant_2() {
 		$this->assertEquals(
 				Runtime::runSource( 'echo PREG_OFFSET_CAPTURE;' ),
@@ -27,6 +28,7 @@ print_r( preg_filter($pattern, $replace, $subject) );' );
 				(string)$return[0]
 			);
 	}
+
 	public function testRun_preg_replace_1() {
 		$return = Runtime::runSource( ' print_r( preg_replace($pattern, $replace, $subject) ); ' );
 		$this->assertEquals(
@@ -68,6 +70,7 @@ echo $out[1][0] . ", " . $out[1][1];' ),
 				[ '<b>example: </b>, <div align=left>this is a test</div>', 'example: , this is a test' ]
 			);
 	}
+
 	public function testRun_preg_match_all_2() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -95,6 +98,7 @@ echo "domain name is: {$matches[0]}";' ),
 				[ 'domain name is: php.net' ]
 				);
 	}
+
 	public function testRun_preg_match_2() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -130,6 +134,7 @@ echo preg_replace($pattern, $replacement, $string);' ),
 				[ 'April1,2003' ]
 				);
 	}
+
 	public function testRun_preg_replace_3() {
 		$this->assertEquals(
 				Runtime::runSource( '
@@ -153,6 +158,7 @@ echo preg_replace($patterns, $replacements, $string);' ),
 				[ print_r( [ 'hypertext', 'language', 'programming' ], true ) ]
 			);
 	}
+
 	public function testRun_preg_split_2() {
 		$this->assertEquals(
 				Runtime::runSource( '$str = "string";
@@ -161,6 +167,7 @@ echo print_r($chars,true);' ),
 				[ print_r( [ 's', 't', 'r', 'i', 'n', 'g' ], true ) ]
 			);
 	}
+
 	public function testRun_preg_split_3() {
 		$this->assertEquals(
 				Runtime::runSource( '$str = "hypertext language programming";
