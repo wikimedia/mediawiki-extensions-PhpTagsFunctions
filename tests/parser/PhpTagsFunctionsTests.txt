@@ -1,3 +1,5 @@
+!! Version 2
+
 !! article
 Template:Get random argument
 !! text
@@ -31,23 +33,23 @@ echo "\n";
 
 !! test
 Get random argument
-!! input
+!! wikitext
 {{Get random argument | One }}
-!! result
+!! html
 <p>One
 </p>
 !! end
 
 !! test
 Transclude Echo
-!! input
+!! wikitext
 <phptag>
 echo "Hello\n\n";
 $foo = transclude( "Echo", ['1', '22', '333', '4444'] );
 echo "\n\n$foo";
 echo "\n\nBye";
 </phptag>
-!! result
+!! html
 <p>Hello
 </p><p><br />
 </p><p>1223334444
@@ -57,14 +59,14 @@ echo "\n\nBye";
 
 !! test
 Transclude Echo2
-!! input
+!! wikitext
 <phptag>
 echo "Hello\n\n";
 $foo = transclude( "Echo", ['1', '22', '333', '4444'], null );
 echo "\n\nBye";
 echo "\n\n$foo";
 </phptag>
-!! result
+!! html
 <p>Hello
 </p><p><br />
 </p><p>Bye
@@ -74,13 +76,13 @@ echo "\n\n$foo";
 
 !! test
 Transclude Echo3
-!! input
+!! wikitext
 <phptag>
 echo "Hello\n\n";
 echo transclude( false, [], '{{Echo|1|22|333|4444}}' );
 echo "\n\nBye";
 </phptag>
-!! result
+!! html
 <p>Hello
 </p><p>1223334444
 </p><p>Bye
@@ -89,13 +91,13 @@ echo "\n\nBye";
 
 !! test
 Transclude Dump
-!! input
+!! wikitext
 <phptag>
 echo "Hello\n\n";
 echo transclude( "Dump", ['1', '22', '333', '4444', 'test'=>'TEST'] );
 echo "\n\nBye";
 </phptag>
-!! result
+!! html
 <p>Hello
 </p><p><br />
 </p>
@@ -122,9 +124,9 @@ echo "\n\nBye";
 
 !! test
 Transclude Loop detected
-!! input
+!! wikitext
 {{:Transclude Loop}}
-!! result
+!! html
 <p>Hello
 </p><p><span class="error">PhpTags Warning:  transclude(): Template loop detected in Transclude Loop on line 3</span><br />
 </p><p>Bye
