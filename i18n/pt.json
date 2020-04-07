@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Imperadeiro98",
-			"Hamilton Abreu"
+			"Hamilton Abreu",
+			"Imperadeiro98"
 		]
 	},
 	"phptagsfunctions-desc": "Implementa as funções internas do PHP nativo na extensão PhpTags",

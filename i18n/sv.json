@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"WikiPhoenix",
-			"Lokal Profil"
+			"Lokal Profil",
+			"WikiPhoenix"
 		]
 	},
 	"phptagsfunctions-desc": "Implementerar de interna funktionerna för inbyggd PHP för PhpTags-tillägget",
