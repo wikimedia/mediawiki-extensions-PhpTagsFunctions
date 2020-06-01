@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * PhpTags Functions MediaWiki Hooks.
  *
