@@ -13,22 +13,10 @@ class PhpTagsFunctionsHooks {
 	/**
 	 * Check on version compatibility
 	 * @return bool
+	 * @throws MWException
 	 */
 	public static function onParserFirstCallInit() {
-		$extRegistry = ExtensionRegistry::getInstance();
-		$phpTagsLoaded = $extRegistry->isLoaded( 'PhpTags' );
-		// if ( !$extRegistry->isLoaded( 'PhpTags' ) ) { use PHPTAGS_VERSION for backward compatibility
-		if ( !( $phpTagsLoaded || defined( 'PHPTAGS_VERSION' ) ) ) {
-			throw new MWException( "\n\nYou need to have the PhpTags extension installed in order to use the PhpTags Functions extension." );
-		}
-		if ( $phpTagsLoaded ) {
-			$neededVersion = '5.9';
-			$phpTagsVersion = $extRegistry->getAllThings()['PhpTags']['version'];
-			if ( version_compare( $phpTagsVersion, $neededVersion, '<' ) ) {
-				throw new MWException( "\n\nThis version of the PhpTags Functions extension requires the PhpTags extension $neededVersion or above.\n You have $phpTagsVersion. Please update it." );
-			}
-		}
-		if ( !$phpTagsLoaded || PHPTAGS_HOOK_RELEASE != 8 ) {
+		if ( PHPTAGS_HOOK_RELEASE != 8 ) {
 			throw new MWException( "\n\nThis version of the PhpTags Functions extension is outdated and not compatible with current version of the PhpTags extension.\n Please update it." );
 		}
 		return true;

@@ -2,6 +2,7 @@
 namespace PhpTagsObjects;
 
 use PhpTags\PhpTagsException;
+use PhpTags\Runtime;
 
 /**
  *
@@ -18,7 +19,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		'extract' => true,
 		'array_diff_uassoc' => true, // @todo callback
 		'array_diff_ukey' => true, // @todo callback
-		'array_filter' => true, // @todo callback
+//		'array_filter' => true, // @todo callback
 		'array_intersect_uassoc' => true, // @todo callback
 		'array_intersect_ukey' => true, // @todo callback
 		'array_map' => true, // @todo callback
@@ -76,6 +77,14 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		}
 
 		return call_user_func_array( 'array_multisort', $arguments );
+	}
+
+	public static function f_hexdec( $value ) {
+		if ( $value && $value !== true && !ctype_xdigit( $value ) ) {
+			Runtime::pushException( new PhpTagsException( PhpTagsException::DEPRECATED_INVALID_CHARACTERS ) );
+			$value = preg_replace( '/[^0-9a-fA-F]/', '', $value );
+		}
+		return hexdec( $value );
 	}
 
 	public static function f_each( &$var ) {
@@ -472,6 +481,15 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 			throw new \PhpTags\HookException( 'Number of elements must be positive' );
 		}
 		return array_fill( $start_index, $num, $value );
+	}
+
+	/**
+	 * @todo callback
+	 * @param array $array
+	 * @return array
+	 */
+	public static function f_array_filter( array $array ) {
+		return array_filter( $array );
 	}
 
 	public static function f_array_rand( $array, $num = 1 ) {

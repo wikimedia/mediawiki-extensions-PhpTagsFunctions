@@ -452,6 +452,12 @@
 			"return": "array",
 			"desc": "Fill an array with values"
 		},
+		"array_filter": {
+			"class": "PhpTagsFunc",
+			"parameters": [
+				{ "type": "array", "name": "array" }
+			]
+		},
 		"array_flip": {
 			"class": "PhpTagsFunc",
 			"parameters": [

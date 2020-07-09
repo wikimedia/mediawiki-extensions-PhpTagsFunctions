@@ -6,6 +6,11 @@
 	"descriptionmsg": "phptagsfunctions-desc",
 	"license-name": "GPL-2.0-or-later",
 	"type": "phptags",
+	"requires": {
+		"extensions": {
+			"PhpTags": ">= 5.12"
+		}
+	},
 	"MessagesDirs": {
 		"PhpTagsFunctions": [
 			"i18n"
