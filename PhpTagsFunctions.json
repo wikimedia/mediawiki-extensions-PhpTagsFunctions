@@ -3370,11 +3370,6 @@
 			"desc": "Alternate era",
 			"link": "php://function.nl-langinfo.php"
 		},
-		"ERA_D_T_FMT": {
-			"type": "int",
-			"desc": "Date and time in alternate era format",
-			"link": "php://function.nl-langinfo.php"
-		},
 		"ERA_D_FMT": {
 			"type": "int",
 			"desc": "Date in alternate era format",
