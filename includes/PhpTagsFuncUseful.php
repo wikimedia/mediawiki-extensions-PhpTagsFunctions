@@ -73,7 +73,7 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 			$title = false;
 		} elseif ( $template instanceof \PhpTags\GenericObject ) {
 			$title = $template->value;
-			if ( false === $title instanceof \Title ) {
+			if ( !$title instanceof \Title ) {
 				if ( $template->getName() !== 'WTitle' ) {
 					throw new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::FATAL_OBJECT_COULD_NOT_BE_CONVERTED, [ $template->getName(), 'WTitle' ] );
 				}

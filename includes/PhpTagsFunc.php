@@ -278,7 +278,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	}
 
 	public static function f_settype( &$var, $type ) {
-		if ( false === in_array( $type, [ 'boolean', 'bool', 'integer', 'int', 'float', 'double', 'string', 'array', 'object', 'null' ] ) ) {
+		if ( !in_array( $type, [ 'boolean', 'bool', 'integer', 'int', 'float', 'double', 'string', 'array', 'object', 'null' ] ) ) {
 			throw new \PhpTags\HookException( 'Invalid type' );
 		}
 		if ( $var instanceof \PhpTags\GenericObject ) {
@@ -292,7 +292,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	public static function f_max() {
 		$values = func_get_args();
-		if ( func_num_args() === 1 && false === is_array( $values[0] ) ) {
+		if ( func_num_args() === 1 && !is_array( $values[0] ) ) {
 			return self::pushExceptionExpectsParameter( 1, 'array', $values[0] );
 		}
 		return call_user_func_array( 'max', $values );
@@ -300,7 +300,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	public static function f_min() {
 		$values = func_get_args();
-		if ( func_num_args() === 1 && false === is_array( $values[0] ) ) {
+		if ( func_num_args() === 1 && !is_array( $values[0] ) ) {
 			return self::pushExceptionExpectsParameter( 1, 'array', $values[0] );
 		}
 		return call_user_func_array( 'min', $values );
@@ -310,10 +310,10 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 		$values = func_get_args();
 
 		if ( func_num_args() === 1 ) {
-			if ( false === is_array( $values[0] ) ) {
+			if ( !is_array( $values[0] ) ) {
 				return self::pushExceptionExpectsParameter( 1, 'array', $values[0] );
 			}
-		} elseif ( false === is_string( $values[0] ) ) {
+		} elseif ( !is_string( $values[0] ) ) {
 			return self::pushExceptionExpectsParameter( 1, 'string', $values[0] );
 		}
 
@@ -415,7 +415,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 				}
 				return self::pushExceptionExpectsParameter( 2, 'array', $from );
 			case 3:
-				if ( false === is_array( $from ) ) {
+				if ( !is_array( $from ) ) {
 					return strtr( $str, (string)$from, $to );
 				}
 				return self::pushExceptionExpectsParameter( 2, 'string', $from );

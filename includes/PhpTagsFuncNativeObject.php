@@ -86,7 +86,7 @@ class PhpTagsFuncNativeObject extends PhpTagsFunc {
 				return $return;
 			case 'c': // constant
 				$reflect = new \ReflectionClass( $object );
-				if ( true === $reflect->hasConstant( $subname ) ) {
+				if ( $reflect->hasConstant( $subname ) ) {
 					$return = $reflect->getConstant( $subname );
 					if ( is_object( $return ) ) {
 						$return = \PhpTags\Hooks::getObjectWithValue( get_class( $return ), $return );
