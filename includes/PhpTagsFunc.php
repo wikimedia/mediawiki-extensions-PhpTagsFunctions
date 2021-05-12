@@ -446,7 +446,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	private static function mapArrayKeys( array $array ) {
 		return array_map(
-			function ( $key ) {
+			static function ( $key ) {
 				if ( is_array( $key ) ) {
 					\PhpTags\Runtime::pushException( new PhpTagsException( PhpTagsException::NOTICE_ARRAY_TO_STRING ) );
 					return 'Array';
@@ -470,7 +470,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	private static function filterArrayKeys( array $array ) {
 		return array_filter(
 			$array,
-			function ( $value ) {
+			static function ( $value ) {
 				return is_string( $value ) || is_int( $value ) || \PhpTags\Runtime::pushException( new \PhpTags\HookException( 'Can only count STRING and INTEGER values!' ) );
 			}
 		);
