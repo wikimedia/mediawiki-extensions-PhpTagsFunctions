@@ -1,6 +1,7 @@
 <?php
 namespace PhpTagsObjects;
 
+use MediaWiki\MediaWikiServices;
 use PhpTags\PhpTagsException;
 use PhpTags\Runtime;
 
@@ -342,57 +343,47 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 
 	/**
 	 * Make a string's first character lowercase
-	 * @global \Language $wgContLang
 	 * @param string $str
 	 * @return string
 	 */
 	public static function f_lcfirst( $str ) {
-		global $wgContLang;
-		return $wgContLang->lcfirst( $str );
+		return MediaWikiServices::getInstance()->getContentLanguage()->lcfirst( $str );
 	}
 
 	/**
 	 * Make a string's first character uppercase
-	 * @global \Language $wgContLang
 	 * @param string $str
 	 * @return string
 	 */
 	public static function f_ucfirst( $str ) {
-		global $wgContLang;
-		return $wgContLang->ucfirst( $str );
+		return MediaWikiServices::getInstance()->getContentLanguage()->ucfirst( $str );
 	}
 
 	/**
 	 * Uppercase the first character of each word in a string
-	 * @global \Language $wgContLang
 	 * @param string $str
 	 * @return string
 	 */
 	public static function f_ucwords( $str ) {
-		global $wgContLang;
-		return $wgContLang->ucwords( $str );
+		return MediaWikiServices::getInstance()->getContentLanguage()->ucwords( $str );
 	}
 
 	/**
 	 * Make a string lowercase
-	 * @global \Language $wgContLang
 	 * @param string $str
 	 * @return string
 	 */
 	public static function f_strtolower( $str ) {
-		global $wgContLang;
-		return $wgContLang->lc( $str );
+		return MediaWikiServices::getInstance()->getContentLanguage()->lc( $str );
 	}
 
 	/**
 	 * Make a string uppercase
-	 * @global \Language $wgContLang
 	 * @param string $str
 	 * @return string
 	 */
 	public static function f_strtoupper( $str ) {
-		global $wgContLang;
-		return $wgContLang->uc( $str );
+		return MediaWikiServices::getInstance()->getContentLanguage()->uc( $str );
 	}
 
 	public static function f_levenshtein() {
