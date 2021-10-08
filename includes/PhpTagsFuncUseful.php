@@ -86,7 +86,7 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 		}
 
 		if ( $title ) {
-			if ( \MWNamespace::isNonincludable( $title->getNamespace() ) ) {
+			if ( \MediaWiki\MediaWikiServices::getInstance()->getNamespaceInfo()->isNonincludable( $title->getNamespace() ) ) {
 				throw new \PhpTags\HookException( 'Template inclusion denied' );
 			}
 			if ( $title->isExternal() ) {
