@@ -271,8 +271,8 @@ if (array_key_exists("first", $search_array)) {
     echo "The \"first\" element is in the array";
 }' );
 		$this->assertEquals(
-				$return[0],
-				'The "first" element is in the array'
+				'The "first" element is in the array',
+				$return[0]
 			);
 	}
 
