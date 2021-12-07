@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Esketti"
+			"Esketti",
+			"McDutchie"
 		]
 	},
-	"phptagsfunctions-desc": "Voor de uitvoering van de interne functies van native PHP voor de uitbreiding PhpTags",
-	"phptagsfunctions-preg-bad-delimiter": "Scheidingsteken moet niet worden alfanumerieke of een backslash",
-	"phptagsfunctions-preg-no-ending-delimiter": "Geen einde delimiter \"$1\" is gevonden",
-	"phptagsfunctions-preg-unknown-modifier": "Niet bekende modifier $1"
+	"phptagsfunctions-desc": "Implementeert de interne functies van native PHP voor de uitbreiding PhpTags",
+	"phptagsfunctions-preg-bad-delimiter": "Scheidingsteken mag niet alfanumeriek of backslash zijn",
+	"phptagsfunctions-preg-no-ending-delimiter": "Geen afsluitteken \"$1\" gevonden",
+	"phptagsfunctions-preg-unknown-modifier": "Onbekende modifier \"$1\""
 }
