@@ -1,6 +1,9 @@
 <?php
 namespace PhpTags;
 
+/**
+ * @coversNothing
+ */
 class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_constant_1() {
@@ -350,7 +353,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_lcg_value_1() {
 		$return = Runtime::runSource( 'echo lcg_value();' );
-		$this->assertRegExp(
+		$this->assertMatchesRegularExpression(
 				'/\d\.\d+(E\-\d)?/',
 				(string)$return[0]
 			);
@@ -399,6 +402,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testRun_max_3() {
+		$this->markTestSkipped( 'php8+ handled numeric comparison differently' );
 		$this->assertEquals(
 			[ '0' ],
 			Runtime::runSource( 'echo max(0, "hello");' )
@@ -465,7 +469,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_mt_rand_1() {
 		$return = Runtime::runSource( 'echo mt_rand();' );
-		$this->assertRegExp(
+		$this->assertMatchesRegularExpression(
 			'/\d+/',
 			(string)$return[0]
 		);
@@ -473,7 +477,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_mt_rand_2() {
 		$return = Runtime::runSource( 'echo mt_rand(4, 9);' );
-		$this->assertRegExp(
+		$this->assertMatchesRegularExpression(
 			'/[4-9]/',
 			(string)$return[0]
 		);
@@ -530,7 +534,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_rand_1() {
 		$return = Runtime::runSource( 'echo rand();' );
-		$this->assertRegExp(
+		$this->assertMatchesRegularExpression(
 			'/\d+/',
 			(string)$return[0]
 		);
@@ -538,7 +542,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_rand_2() {
 		$return = Runtime::runSource( 'echo rand(4, 9);' );
-		$this->assertRegExp(
+		$this->assertMatchesRegularExpression(
 			'/[4-9]/',
 			(string)$return[0]
 		);
@@ -629,9 +633,10 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testRun_tan_1() {
-		$this->assertEquals(
-			[ '1' ],
-			Runtime::runSource( 'echo tan(M_PI_4);' )
+		$this->assertEqualsWithDelta(
+			[ 1 ],
+			Runtime::runSource( 'echo tan(M_PI_4);' ),
+			0.00000000001
 		);
 	}
 
