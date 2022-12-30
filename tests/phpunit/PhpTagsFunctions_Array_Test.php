@@ -1,6 +1,9 @@
 <?php
 namespace PhpTags;
 
+/**
+ * @coversNothing
+ */
 class PhpTagsFunctions_Array_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_constant_1() {

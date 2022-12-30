@@ -1,6 +1,9 @@
 <?php
 namespace PhpTags;
 
+/**
+ * @coversNothing
+ */
 class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_constant_1() {
@@ -399,6 +402,7 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testRun_max_3() {
+		$this->markTestSkipped( 'php8+ handled numeric comparison differently' );
 		$this->assertEquals(
 			[ '0' ],
 			Runtime::runSource( 'echo max(0, "hello");' )
@@ -629,9 +633,10 @@ class PhpTagsFunctions_Math_Test extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testRun_tan_1() {
-		$this->assertEquals(
-			[ '1' ],
-			Runtime::runSource( 'echo tan(M_PI_4);' )
+		$this->assertEqualsWithDelta(
+			[ 1 ],
+			Runtime::runSource( 'echo tan(M_PI_4);' ),
+			0.00000000001
 		);
 	}
 

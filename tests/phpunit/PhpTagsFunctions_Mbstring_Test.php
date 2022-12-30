@@ -1,6 +1,9 @@
 <?php
 namespace PhpTags;
 
+/**
+ * @coversNothing
+ */
 class PhpTagsFunctions_Mbstring_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_constant_1() {
@@ -11,6 +14,7 @@ class PhpTagsFunctions_Mbstring_Test extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testRun_constant_2() {
+		$this->markTestSkipped( 'php8+ no longer has MB_OVERLOAD_STRING' );
 		$this->assertEquals(
 				Runtime::runSource( 'echo MB_OVERLOAD_STRING;' ),
 				[ MB_OVERLOAD_STRING ]
