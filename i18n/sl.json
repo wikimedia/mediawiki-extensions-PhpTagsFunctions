@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"phptagsfunctions-desc": "Implementira notranje funkcije nativnega PHP za razširitev PhpTags",
+	"phptagsfunctions-preg-bad-delimiter": "Ločilo ne sme biti alfanumerično ali poševnica",
+	"phptagsfunctions-preg-no-ending-delimiter": "Najdeno ni bilo nobeno končno ločilo »$1«",
+	"phptagsfunctions-preg-unknown-modifier": "Neznani modifikator »$1«"
+}
