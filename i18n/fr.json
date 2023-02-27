@@ -3,10 +3,11 @@
 		"authors": [
 			"Dr Brains",
 			"Gomoko",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Verdy p"
 		]
 	},
-	"phptagsfunctions-desc": "Implémente les fonctions PHP internes natives pour l’extension PhpTags",
+	"phptagsfunctions-desc": "Met en œuvre les fonctions PHP internes natives pour l’extension PhpTags",
 	"phptagsfunctions-preg-bad-delimiter": "Le délimiteur ne doit pas être alphanumérique ou une barre oblique inversée",
 	"phptagsfunctions-preg-no-ending-delimiter": "Aucun délimiteur de fin « $1 » trouvé",
 	"phptagsfunctions-preg-unknown-modifier": "Modificateur « $1 » inconnu"
