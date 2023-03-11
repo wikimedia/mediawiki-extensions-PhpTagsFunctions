@@ -8,109 +8,109 @@ class PhpTagsFunctions_Mbstring_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_constant_1() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo MB_CASE_UPPER;' ),
-				[ MB_CASE_UPPER ]
+				[ MB_CASE_UPPER ],
+				Runtime::runSource( 'echo MB_CASE_UPPER;' )
 				);
 	}
 
 	public function testRun_constant_2() {
 		$this->markTestSkipped( 'php8+ no longer has MB_OVERLOAD_STRING' );
 		$this->assertEquals(
-				Runtime::runSource( 'echo MB_OVERLOAD_STRING;' ),
-				[ MB_OVERLOAD_STRING ]
+				[ MB_OVERLOAD_STRING ],
+				Runtime::runSource( 'echo MB_OVERLOAD_STRING;' )
 				);
 	}
 
 	public function testRun_mb_convert_case_1() {
 		$this->assertEquals(
+				[ 'MARY HAD A LITTLE LAMB AND SHE LOVED IT SO' ],
 				Runtime::runSource( '
 $str = "mary had a Little lamb and she loved it so";
 $str = mb_convert_case($str, MB_CASE_UPPER, "UTF-8");
-echo $str;' ),
-				[ 'MARY HAD A LITTLE LAMB AND SHE LOVED IT SO' ]
+echo $str;' )
 				);
 	}
 
 	public function testRun_mb_convert_case_2() {
 		$this->assertEquals(
+				[ 'Mary Had A Little Lamb And She Loved It So' ],
 				Runtime::runSource( '
 $str = "mary had a Little lamb and she loved it so";
 $str = mb_convert_case($str, MB_CASE_TITLE);
-echo $str;' ),
-				[ 'Mary Had A Little Lamb And She Loved It So' ]
+echo $str;' )
 				);
 	}
 
 	public function testRun_mb_convert_case_3() {
 		$this->assertEquals(
+				[ 'ΤΆΧΙΣΤΗ ΑΛΏΠΗΞ ΒΑΦΉΣ ΨΗΜΈΝΗ ΓΗ, ΔΡΑΣΚΕΛΊΖΕΙ ΥΠΈΡ ΝΩΘΡΟΎ ΚΥΝΌΣ' ],
 				Runtime::runSource( '
 $str = "Τάχιστη αλώπηξ βαφής ψημένη γη, δρασκελίζει υπέρ νωθρού κυνός";
 $str = mb_convert_case($str, MB_CASE_UPPER, "UTF-8");
-echo $str;' ),
-				[ 'ΤΆΧΙΣΤΗ ΑΛΏΠΗΞ ΒΑΦΉΣ ΨΗΜΈΝΗ ΓΗ, ΔΡΑΣΚΕΛΊΖΕΙ ΥΠΈΡ ΝΩΘΡΟΎ ΚΥΝΌΣ' ]
+echo $str;' )
 				);
 	}
 
 	public function testRun_mb_convert_case_4() {
 		$this->assertEquals(
+				[ 'Τάχιστη Αλώπηξ Βαφήσ Ψημένη Γη, Δρασκελίζει Υπέρ Νωθρού Κυνόσ' ],
 				Runtime::runSource( '
 $str = mb_convert_case($str, MB_CASE_TITLE, "UTF-8");
-echo $str;' ),
-				[ 'Τάχιστη Αλώπηξ Βαφήσ Ψημένη Γη, Δρασκελίζει Υπέρ Νωθρού Κυνόσ' ]
+echo $str;' )
 				);
 	}
 
 	public function testRun_mb_stripos_1() {
 		$this->assertEquals(
+				[ '18' ],
 				Runtime::runSource( '
 $str = "mary had a Little lamb and she loved it so";
-echo mb_stripos($str, "LAMB");' ),
-				[ '18' ]
+echo mb_stripos($str, "LAMB");' )
 				);
 	}
 
 	public function testRun_mb_stripos_2() {
 		$this->assertEquals(
+				[ '21' ],
 				Runtime::runSource( '
 $str = "Τάχιστη Αλώπηξ Βαφήσ Ψημένη Γη, Δρασκελίζει Υπέρ Νωθρού Κυνόσ";
-echo mb_stripos($str, "ΨΗΜΈΝΗ");' ),
-				[ '21' ]
+echo mb_stripos($str, "ΨΗΜΈΝΗ");' )
 				);
 	}
 
 	public function testRun_mb_strlen_1() {
 		$this->assertEquals(
+				[ '42' ],
 				Runtime::runSource( '
 $str = "mary had a Little lamb and she loved it so";
-echo mb_strlen($str);' ),
-				[ '42' ]
+echo mb_strlen($str);' )
 				);
 	}
 
 	public function testRun_mb_strlen_2() {
 		$this->assertEquals(
+				[ '61' ],
 				Runtime::runSource( '
 $str = "Τάχιστη Αλώπηξ Βαφήσ Ψημένη Γη, Δρασκελίζει Υπέρ Νωθρού Κυνόσ";
-echo mb_strlen($str);' ),
-				[ '61' ]
+echo mb_strlen($str);' )
 				);
 	}
 
 	public function testRun_mb_strpos_1() {
 		$this->assertEquals(
+				[ '18' ],
 				Runtime::runSource( '
 $str = "mary had a Little lamb and she loved it so";
-echo mb_strpos($str, "lamb");' ),
-				[ '18' ]
+echo mb_strpos($str, "lamb");' )
 				);
 	}
 
 	public function testRun_mb_strpos_2() {
 		$this->assertEquals(
+				[ '21' ],
 				Runtime::runSource( '
 $str = "Τάχιστη Αλώπηξ Βαφήσ Ψημένη Γη, Δρασκελίζει Υπέρ Νωθρού Κυνόσ";
-echo mb_strpos($str, "Ψημένη");' ),
-				[ '21' ]
+echo mb_strpos($str, "Ψημένη");' )
 				);
 	}
 

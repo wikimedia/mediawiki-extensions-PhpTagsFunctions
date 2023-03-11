@@ -8,22 +8,22 @@ class PhpTagsFunctions_Array_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_constant_1() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo M_PI;' ),
-				[ M_PI ]
+				[ M_PI ],
+				Runtime::runSource( 'echo M_PI;' )
 				);
 	}
 
 	public function testRun_array_change_key_case_1() {
 		$this->assertEquals(
-				Runtime::runSource( '$input_array = array("FirSt" => 1, "SecOnd" => 4); $res = array_change_key_case($input_array, CASE_UPPER); echo $res["FIRST"], $res["SECOND"];' ),
-				[ '1', '4' ]
+				[ '1', '4' ],
+				Runtime::runSource( '$input_array = array("FirSt" => 1, "SecOnd" => 4); $res = array_change_key_case($input_array, CASE_UPPER); echo $res["FIRST"], $res["SECOND"];' )
 				);
 	}
 
 	public function testRun_array_change_key_case_2() {
 		$this->assertEquals(
-				Runtime::runSource( '$input_array = array("FirSt" => 1, "SecOnd" => 4); $res = array_change_key_case($input_array); echo $res["first"], $res["second"];' ),
-				[ '1', '4' ]
+				[ '1', '4' ],
+				Runtime::runSource( '$input_array = array("FirSt" => 1, "SecOnd" => 4); $res = array_change_key_case($input_array); echo $res["first"], $res["second"];' )
 				);
 	}
 
@@ -476,8 +476,8 @@ $a = array(2, 4, 6, 8);
 echo "product(a) = " . array_product($a);
 echo "product(array()) = " . array_product(array());' );
 		$this->assertEquals(
-				$return,
-				[ 'product(a) = 384', 'product(array()) = 1' ]
+				[ 'product(a) = 384', 'product(array()) = 1' ],
+				$return
 			);
 	}
 
@@ -578,8 +578,8 @@ $array = array(0 => "blue", 1 => "red", 2 => "green", 3 => "red");
 echo array_search("green", $array); // $key = 2;
 echo array_search("red", $array);   // $key = 1;' );
 		$this->assertEquals(
-				$return,
-				[ 2, 1 ]
+				[ 2, 1 ],
+				$return
 			);
 	}
 
@@ -696,8 +696,8 @@ print_r( $input );' );
 $a = array(2, 4, 6, 8);
 echo "sum(a) = " . array_sum($a);' );
 		$this->assertEquals(
-				$return,
-				[ 'sum(a) = 20' ]
+				[ 'sum(a) = 20' ],
+				$return
 			);
 	}
 
@@ -706,8 +706,8 @@ echo "sum(a) = " . array_sum($a);' );
 $b = array("a" => 1.2, "b" => 2.3, "c" => 3.4);
 echo "sum(b) = " . array_sum($b);' );
 		$this->assertEquals(
-				$return,
-				[ 'sum(b) = 6.9' ]
+				[ 'sum(b) = 6.9' ],
+				$return
 			);
 	}
 
@@ -778,99 +778,100 @@ print_r( $fruits );' );
 
 	public function testRun_count_1() {
 		$this->assertEquals(
-				Runtime::runSource( '$transport = array("foot", "bike", "car", "plane"); echo count($transport);' ),
-				[ '4' ]
+				[ '4' ],
+				Runtime::runSource( '$transport = array("foot", "bike", "car", "plane"); echo count($transport);' )
 				);
 	}
 
 	public function testRun_current_1() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo current($transport);' ),
-				[ 'foot' ]
+				[ 'foot' ],
+				Runtime::runSource( 'echo current($transport);' )
 				);
 	}
 
 	public function testRun_next_1() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo next($transport), next($transport);' ),
-				[ 'bike', 'car' ]
+				[ 'bike', 'car' ],
+				Runtime::runSource( 'echo next($transport), next($transport);' )
 				);
 	}
 
 	public function testRun_current_2() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo current($transport);' ),
-				[ 'car' ]
+				[ 'car' ],
+				Runtime::runSource( 'echo current($transport);' )
 				);
 	}
 
 	public function testRun_each_1() {
 		$this->assertEquals(
-				Runtime::runSource( '$a = each( $transport); echo $a[0], $a[1], $a["key"], $a["value"];' ),
-				[ '2', 'car', '2', 'car' ]
+				[ '2', 'car', '2', 'car' ],
+				Runtime::runSource( '$a = each( $transport); echo $a[0], $a[1], $a["key"], $a["value"];' )
 				);
 	}
 
 	public function testRun_end_1() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo end($transport);' ),
-				[ 'plane' ]
+				[ 'plane' ],
+				Runtime::runSource( 'echo end($transport);' )
 				);
 	}
 
 	public function testRun_prev_1() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo prev($transport);' ),
-				[ 'car' ]
+				[ 'car' ],
+				Runtime::runSource( 'echo prev($transport);' )
 				);
 	}
 
 	public function testRun_key_1() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo key($transport);' ),
-				[ '2' ]
+				[ '2' ],
+				Runtime::runSource( 'echo key($transport);' )
 				);
 	}
 
 	public function testRun_reset_1() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo reset($transport);' ),
-				[ 'foot' ]
+				[ 'foot' ],
+				Runtime::runSource( 'echo reset($transport);' )
 				);
 	}
 
 	public function testRun_key_2() {
 		$this->assertEquals(
-				Runtime::runSource( 'echo key($transport);' ),
-				[ '0' ]
+				[ '0' ],
+				Runtime::runSource( 'echo key($transport);' )
 				);
 	}
 
 	public function testRun_each_2() {
 		$this->assertEquals(
+				[ 'a => apple' ],
 				Runtime::runSource( '
 $fruit = array("a" => "apple", "b" => "banana", "c" => "cranberry");
 reset($fruit);
 list($key, $val) = each($fruit);
-echo "$key => $val";' ),
-				[ 'a => apple' ]
+echo "$key => $val";' )
 				);
 	}
 
 	public function testRun_echo_list_while_1() {
 		$this->assertEquals(
+				[ 'a => apple', 'b => banana', 'c => cranberry' ],
 				Runtime::runSource( '
 $fruit = array("a" => "apple", "b" => "banana", "c" => "cranberry");
 reset($fruit);
 while ( list($key, $val) = each($fruit) ) {
     echo "$key => $val";
-}' ),
-				[ 'a => apple', 'b => banana', 'c => cranberry' ]
+}' )
 				);
 	}
 
 	public function testRun_echo_next_while_1() {
 		$this->assertEquals(
+				[ 'fruit1<br />', 'fruit4<br />', 'fruit5<br />' ],
 				Runtime::runSource( '
 	$array = array(
     "fruit1" => "apple",
@@ -885,23 +886,23 @@ while ($fruit_name = current($array)) {
         echo key($array)."<br />";
     }
     next($array);
-}' ),
-				[ 'fruit1<br />', 'fruit4<br />', 'fruit5<br />' ]
+}' )
 			);
 	}
 
 	public function testRun_echo_while_function_1() {
 		$this->assertEquals(
+				[ 'true' ],
 				Runtime::runSource( '
 $foo = [1,2];
 while ( count($foo) < 4 ) array_push($foo, 8);
-echo $foo == [1,2,8,8] ? "true" : false;' ),
-				[ 'true' ]
+echo $foo == [1,2,8,8] ? "true" : false;' )
 				);
 	}
 
 	public function testRun_in_array_1() {
 		$this->assertEquals(
+				[ 'Нашел Irix' ],
 				Runtime::runSource( '
 $os = array("Mac", "NT", "Irix", "Linux");
 if (in_array("Irix", $os)) {
@@ -909,13 +910,13 @@ if (in_array("Irix", $os)) {
 }
 if (in_array("mac", $os)) {
     echo "Нашел mac";
-}' ),
-				[ 'Нашел Irix' ]
+}' )
 				);
 	}
 
 	public function testRun_in_array_2() {
 		$this->assertEquals(
+				[ '1.13 найдено со строгой проверкой' ],
 				Runtime::runSource( '
 $a = array("1.10", 12.4, 1.13);
 
@@ -925,8 +926,7 @@ if (in_array("12.4", $a, true)) {
 
 if (in_array(1.13, $a, true)) {
     echo "1.13 найдено со строгой проверкой";
-}' ),
-				[ '1.13 найдено со строгой проверкой' ]
+}' )
 				);
 	}
 
@@ -1040,43 +1040,43 @@ print_r( $fruits );' );
 
 	public function testRun_echo_if_else_simple_function_1() {
 		$this->assertEquals(
-				Runtime::runSource( '$foo = [1,2,3]; if ( true ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2] ? "true" : "false";' ),
-				[ 'true' ]
+				[ 'true' ],
+				Runtime::runSource( '$foo = [1,2,3]; if ( true ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2] ? "true" : "false";' )
 				);
 	}
 
 	public function testRun_echo_if_else_simple_function_2() {
 		$this->assertEquals(
-				Runtime::runSource( '$foo = [1,2,3]; if ( false ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2,3,4] ? "true" : "false";' ),
-				[ 'true' ]
+				[ 'true' ],
+				Runtime::runSource( '$foo = [1,2,3]; if ( false ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2,3,4] ? "true" : "false";' )
 				);
 	}
 
 	public function testRun_echo_if_else_simple_function_3() {
 		$this->assertEquals(
-				Runtime::runSource( '$foo = [1,2,3]; if ( true ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2] ? "true" : "false"; echo " always!";' ),
-				[ 'true', ' always!' ]
+				[ 'true', ' always!' ],
+				Runtime::runSource( '$foo = [1,2,3]; if ( true ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2] ? "true" : "false"; echo " always!";' )
 				);
 	}
 
 	public function testRun_echo_if_else_simple_function_4() {
 		$this->assertEquals(
-				Runtime::runSource( '$foo = [1,2,3]; if ( false ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2,3,4] ? "true" : "false"; echo " always!";' ),
-				[ 'true', ' always!' ]
+				[ 'true', ' always!' ],
+				Runtime::runSource( '$foo = [1,2,3]; if ( false ) array_pop($foo); else array_push($foo, 4); echo  $foo == [1,2,3,4] ? "true" : "false"; echo " always!";' )
 				);
 	}
 
 	public function testRun_echo_if_else_simple_variable_1() {
 		$this->assertEquals(
-				Runtime::runSource( 'if ( true ) $foo="true"; else $foo="false"; echo  $foo;' ),
-				[ 'true' ]
+				[ 'true' ],
+				Runtime::runSource( 'if ( true ) $foo="true"; else $foo="false"; echo  $foo;' )
 				);
 	}
 
 	public function testRun_echo_if_else_simple_variable_2() {
 		$this->assertEquals(
-				Runtime::runSource( 'if ( false ) $foo="true"; else $foo="false"; echo  $foo;' ),
-				[ 'false' ]
+				[ 'false' ],
+				Runtime::runSource( 'if ( false ) $foo="true"; else $foo="false"; echo  $foo;' )
 				);
 	}
 
