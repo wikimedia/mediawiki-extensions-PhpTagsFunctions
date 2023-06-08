@@ -8,7 +8,7 @@
 		]
 	},
 	"phptagsfunctions-desc": "Met en œuvre les fonctions PHP internes natives pour l’extension PhpTags",
-	"phptagsfunctions-preg-bad-delimiter": "Le délimiteur ne doit pas être alphanumérique ou une barre oblique inversée",
-	"phptagsfunctions-preg-no-ending-delimiter": "Aucun délimiteur de fin « $1 » trouvé",
-	"phptagsfunctions-preg-unknown-modifier": "Modificateur « $1 » inconnu"
+	"phptagsfunctions-preg-bad-delimiter": "Le délimiteur ne doit être ni alphanumérique, ni une barre oblique inversée",
+	"phptagsfunctions-preg-no-ending-delimiter": "Aucun délimiteur de fin « $1 » trouvé",
+	"phptagsfunctions-preg-unknown-modifier": "Modificateur « $1 » inconnu"
 }
