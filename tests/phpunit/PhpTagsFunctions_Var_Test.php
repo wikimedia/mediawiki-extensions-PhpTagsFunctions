@@ -208,8 +208,8 @@ class PhpTagsFunctions_Var_Test extends \PHPUnit\Framework\TestCase {
 
 	public function testRun_intval_8() {
 		$this->assertEquals(
-				[ '10000000000' ] // 1410065408 ???
-,
+				[ '10000000000' ], // 1410065408 ???
+
 				Runtime::runSource( 'echo intval(1e10);' ) );
 	}
 

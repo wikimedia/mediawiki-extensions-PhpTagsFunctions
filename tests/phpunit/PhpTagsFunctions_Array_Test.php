@@ -30,7 +30,7 @@ class PhpTagsFunctions_Array_Test extends \PHPUnit\Framework\TestCase {
 	public function testRun_array_chunk_1() {
 		$return = Runtime::runSource( '$input_array = array("a", "b", "c", "d", "e"); print_r( array_chunk($input_array, 2) );' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 0 => [ 'a','b' ], 1 => [ 'c','d' ], 2 => [ 'e' ] ], true ) ),
+				(string)new outPrint( null, print_r( [ 0 => [ 'a', 'b' ], 1 => [ 'c', 'd' ], 2 => [ 'e' ] ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -38,7 +38,7 @@ class PhpTagsFunctions_Array_Test extends \PHPUnit\Framework\TestCase {
 	public function testRun_array_chunk_2() {
 		$return = Runtime::runSource( 'print_r( array_chunk($input_array, 2, true) );' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 0 => [ 0 => 'a',1 => 'b' ], 1 => [ 2 => 'c', 3 => 'd' ], 2 => [ 4 => 'e' ] ], true ) ),
+				(string)new outPrint( null, print_r( [ 0 => [ 0 => 'a', 1 => 'b' ], 1 => [ 2 => 'c', 3 => 'd' ], 2 => [ 4 => 'e' ] ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -166,7 +166,7 @@ $keys = array("foo", 5, 10, "bar");
 $a = array_fill_keys($keys, "banana");
 print_r($a);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 'foo' => 'banana',5 => 'banana',10 => 'banana','bar' => 'banana' ], true ) ),
+				(string)new outPrint( null, print_r( [ 'foo' => 'banana', 5 => 'banana', 10 => 'banana', 'bar' => 'banana' ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -181,7 +181,7 @@ print_r($a);', [ 'Test' ] );
 				(string)$return[0]
 			);
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 'foo' => 'banana',5 => 'banana','Array' => 'banana','bar' => 'banana' ], true ) ),
+				(string)new outPrint( null, print_r( [ 'foo' => 'banana', 5 => 'banana', 'Array' => 'banana', 'bar' => 'banana' ], true ) ),
 				(string)$return[1]
 			);
 	}
@@ -191,7 +191,7 @@ print_r($a);', [ 'Test' ] );
 $a = array_fill(5, 3, "banana");
 print_r($a);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 5 => 'banana',6 => 'banana',7 => 'banana' ], true ) ),
+				(string)new outPrint( null, print_r( [ 5 => 'banana', 6 => 'banana', 7 => 'banana' ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -250,7 +250,7 @@ $array1 = array("blue"  => 1, "red"  => 2, "green"  => 3, "purple" => 4);
 $array2 = array("green" => 5, "blue" => 6, "yellow" => 7, "cyan"   => 8);
 print_r(array_intersect_key($array1, $array2));' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 'blue' => 1,'green' => 3 ], true ) ),
+				(string)new outPrint( null, print_r( [ 'blue' => 1, 'green' => 3 ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -317,7 +317,7 @@ $ar2 = array(10, "color" => array("favorite" => "green", "blue"));
 $result = array_merge_recursive($ar1, $ar2);
 print_r($result);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 'color' => [ 'favorite' => [ 'red','green' ], 0 => 'blue' ],0 => 5,1 => 10 ], true ) ),
+				(string)new outPrint( null, print_r( [ 'color' => [ 'favorite' => [ 'red', 'green' ], 0 => 'blue' ], 0 => 5, 1 => 10 ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -379,11 +379,11 @@ array_multisort($ar1, $ar2);
 print_r($ar1);
 print_r($ar2);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 0,10,100,100 ], true ) ),
+				(string)new outPrint( null, print_r( [ 0, 10, 100, 100 ], true ) ),
 				(string)$return[0]
 			);
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 4,1,2,3 ], true ) ),
+				(string)new outPrint( null, print_r( [ 4, 1, 2, 3 ], true ) ),
 				(string)$return[1]
 			);
 	}
@@ -398,7 +398,7 @@ array_multisort($ar[0], SORT_ASC, SORT_STRING,
                 $ar[1], SORT_NUMERIC, SORT_DESC);
 print_r($ar);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ [ '10',100,100,11,'a' ], [ 1,3,'2',2,1 ] ], true ) ),
+				(string)new outPrint( null, print_r( [ [ '10', 100, 100, 11, 'a' ], [ 1, 3, '2', 2, 1 ] ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -416,19 +416,19 @@ print_r($ar2);
 print_r($ar3);
 print_r($ar4);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 0,10,100,100 ], true ) ),
+				(string)new outPrint( null, print_r( [ 0, 10, 100, 100 ], true ) ),
 				(string)$return[0]
 			);
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 4,1,2,3 ], true ) ),
+				(string)new outPrint( null, print_r( [ 4, 1, 2, 3 ], true ) ),
 				(string)$return[1]
 			);
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ -4,-1,-2,-3 ], true ) ),
+				(string)new outPrint( null, print_r( [ -4, -1, -2, -3 ], true ) ),
 				(string)$return[2]
 			);
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 777777,777,77777,7777 ], true ) ),
+				(string)new outPrint( null, print_r( [ 777777, 777, 77777, 7777 ], true ) ),
 				(string)$return[3]
 			);
 	}
@@ -519,7 +519,7 @@ $replacements = array("citrus" => array("pineapple"), "berries" => array("bluebe
 $basket = array_replace_recursive($base, $replacements);
 print_r($basket);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 'citrus' => [ 'pineapple' ],'berries' => [ 'blueberry','raspberry' ] ], true ) ),
+				(string)new outPrint( null, print_r( [ 'citrus' => [ 'pineapple' ], 'berries' => [ 'blueberry', 'raspberry' ] ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -532,7 +532,7 @@ $replacements2 = array("citrus" => array("pineapple"), "berries" => array("blueb
 $basket = array_replace_recursive($base, $replacements, $replacements2);
 print_r($basket);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 'citrus' => [ 'pineapple' ],'berries' => [ 'blueberry','raspberry' ],'others' => 'litchis' ], true ) ),
+				(string)new outPrint( null, print_r( [ 'citrus' => [ 'pineapple' ], 'berries' => [ 'blueberry', 'raspberry' ], 'others' => 'litchis' ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -545,7 +545,7 @@ $replacements2 = array(0 => "grape");
 $basket = array_replace($base, $replacements, $replacements2);
 print_r($basket);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 'grape','banana','apple','raspberry','cherry' ], true ) ),
+				(string)new outPrint( null, print_r( [ 'grape', 'banana', 'apple', 'raspberry', 'cherry' ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -556,7 +556,7 @@ $input  = array("php", 4.0, array("green", "red"));
 $reversed = array_reverse($input);
 print_r($reversed);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ [ 'green','red' ],'4','php' ], true ) ),
+				(string)new outPrint( null, print_r( [ [ 'green', 'red' ], '4', 'php' ], true ) ),
 				(string)$return[0]
 			);
 	}
@@ -567,7 +567,7 @@ $input  = array("php", 4.0, array("green", "red"));
 $preserved = array_reverse($input, true);
 print_r($preserved);' );
 		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 2 => [ 'green','red' ],1 => '4',0 => 'php' ], true ) ),
+				(string)new outPrint( null, print_r( [ 2 => [ 'green', 'red' ], 1 => '4', 0 => 'php' ], true ) ),
 				(string)$return[0]
 			);
 	}

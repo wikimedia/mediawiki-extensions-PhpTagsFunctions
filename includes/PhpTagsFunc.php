@@ -47,7 +47,7 @@ class PhpTagsFunc extends \PhpTags\GenericObject {
 	];
 
 	public static function __callStatic( $name, $arguments ) {
-		list( $callType, $subname ) = explode( '_', $name, 2 );
+		[ $callType, $subname ] = explode( '_', $name, 2 );
 
 		if ( $callType === 'f' ) {
 			if ( isset( self::$bannedFunctions[$subname] ) ) {

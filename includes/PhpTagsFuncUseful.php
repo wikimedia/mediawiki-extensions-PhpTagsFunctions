@@ -96,7 +96,7 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 				throw new \PhpTags\HookException( 'Cannot transclude special page' );
 			}
 
-			list( $dom, $finalTitle ) = $parser->getTemplateDom( $title );
+			[ $dom, $finalTitle ] = $parser->getTemplateDom( $title );
 			if ( !$frame->loopCheck( $finalTitle ) ) {
 				throw new \PhpTags\HookException( 'Template loop detected' );
 			}

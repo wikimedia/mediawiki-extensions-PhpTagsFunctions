@@ -27,7 +27,7 @@ class PhpTagsFuncNativeObject extends PhpTagsFunc {
 	}
 
 	public function __call( $name, $arguments ) {
-		list( $callType, $subname ) = explode( '_', $name, 2 );
+		[ $callType, $subname ] = explode( '_', $name, 2 );
 
 		switch ( $callType ) {
 			case 'm': // metchod
@@ -58,7 +58,7 @@ class PhpTagsFuncNativeObject extends PhpTagsFunc {
 	}
 
 	public static function __callStatic( $name, $arguments ) {
-		list( $callType, $subname ) = explode( '_', $name, 2 );
+		[ $callType, $subname ] = explode( '_', $name, 2 );
 		$object = \PhpTags\Hooks::getCallInfo( \PhpTags\Hooks::INFO_ORIGINAL_OBJECT_NAME );
 
 		switch ( $callType ) {
