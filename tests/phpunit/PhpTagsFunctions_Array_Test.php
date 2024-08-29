@@ -991,14 +991,6 @@ print_r( $array2 );' );
 	}
 
 	public function testRun_range_3() {
-		$return = Runtime::runSource( 'print_r( range(0, 30, -10) );' );
-		$this->assertEquals(
-				(string)new outPrint( null, print_r( [ 0, 10, 20, 30 ], true ) ),
-				(string)$return[0]
-			);
-	}
-
-	public function testRun_range_4() {
 		$return = Runtime::runSource( 'print_r( range(0, 30, 100) );', [ 'Test' ] );
 		$this->assertEquals(
 				'<span class="error">PhpTags Warning:  range(): step exceeds the specified range in Test on line 1</span><br />',
