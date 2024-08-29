@@ -68,7 +68,7 @@ class PhpTagsFuncNativeObject extends PhpTagsFunc {
 						$arg = $arg->getValue();
 					}
 				}
-				$return = call_user_func_array( "parent::$name", $arguments );
+				$return = call_user_func_array( [ parent::class, $name ], $arguments );
 				if ( is_object( $return ) ) {
 					$return = \PhpTags\Hooks::getObjectWithValue( get_class( $return ), $return );
 				}
