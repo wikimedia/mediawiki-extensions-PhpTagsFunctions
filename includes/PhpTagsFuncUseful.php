@@ -65,7 +65,7 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 			throw new \PhpTags\HookException( 'Expects parameter 2 to be array that contains only string values' );
 		}
 
-		if ( $frame->depth >= $parser->mOptions->getMaxTemplateDepth() ) {
+		if ( $frame->depth >= $parser->getOptions()->getMaxTemplateDepth() ) {
 			throw new \PhpTags\HookException( 'Template depth limit exceeded' );
 		}
 
