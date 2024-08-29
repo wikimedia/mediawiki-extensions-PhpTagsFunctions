@@ -3093,26 +3093,6 @@
 			"type": "int",
 			"link": "php://array.constants.php"
 		},
-		"ASSERT_ACTIVE": {
-			"type": "int",
-			"link": "php://array.constants.php"
-		},
-		"ASSERT_CALLBACK": {
-			"type": "int",
-			"link": "php://array.constants.php"
-		},
-		"ASSERT_BAIL": {
-			"type": "int",
-			"link": "php://array.constants.php"
-		},
-		"ASSERT_WARNING": {
-			"type": "int",
-			"link": "php://array.constants.php"
-		},
-		"ASSERT_QUIET_EVAL": {
-			"type": "int",
-			"link": "php://array.constants.php"
-		},
 		"SORT_ASC": {
 			"type": "int",
 			"link": "php://array.constants.php"
