@@ -1,6 +1,8 @@
 <?php
 namespace PhpTagsObjects;
 
+use MediaWiki\MediaWikiServices;
+
 /**
  *
  *
@@ -22,7 +24,9 @@ class PhpTagsFuncUseful extends \PhpTags\GenericObject {
 	}
 
 	public static function f_uuid_create() {
-		return \UIDGenerator::newUUIDv4();
+		$gen = MediaWikiServices::getInstance()->getGlobalIdGenerator();
+
+		return $gen->newUUIDv4();
 	}
 
 	public static function f_mw_json_decode( $value ) {
