@@ -6,6 +6,16 @@ namespace PhpTags;
  */
 class PhpTagsFunctions_Mbstring_Test extends \PHPUnit\Framework\TestCase {
 
+	public static function setUpBeforeClass(): void {
+		if ( Renderer::$needInitRuntime ) {
+			wfDebug( 'PHPTags: run hook PhpTagsRuntimeFirstInit ' . __FILE__ );
+			\MediaWiki\MediaWikiServices::getInstance()->getHookContainer()->run( 'PhpTagsRuntimeFirstInit' );
+			Hooks::loadData();
+			Runtime::$loopsLimit = 1000;
+			Renderer::$needInitRuntime = false;
+		}
+	}
+
 	public function testRun_constant_1() {
 		$this->assertEquals(
 				[ MB_CASE_UPPER ],
